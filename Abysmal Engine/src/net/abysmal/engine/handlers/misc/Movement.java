@@ -8,7 +8,7 @@ public class Movement {
 	int movementSpeed = 2;
 	int runSpeed = 5;
 	int crouchSpeed = 1;
-	int angle;
+	double angle;
 	int acceleration;
 	int momentum;
 	int[] xyPressedKeys;
@@ -64,7 +64,9 @@ public class Movement {
 		if (Math.abs(xyPressedKeys[1]) == 2) {
 			xyPressedKeys[1] = 0;
 		}
-
+		
+		
+		
 	}
 
 	void FPMovement() {
