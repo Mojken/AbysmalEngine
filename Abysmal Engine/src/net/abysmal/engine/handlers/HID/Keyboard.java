@@ -7,7 +7,7 @@ import net.abysmal.engine.handlers.misc.Time;
 
 public class Keyboard implements KeyListener {
 
-	int[][] currentlyPressedKeys = new int[1024][2];
+	static int[][] currentlyPressedKeys = new int[1024][2];
 
 	public Keyboard() {}
 
@@ -37,10 +37,9 @@ public class Keyboard implements KeyListener {
 		return currentlyPressedKeys;
 	}
 	
-	public int[] getPressedMovementButtons() {
+	public static boolean[] getPressedMovementButtons() {
 		int[] currentMovementButtons = Settings.getMovementKeys();
-		int[] pressedMovementButtons = {currentlyPressedKeys[currentMovementButtons[0]][0], currentlyPressedKeys[currentMovementButtons[1]][0], currentlyPressedKeys[currentMovementButtons[2]][0], currentlyPressedKeys[currentMovementButtons[3]][0]};
-		
+		boolean[] pressedMovementButtons = {currentlyPressedKeys[currentMovementButtons[0]][0] == 1 ? true : false, currentlyPressedKeys[currentMovementButtons[1]][0] == 1 ? true : false, currentlyPressedKeys[currentMovementButtons[2]][0] == 1 ? true : false, currentlyPressedKeys[currentMovementButtons[3]][0] == 1 ? true : false};
 		return pressedMovementButtons;
 	}
 }
