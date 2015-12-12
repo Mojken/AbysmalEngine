@@ -8,5 +8,4 @@ public class FundamentalGameSpecifics {
 	public static final String MODE_2D_TOP = "TOP2D";
 	public static final String MODE_MISC = "MISC";
 	public static String dimentionMode;
-	
 }
