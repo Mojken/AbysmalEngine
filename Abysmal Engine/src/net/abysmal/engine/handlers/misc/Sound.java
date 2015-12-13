@@ -12,13 +12,15 @@ public class Sound {
 	private File soundFile;
 	private Clip clip;
 
-	/** @param url
-	 *            Location of sound file
+	/**Abysmal object for sound 
+	 * 
+	 * @param path
+	 *            path of sound file
 	 * @throws FileNotFoundException
 	 *             if it the specified file can't be found */
-	public Sound(String url) throws FileNotFoundException {
-		if (url == null) throw new NullPointerException();
-		soundFile = new File(url);
+	public Sound(String path) throws FileNotFoundException {
+		if (path == null) throw new NullPointerException();
+		soundFile = new File(path);
 		if (!soundFile.exists()) throw new FileNotFoundException("The specified sound file can not be found");
 	}
 
