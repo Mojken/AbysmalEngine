@@ -25,45 +25,23 @@ public class Movement {
 	void sideMovement() {}
 
 	void topMovement() {
-		if (movementKeys[0]) {
-			xyPressedKeys[0] += 1;
-		} else if (!movementKeys[0]) {
-			xyPressedKeys[0] -= 1;
-		}
+		if (movementKeys[0]) xyPressedKeys[0] += 1;
+		else if (!movementKeys[0]) xyPressedKeys[0] -= 1;
 
-		if (movementKeys[1]) {
-			xyPressedKeys[1] -= 1;
-		} else if (!movementKeys[1]) {
-			xyPressedKeys[1] += 1;
-		}
+		if (movementKeys[1]) xyPressedKeys[1] -= 1;
+		else if (!movementKeys[1]) xyPressedKeys[1] += 1;
 
-		if (movementKeys[2]) {
-			xyPressedKeys[0] -= 1;
-		} else if (!movementKeys[2]) {
-			xyPressedKeys[0] += 1;
-		}
+		if (movementKeys[2]) xyPressedKeys[0] -= 1;
+		else if (!movementKeys[2]) xyPressedKeys[0] += 1;
 
-		if (movementKeys[3]) {
-			xyPressedKeys[1] += 1;
-		} else if (!movementKeys[3]) {
-			xyPressedKeys[1] -= 1;
-		}
+		if (movementKeys[3]) xyPressedKeys[1] += 1;
+		else if (!movementKeys[3]) xyPressedKeys[1] -= 1;
 
-		if (movementKeys[0] && movementKeys[1] || !movementKeys[0] && !movementKeys[1]) {
-			xyPressedKeys[0] = 0;
-		}
+		if (movementKeys[0] && movementKeys[1] || !movementKeys[0] && !movementKeys[1]) xyPressedKeys[0] = 0;
+		if (movementKeys[2] && movementKeys[3] || !movementKeys[2] && !movementKeys[3]) xyPressedKeys[1] = 0;
 
-		if (movementKeys[2] && movementKeys[3] || !movementKeys[2] && !movementKeys[3]) {
-			xyPressedKeys[1] = 0;
-		}
-
-		if (Math.abs(xyPressedKeys[0]) == 2) {
-			xyPressedKeys[0] = 0;
-		}
-
-		if (Math.abs(xyPressedKeys[1]) == 2) {
-			xyPressedKeys[1] = 0;
-		}
+		if (Math.abs(xyPressedKeys[0]) == 2) xyPressedKeys[0] = 0;
+		if (Math.abs(xyPressedKeys[1]) == 2) xyPressedKeys[1] = 0;
 
 // if (xyPressedKeys[0] == 1 && xyPressedKeys[1] == 1) {
 // angle = Constants.UP_LEFT;
