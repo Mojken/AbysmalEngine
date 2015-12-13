@@ -1,9 +1,13 @@
 package net.abysmal.engine.entities;
 
+import net.abysmal.engine.handlers.HID.Keyboard;
+
 public class Entity {
 
 	int HP, DEF;
-	float x, y;
+	public float x, y;
+	public double movementSpeed, sprintMultiplier, crouchMultiplier;
+	
 	
 	public Entity() {}
 	
@@ -37,6 +41,10 @@ public class Entity {
 
 	public void setY(float y) {
 		this.y = y;
+	}
+
+	public double getMovementSpeed() {
+		return Keyboard.getPressedMovementButtons()[1] ? movementSpeed * sprintMultiplier : Keyboard.getPressedMovementButtons()[2] ? movementSpeed * crouchMultiplier : movementSpeed;
 	}
 
 }
