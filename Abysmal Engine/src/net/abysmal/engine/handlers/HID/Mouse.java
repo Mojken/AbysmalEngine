@@ -50,4 +50,12 @@ public class Mouse implements MouseListener {
 		int[] bounds = {clickInfo[ButtonID][0], clickInfo[ButtonID][1], clickInfo[ButtonID][2], clickInfo[ButtonID][3]};
 		return bounds;
 	}
+	
+	int[][] getClickInfo() {
+		return clickInfo;
+	}
+	
+	long[][] getClickTime() {
+		return clickTime;
+	}
 }

@@ -3,6 +3,7 @@ package net.abysmal.engine;
 public class Constants {
 
 	public static final double TAU = Math.PI * 2;
+	public static final double TIME_TO_2DM = 0.432;
 
 	public static final double UP = 0;
 	public static final double DOWN = TAU / 2;

@@ -24,22 +24,19 @@ public class Keyboard implements KeyListener {
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-
-	}
+	public void keyTyped(KeyEvent e) {}
 
 	/** Abysmal method for receiving keyboard input.
 	 * 
-	 * @return int[1024][2] of [keycode] and [pressed, time held down]. Pressed is either 0 or 1, time held down
-	 * is in milliseconds. */
+	 * @return int[1024][2] of [keycode] and [pressed, time held down]. Pressed is either 0 or 1, time held down is in milliseconds. */
 
 	public int[][] getCurrentlyPressedKeys() {
 		return currentlyPressedKeys;
 	}
-	
+
 	public static boolean[] getPressedMovementButtons() {
 		int[] currentMovementButtons = Settings.getMovementKeys();
-		boolean[] pressedMovementButtons = {currentlyPressedKeys[currentMovementButtons[0]][0] == 1 ? true : false, currentlyPressedKeys[currentMovementButtons[1]][0] == 1 ? true : false, currentlyPressedKeys[currentMovementButtons[2]][0] == 1 ? true : false, currentlyPressedKeys[currentMovementButtons[3]][0] == 1 ? true : false};
+		boolean[] pressedMovementButtons = { currentlyPressedKeys[currentMovementButtons[0]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[1]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[2]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[3]][0] == 1 ? true:false };
 		return pressedMovementButtons;
 	}
 }
