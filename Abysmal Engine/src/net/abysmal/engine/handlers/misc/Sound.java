@@ -1,19 +1,62 @@
 package net.abysmal.engine.handlers.misc;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/** @author Deep */
 public class Sound {
 
-	public static synchronized void playSound(String url, boolean loop) {
+	private File soundFile;
+	private Clip clip;
+
+	/** @param url
+	 *            Location of sound file
+	 * @throws FileNotFoundException
+	 *             if it the specified file can't be found */
+	public Sound(String url) throws FileNotFoundException {
+		if (url == null) throw new NullPointerException();
+		soundFile = new File(url);
+		if (!soundFile.exists()) throw new FileNotFoundException("The specified sound file can not be found");
+	}
+
+	/** @param sound
+	 *            input file
+	 * @throws FileNotFoundException
+	 *             if the specified file is not found.
+	 * @throws NullPointerException
+	 *             if the specified file is null. */
+	public Sound(File soundFile) throws FileNotFoundException {
+		if (soundFile == null) throw new NullPointerException();
+		if (!soundFile.exists()) throw new FileNotFoundException("The specified sound file can not be found");
+		this.soundFile = soundFile;
+	}
+
+	/** Opens the clip. */
+	public void open() {
 		try {
-			Clip c = AudioSystem.getClip();
-			AudioInputStream is = AudioSystem.getAudioInputStream(Sound.class.getResourceAsStream(url));
-			c.open(is);
-			c.loop(loop ? -1:1);
+			clip = AudioSystem.getClip();
+			AudioInputStream is = AudioSystem.getAudioInputStream(soundFile);
+			clip.open(is);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	/** Releases all the system resources used by this clip. */
+	public void close() {
+		clip.close();
+	}
+
+	/** Plays a sound clip.
+	 * 
+	 * @param url
+	 *            the sound file to play.
+	 * @param loop
+	 *            set to true if the clip should loop for ever. */
+	public synchronized void play(boolean loop) {
+		clip.loop(loop ? -1:1);
 	}
 }
