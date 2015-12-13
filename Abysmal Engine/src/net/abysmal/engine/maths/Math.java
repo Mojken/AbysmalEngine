@@ -17,5 +17,4 @@ public class Math {
 		p = p.add(p3.multiply(ttt));
 		return p;
 	}
-
 }
