@@ -1,7 +1,10 @@
 package net.abysmal.engine.handlers.misc;
 
+import net.abysmal.engine.entities.Entity;
+import net.abysmal.engine.entities.Player;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.main.FundamentalGameSpecifics;
+import net.abysmal.engine.maths.Vector2;
 
 public class Movement {
 
@@ -14,8 +17,9 @@ public class Movement {
 	int[] xyPressedKeys;
 	boolean[] movementKeys = Keyboard.getPressedMovementButtons();
 
-	public Movement() {
+	public Movement(Entity e) {
 		if (FundamentalGameSpecifics.dimentionMode == FundamentalGameSpecifics.MODE_2D_TOP) {
+			Vector2 walkPoint = new Vector2(e.getX(), e.getY());
 			topMovement();
 		} else if (FundamentalGameSpecifics.dimentionMode == FundamentalGameSpecifics.MODE_2D_SIDE) {
 			sideMovement();
