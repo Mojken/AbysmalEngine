@@ -27,11 +27,7 @@ public class Movement {
 	}
 
 	Vector2 calculateDirection(int[] keys, Entity player) {
-		Vector2 a, b, c;
-		a = new Vector2(keys[0], 0);
-		b = new Vector2(0, keys[1]);
-		c = new Vector2(player.getX(), player.getY());
-		return c.add(a.add(b));
+		return new Vector2(player.getX() + keys[0], player.getY() + keys[1]);
 	}
 
 	void sideMovement() {}
@@ -65,11 +61,7 @@ public class Movement {
 		entity.y += (entity.getMovementSpeed() / 10) * java.lang.Math.cos(angle);
 	}
 
-	void FPMovement() {
+	void FPMovement() {}
 
-	}
-
-	void TPMovement() {
-
-	}
+	void TPMovement() {}
 }
