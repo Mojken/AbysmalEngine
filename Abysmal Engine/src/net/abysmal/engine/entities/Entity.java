@@ -2,11 +2,12 @@ package net.abysmal.engine.entities;
 
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.main.FundamentalGameSpecifics;
+import net.abysmal.engine.maths.Vector2;
 
 public class Entity {
 
 	int HP, DEF;
-	public float x, y;
+	public Vector2 pos = new Vector2(-1, -1);
 	public double movementSpeed, sprintMultiplier, crouchMultiplier;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
 	
@@ -30,19 +31,19 @@ public class Entity {
 	}
 
 	public float getX() {
-		return x;
+		return pos.x;
 	}
 
 	public void setX(float x) {
-		this.x = x;
+		pos.x = x;
 	}
 
 	public float getY() {
-		return y;
+		return pos.y;
 	}
 
 	public void setY(float y) {
-		this.y = y;
+		pos.y = y;
 	}
 
 	public double getMovementSpeed() {

@@ -3,7 +3,6 @@ package net.abysmal.engine.handlers.misc;
 import net.abysmal.engine.entities.Entity;
 import net.abysmal.engine.entities.Player;
 import net.abysmal.engine.handlers.HID.Keyboard;
-import net.abysmal.engine.main.FundamentalGameSpecifics;
 import net.abysmal.engine.maths.Math;
 import net.abysmal.engine.maths.Vector2;
 
@@ -54,17 +53,20 @@ public class Movement {
 	void rotationalMovement3(int[] keys, Player player, int rotation) {
 	}
 
-	void walkToVector(Vector2 vector, Entity entity) {
-		double phi = java.lang.Math.atan(vector.getY() / vector.getX());
-		if (vector.getX() != java.lang.Math.abs(vector.getX())) phi += Math.TAU / 2;
-		entity.x += entity.stepLength * java.lang.Math.sin(phi);
-		entity.y += entity.stepLength * java.lang.Math.cos(phi);
+	public static void walkToVector(Vector2 vector, Entity entity) {
+		if(vector.checkProximity(entity.pos) < 10) return;
+		vector = vector.sub(entity.pos);
+		double phi = java.lang.Math.atan(vector.getX() / vector.getY());
+		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
+//		phi += 1;
+		entity.pos.x += entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
+		entity.pos.y += entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
 	}
 	
 	void walkToVectorWithRotation(Vector2 vector, Entity entity, int rotation) {
 		double phi = java.lang.Math.atan(vector.getY() / vector.getX()) + rotation;
 		if (vector.getX() != java.lang.Math.abs(vector.getX())) phi += Math.TAU / 2;
-		entity.x += entity.stepLength * java.lang.Math.sin(phi);
-		entity.y += entity.stepLength * java.lang.Math.cos(phi);
+		entity.pos.x += entity.stepLength * java.lang.Math.sin(phi);
+		entity.pos.y += entity.stepLength * java.lang.Math.cos(phi);
 	}
 }

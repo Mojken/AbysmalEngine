@@ -40,22 +40,22 @@ public class Mouse implements MouseListener {
 		clickTime[e.getButton()][1] = e.getWhen();
 	}
 
-	long[] getDuration(int buttonID) {
+	public long[] getDuration(int buttonID) {
 		if (clickInfo[buttonID][4] == 1) clickTime[buttonID][2] = Time.getTime(Time.MILLIS) - clickTime[buttonID][0];
 		else if (clickInfo[buttonID][4] == 0) clickTime[buttonID][2] = clickTime[buttonID][1] - clickTime[buttonID][0];
 		return clickTime[buttonID];
 	}
 	
-	int[] getDragBounds(int ButtonID) {
+	public int[] getDragBounds(int ButtonID) {
 		int[] bounds = {clickInfo[ButtonID][0], clickInfo[ButtonID][1], clickInfo[ButtonID][2], clickInfo[ButtonID][3]};
 		return bounds;
 	}
 	
-	int[][] getClickInfo() {
+	public int[][] getClickInfo() {
 		return clickInfo;
 	}
 	
-	long[][] getClickTime() {
+	public long[][] getClickTime() {
 		return clickTime;
 	}
 }

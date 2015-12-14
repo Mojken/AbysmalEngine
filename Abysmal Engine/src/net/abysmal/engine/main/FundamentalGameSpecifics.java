@@ -11,7 +11,7 @@ public class FundamentalGameSpecifics {
 	public static String dimentionMode;
 	public static double timeSpeed = 10;
 	public static int TPS = 60;
-	public static double stepLength = 0.1;
+	public static double stepLength = 4;
 
 	public static double getTimeSpeed() {
 		return timeSpeed;

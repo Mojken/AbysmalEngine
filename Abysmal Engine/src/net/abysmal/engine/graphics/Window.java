@@ -2,10 +2,11 @@ package net.abysmal.engine.graphics;
 
 import java.awt.Dimension;
 import javax.swing.JFrame;
+import net.abysmal.engine.handlers.HID.Mouse;
 
 public class Window {
 
-	public JFrame createWindow(String title, Dimension size) {
+	public static JFrame createWindow(String title, Dimension size) {
 		JFrame frame = new JFrame(title);
 		frame.setSize(size);
 		frame.setResizable(false);
