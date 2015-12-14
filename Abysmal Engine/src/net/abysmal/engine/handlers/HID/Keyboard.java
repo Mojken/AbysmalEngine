@@ -36,7 +36,7 @@ public class Keyboard implements KeyListener {
 
 	public static boolean[] getPressedMovementButtons() {
 		int[] currentMovementButtons = Settings.getMovementKeys();
-		boolean[] pressedMovementButtons = { currentlyPressedKeys[currentMovementButtons[0]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[1]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[2]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[3]][0] == 1 ? true:false };
+		boolean[] pressedMovementButtons = { currentlyPressedKeys[currentMovementButtons[0]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[1]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[2]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[3]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[4]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[5]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[6]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[7]][0] == 1 ? true:false, currentlyPressedKeys[currentMovementButtons[8]][0] == 1 ? true:false};
 		return pressedMovementButtons;
 	}
 }

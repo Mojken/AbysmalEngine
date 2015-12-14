@@ -1,6 +1,5 @@
 package net.abysmal.engine.entities;
 
-import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.main.FundamentalGameSpecifics;
 import net.abysmal.engine.maths.Vector2;
 
@@ -8,9 +7,8 @@ public class Entity {
 
 	int HP, DEF;
 	public Vector2 pos = new Vector2(-1, -1);
-	public double movementSpeed, sprintMultiplier, crouchMultiplier;
+	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
-	
 	
 	public Entity() {}
 	
@@ -47,7 +45,18 @@ public class Entity {
 	}
 
 	public double getMovementSpeed() {
-		return Keyboard.getPressedMovementButtons()[1] ? movementSpeed * sprintMultiplier : Keyboard.getPressedMovementButtons()[2] ? movementSpeed * crouchMultiplier : movementSpeed;
+		return 0;
 	}
 
+	public float getAcceleration() {
+		return 0;
+	}
+
+	public float getMomentum() {
+		return momentum;
+	}
+
+	public void setMomentum(float momentum) {
+		this.momentum = momentum;
+	}
 }
