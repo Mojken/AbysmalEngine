@@ -39,24 +39,19 @@ public class Movement {
 		if (java.lang.Math.abs(xyPressedKeys[1]) == 2) xyPressedKeys[1] = 0;
 	}
 
-	void directionalMovement2(int[] keys, Entity entity) {
+	void directionalMovement2(int[] keys, Player player) {
+		
+	}
+
+	void directionalMovement3(int[] keys, Player player) {
+		walkToVector(new Vector2(keys[0],keys[1]), player);
+	}
+
+	void rotationalMovement2(int[] keys, Player player, int rotation) {
 
 	}
 
-	void directionalMovement3(int[] keys, Entity entity) {
-		Vector2 walkPoint = new Vector2(entity.getX() + keys[0], entity.getY() + keys[1]);
-		angle = java.lang.Math.atan(walkPoint.getY() / walkPoint.getX());
-		if (movementKeys[3]) angle += Math.TAU / 2;
-
-		entity.x += FundamentalGameSpecifics.stepLength * java.lang.Math.sin(angle);
-		entity.y += FundamentalGameSpecifics.stepLength * java.lang.Math.cos(angle);
-	}
-
-	void rotationalMovement2(int[] keys, Player player) {
-
-	}
-
-	void rotationalMovement3(int[] keys, Player player) {
+	void rotationalMovement3(int[] keys, Player player, int rotation) {
 	}
 
 	void walkToVector(Vector2 vector, Entity entity) {
