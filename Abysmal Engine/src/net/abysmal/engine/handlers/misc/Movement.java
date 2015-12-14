@@ -1,6 +1,7 @@
 package net.abysmal.engine.handlers.misc;
 
 import net.abysmal.engine.entities.Entity;
+import net.abysmal.engine.entities.Player;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.main.FundamentalGameSpecifics;
 import net.abysmal.engine.maths.Math;
@@ -15,24 +16,10 @@ public class Movement {
 	boolean[] movementKeys = Keyboard.getPressedMovementButtons();
 
 	public Movement(Entity e) {
-		if (FundamentalGameSpecifics.dimentionMode == FundamentalGameSpecifics.MODE_2D_TOP) {
-			topMovementButtons();
-		} else if (FundamentalGameSpecifics.dimentionMode == FundamentalGameSpecifics.MODE_2D_SIDE) {
-			sideMovement();
-		}
+		readMovementButtons();
 	}
 
-	int[] angleToMovement(double angle) {
-		return null;
-	}
-
-	Vector2 calculateDirection(int[] keys, Entity player) {
-		return new Vector2(player.getX() + keys[0], player.getY() + keys[1]);
-	}
-
-	void sideMovement() {}
-
-	void topMovementButtons() {
+	void readMovementButtons() {
 		if (movementKeys[0]) xyPressedKeys[0] += 1;
 		else if (!movementKeys[0]) xyPressedKeys[0] -= 1;
 
@@ -52,16 +39,37 @@ public class Movement {
 		if (java.lang.Math.abs(xyPressedKeys[1]) == 2) xyPressedKeys[1] = 0;
 	}
 
-	void topMovement(Entity entity) {
-		Vector2 walkPoint = calculateDirection(xyPressedKeys, entity);
+	void directionalMovement2(int[] keys, Entity entity) {
+
+	}
+
+	void directionalMovement3(int[] keys, Entity entity) {
+		Vector2 walkPoint = new Vector2(entity.getX() + keys[0], entity.getY() + keys[1]);
 		angle = java.lang.Math.atan(walkPoint.getY() / walkPoint.getX());
 		if (movementKeys[3]) angle += Math.TAU / 2;
 
-		entity.x += (entity.getMovementSpeed() / 10) * java.lang.Math.sin(angle);
-		entity.y += (entity.getMovementSpeed() / 10) * java.lang.Math.cos(angle);
+		entity.x += FundamentalGameSpecifics.stepLength * java.lang.Math.sin(angle);
+		entity.y += FundamentalGameSpecifics.stepLength * java.lang.Math.cos(angle);
 	}
 
-	void FPMovement() {}
+	void rotationalMovement2(int[] keys, Player player) {
 
-	void TPMovement() {}
+	}
+
+	void rotationalMovement3(int[] keys, Player player) {
+	}
+
+	void walkToVector(Vector2 vector, Entity entity) {
+		double phi = java.lang.Math.atan(vector.getY() / vector.getX());
+		if (vector.getX() != java.lang.Math.abs(vector.getX())) phi += Math.TAU / 2;
+		entity.x += entity.stepLength * java.lang.Math.sin(phi);
+		entity.y += entity.stepLength * java.lang.Math.cos(phi);
+	}
+	
+	void walkToVectorWithRotation(Vector2 vector, Entity entity, int rotation) {
+		double phi = java.lang.Math.atan(vector.getY() / vector.getX()) + rotation;
+		if (vector.getX() != java.lang.Math.abs(vector.getX())) phi += Math.TAU / 2;
+		entity.x += entity.stepLength * java.lang.Math.sin(phi);
+		entity.y += entity.stepLength * java.lang.Math.cos(phi);
+	}
 }

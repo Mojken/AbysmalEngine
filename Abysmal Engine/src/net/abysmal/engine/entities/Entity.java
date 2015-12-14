@@ -1,12 +1,14 @@
 package net.abysmal.engine.entities;
 
 import net.abysmal.engine.handlers.HID.Keyboard;
+import net.abysmal.engine.main.FundamentalGameSpecifics;
 
 public class Entity {
 
 	int HP, DEF;
 	public float x, y;
 	public double movementSpeed, sprintMultiplier, crouchMultiplier;
+	public double stepLength = FundamentalGameSpecifics.stepLength;
 	
 	
 	public Entity() {}
