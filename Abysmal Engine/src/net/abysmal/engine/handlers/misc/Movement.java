@@ -66,7 +66,7 @@ public class Movement {
 	}
 
 	static float calculateMomentum(Entity entity) {
-		if (entity.getMomentum() > entity.getMovementSpeed()) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
+		if (entity.getMomentum() < entity.getMovementSpeed()) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
 		return entity.getMomentum();
 	}
 }
