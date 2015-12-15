@@ -54,14 +54,18 @@ public class Movement {
 	}
 
 	public static void walkToVectorWithRotation(Vector2 vector, Entity entity, int rotation, int clock) {
-		if (vector.checkProximity(entity.pos) < 10) return;
+		if (vector.checkProximity(entity.pos) < 10) {
+			entity.moving = false;
+			return;
+		}
 		vector = vector.sub(entity.pos);
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
 
-		if ((int)(clock % (10 / calculateMomentum(entity))) == 0) {
+		if ((int) (clock % (10 / calculateMomentum(entity))) == 0) {
 			entity.pos.x += entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
 			entity.pos.y += entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
+			entity.moving = true;
 		}
 	}
 

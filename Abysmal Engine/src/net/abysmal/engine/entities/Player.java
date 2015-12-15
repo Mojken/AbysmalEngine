@@ -5,6 +5,8 @@ import net.abysmal.engine.handlers.HID.Keyboard;
 public class Player extends Entity {
 
 	int EXP, MP;
+	public boolean moving = false;
+
 	public float movementSpeed = 5.0f;
 	public float sprintMultiplier = 2.0f;
 	public float crouchMultiplier = 0.3f;
@@ -33,17 +35,20 @@ public class Player extends Entity {
 	}
 
 	public Player() {}
-	
+
 	public double getMovementSpeed() {
-		return Keyboard.getPressedMovementButtons()[7] ? movementSpeed * crouchMultiplier : Keyboard.getPressedMovementButtons()[6] ? movementSpeed * sprintMultiplier : movementSpeed;
+		return Keyboard.getPressedMovementButtons()[7] ? movementSpeed * crouchMultiplier:Keyboard.getPressedMovementButtons()[6] ? movementSpeed * sprintMultiplier:movementSpeed;
 	}
 
 	public float getAcceleration() {
 		float acceleration;
-		if (Keyboard.getPressedMovementButtons()[7]) acceleration = crouchAcc;
-		else if (Keyboard.getPressedMovementButtons()[6]) acceleration = sprintAcc;
-		else if (Keyboard.getPressedMovementButtons()[0] || Keyboard.getPressedMovementButtons()[1] || Keyboard.getPressedMovementButtons()[2] || Keyboard.getPressedMovementButtons()[3]) acceleration = walkAcc;
-		else acceleration = -2;
+		if (moving) {
+			if (Keyboard.getPressedMovementButtons()[7]) acceleration = crouchAcc;
+			else if (Keyboard.getPressedMovementButtons()[6]) acceleration = sprintAcc;
+			else acceleration = walkAcc;
+		} else acceleration = -2;
 		return acceleration;
 	}
+
+	// Keyboard.getPressedMovementButtons()[0] || Keyboard.getPressedMovementButtons()[1] || Keyboard.getPressedMovementButtons()[2] || Keyboard.getPressedMovementButtons()[3]
 }

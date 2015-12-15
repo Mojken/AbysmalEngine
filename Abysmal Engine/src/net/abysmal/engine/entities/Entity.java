@@ -6,6 +6,7 @@ import net.abysmal.engine.maths.Vector2;
 public class Entity {
 
 	int HP, DEF;
+	public boolean moving = false;
 	public Vector2 pos = new Vector2(-1, -1);
 	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
