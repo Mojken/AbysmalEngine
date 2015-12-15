@@ -59,14 +59,14 @@ public class Movement {
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
 
-		if (clock % (10 / calculateMomentum(entity)) == 0) {
+		if ((int)(clock % (10 / calculateMomentum(entity))) == 0) {
 			entity.pos.x += entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
 			entity.pos.y += entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
 		}
 	}
 
 	static float calculateMomentum(Entity entity) {
-		if (entity.getMomentum() < entity.getMovementSpeed()) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
+		if (entity.getMomentum() > entity.getMovementSpeed()) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
 		return entity.getMomentum();
 	}
 }
