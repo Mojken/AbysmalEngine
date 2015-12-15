@@ -45,7 +45,7 @@ public class Entity {
 		pos.y = y;
 	}
 
-	public double getMovementSpeed() {
+	public float getMovementSpeed() {
 		return 0;
 	}
 

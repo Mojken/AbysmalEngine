@@ -4,7 +4,7 @@ public class Math {
 
 	public static final double TAU = 245850922f / 39128389.5f;
 
-	public Vector2 calculateBezierPoints(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3) {
+	public static Vector2 calculateBezierPoint(float t, Vector2 p0, Vector2 p1, Vector2 p2, Vector2 p3) {
 		float u = 1 - t;
 		float uu = u * u;
 		float uuu = uu * u;

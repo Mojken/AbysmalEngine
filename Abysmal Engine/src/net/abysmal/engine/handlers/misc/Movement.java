@@ -54,24 +54,36 @@ public class Movement {
 	}
 
 	public static void walkToVectorWithRotation(Vector2 vector, Entity entity, int rotation, int clock) {
-		if (vector.checkProximity(entity.pos) < 10) {
+		if (vector.checkProximity(entity.pos) < 0 ) {
 			entity.moving = false;
-			return;
+		} else {
+			entity.moving = true;
 		}
 		vector = vector.sub(entity.pos);
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
-		entity.moving = true;
-		
-		if ((int) (clock % (10 / calculateMomentum(entity))) == 0) {
-			entity.pos.x += entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
-			entity.pos.y += entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
-		}
+//		System.out.println(calculateMomentum(entity));
+		System.out.println( calculateMomentum(entity));
+//		if ((int) (clock % (calculateMomentum(entity) / entity.getMovementSpeed() * 3)) == 0) {
+//			entity.pos.x += (calculateMomentum(entity) / entity.getMovementSpeed()) * entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
+//			entity.pos.y += (calculateMomentum(entity) / entity.getMovementSpeed()) * entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
+//		}
+		entity.pos.x += calculateMomentum(entity) * java.lang.Math.cos(phi % Math.TAU);
+		entity.pos.y += calculateMomentum(entity) * java.lang.Math.sin(phi % Math.TAU);
 	}
 
 	static float calculateMomentum(Entity entity) {
-		if (entity.getMomentum() < entity.getMovementSpeed() || entity.getMomentum() > 0) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
-		if (entity.getMomentum() < 0) entity.setMomentum(0);
+		if (entity.moving) {
+			if (entity.getMomentum() < entity.getMovementSpeed() && entity.getMomentum() >= 0) {
+				entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
+			}
+			if (entity.getMomentum() < 0) entity.setMomentum(0);
+		}else{
+			if (entity.getMomentum() > 0) {
+				entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
+			}
+			if (entity.getMomentum() < 0) entity.setMomentum(0);
+		}
 		return entity.getMomentum();
 	}
 }
