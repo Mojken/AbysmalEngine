@@ -5,7 +5,6 @@ import net.abysmal.engine.handlers.HID.Keyboard;
 public class Player extends Entity {
 
 	int EXP, MP;
-	public boolean moving = false;
 
 	public float movementSpeed = 5.0f;
 	public float sprintMultiplier = 2.0f;
