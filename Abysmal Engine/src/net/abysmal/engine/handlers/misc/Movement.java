@@ -49,13 +49,19 @@ public class Movement {
 		walkToVectorWithRotation(new Vector2(keys[0], keys[1]), player, rotation);
 	}
 
-	public static void walkToVector(Vector2 vector, Entity entity) {
-		walkToVectorWithRotation(vector, entity, 0);
+	public static void walkToBezier(Vector2[] vector, Entity entity) {
+		for (Vector2 v:vector)
+			if (walkToVector(v, entity)) return;
 	}
 
-	public static void walkToVectorWithRotation(Vector2 vector, Entity entity, int rotation) {
+	public static boolean walkToVector(Vector2 vector, Entity entity) {
+		return walkToVectorWithRotation(vector, entity, 0);
+	}
+
+	public static boolean walkToVectorWithRotation(Vector2 vector, Entity entity, int rotation) {
 		if (vector.checkProximity(entity.pos) < 0) {
 			entity.moving = false;
+			return true;
 		} else {
 			entity.moving = true;
 		}
@@ -64,6 +70,7 @@ public class Movement {
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
 		entity.pos.x += calculateMomentum(entity) * java.lang.Math.cos(phi % Math.TAU);
 		entity.pos.y += calculateMomentum(entity) * java.lang.Math.sin(phi % Math.TAU);
+		return false;
 	}
 
 	static float calculateMomentum(Entity entity) {

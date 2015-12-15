@@ -10,6 +10,7 @@ public class Entity {
 	public Vector2 pos = new Vector2(-1, -1);
 	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
+	public int mass, width, height, depth;
 	
 	public Entity() {}
 	
