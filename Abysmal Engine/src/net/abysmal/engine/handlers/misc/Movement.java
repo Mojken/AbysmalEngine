@@ -61,11 +61,11 @@ public class Movement {
 		vector = vector.sub(entity.pos);
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
-
+		entity.moving = true;
+		
 		if ((int) (clock % (10 / calculateMomentum(entity))) == 0) {
 			entity.pos.x += entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
 			entity.pos.y += entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
-			entity.moving = true;
 		}
 	}
 
