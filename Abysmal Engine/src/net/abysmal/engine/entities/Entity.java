@@ -15,7 +15,9 @@ public class Entity {
 	public double stepLength = FundamentalGameSpecifics.stepLength;
 	public int mass, width, height, depth;
 
-	public Entity() {}
+	public Entity(Vector3 position) {
+		teleport(position);
+	}
 
 	public void teleport(Vector3 v) {
 		setX(v.x);
