@@ -61,15 +61,14 @@ public class Movement {
 		walkToVectorWithRotation(new Vector2(keys[0], keys[1]), player, rotation);
 	}
 
-	static int i = 0;
-
+	static int bezierIndex = 0;
 	public static boolean walkToBezier(Vector2[] vector, Entity entity) {
-		if (i < vector.length) {
-			if (walkToVector(vector[i], entity))
-				i++;
+		if (bezierIndex < vector.length) {
+			if (walkToVector(vector[bezierIndex], entity))
+				bezierIndex++;
 			return false;
 		} else {
-			i = 0;
+			bezierIndex = 0;
 			return true;
 		}
 	}
