@@ -10,7 +10,7 @@ public class Entity {
 	public boolean moving = false;
 	public Vector3 pos = new Vector3(-1, -1, -1);
 	public Vector3[] hitboxPoints = new Vector3[2];
-	public Hitbox hitbox = new Hitbox(this);
+//	public Hitbox hitbox = new Hitbox(this);
 	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
 	public int mass, width, height, depth;
@@ -81,7 +81,7 @@ public class Entity {
 		this.hitboxPoints = hitboxPoints;
 	}
 
-	public Hitbox getHitbox() {
-		return hitbox;
-	}
+//	public Hitbox getHitbox() {
+//		return hitbox;
+//	}
 }

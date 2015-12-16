@@ -10,6 +10,12 @@ public class Vector3 {
 		this.z = z;
 	}
 
+	public Vector3(float x, float y) {
+		this.x = x;
+		this.y = y;
+		this.z = 0;
+	}
+	
 	public Vector3 multiply(float f) {
 		return new Vector3(x * f, y * f, z * f);
 	}
