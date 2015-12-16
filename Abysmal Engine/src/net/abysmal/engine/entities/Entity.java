@@ -18,7 +18,9 @@ public class Entity {
 	public Entity() {}
 
 	public void teleport(Vector3 v) {
-		pos = v;
+		setX(v.x);
+		setY(v.y);
+		setZ(v.z);
 	}
 
 	public int getHP() {
