@@ -51,7 +51,7 @@ public class Movement {
 
 	public static void walkToBezier(Vector2[] vector, Entity entity) {
 		for (Vector2 v:vector)
-			if (walkToVector(v, entity)) return;
+			while (!walkToVector(v, entity));
 	}
 
 	public static boolean walkToVector(Vector2 vector, Entity entity) {
