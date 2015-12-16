@@ -33,7 +33,7 @@ public class Vector3 {
 	public float getY() {
 		return y;
 	}
-	
+
 	public float getZ() {
 		return z;
 	}

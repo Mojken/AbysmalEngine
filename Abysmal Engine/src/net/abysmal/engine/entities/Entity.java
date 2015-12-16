@@ -14,9 +14,9 @@ public class Entity {
 	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
 	public int mass, width, height, depth;
-	
+
 	public Entity() {}
-	
+
 	public int getHP() {
 		return HP;
 	}
@@ -48,7 +48,7 @@ public class Entity {
 	public void setY(float y) {
 		pos.y = y;
 	}
-	
+
 	public float getZ() {
 		return pos.z;
 	}
@@ -76,11 +76,11 @@ public class Entity {
 	public Vector3[] getHitboxPoints() {
 		return hitboxPoints;
 	}
-	
+
 	public void setHitboxPoints(Vector3[] hitboxPoints) {
 		this.hitboxPoints = hitboxPoints;
 	}
-	
+
 	public Hitbox getHitbox() {
 		return hitbox;
 	}

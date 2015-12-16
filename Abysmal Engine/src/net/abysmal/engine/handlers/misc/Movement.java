@@ -18,35 +18,23 @@ public class Movement {
 	}
 
 	void readMovementButtons() {
-		if (movementKeys[0])
-			xyPressedKeys[0] += 1;
-		else if (!movementKeys[0])
-			xyPressedKeys[0] -= 1;
+		if (movementKeys[0]) xyPressedKeys[0] += 1;
+		else if (!movementKeys[0]) xyPressedKeys[0] -= 1;
 
-		if (movementKeys[1])
-			xyPressedKeys[1] -= 1;
-		else if (!movementKeys[1])
-			xyPressedKeys[1] += 1;
+		if (movementKeys[1]) xyPressedKeys[1] -= 1;
+		else if (!movementKeys[1]) xyPressedKeys[1] += 1;
 
-		if (movementKeys[2])
-			xyPressedKeys[0] -= 1;
-		else if (!movementKeys[2])
-			xyPressedKeys[0] += 1;
+		if (movementKeys[2]) xyPressedKeys[0] -= 1;
+		else if (!movementKeys[2]) xyPressedKeys[0] += 1;
 
-		if (movementKeys[3])
-			xyPressedKeys[1] += 1;
-		else if (!movementKeys[3])
-			xyPressedKeys[1] -= 1;
+		if (movementKeys[3]) xyPressedKeys[1] += 1;
+		else if (!movementKeys[3]) xyPressedKeys[1] -= 1;
 
-		if (movementKeys[0] && movementKeys[1] || !movementKeys[0] && !movementKeys[1])
-			xyPressedKeys[0] = 0;
-		if (movementKeys[2] && movementKeys[3] || !movementKeys[2] && !movementKeys[3])
-			xyPressedKeys[1] = 0;
+		if (movementKeys[0] && movementKeys[1] || !movementKeys[0] && !movementKeys[1]) xyPressedKeys[0] = 0;
+		if (movementKeys[2] && movementKeys[3] || !movementKeys[2] && !movementKeys[3]) xyPressedKeys[1] = 0;
 
-		if (java.lang.Math.abs(xyPressedKeys[0]) == 2)
-			xyPressedKeys[0] = 0;
-		if (java.lang.Math.abs(xyPressedKeys[1]) == 2)
-			xyPressedKeys[1] = 0;
+		if (java.lang.Math.abs(xyPressedKeys[0]) == 2) xyPressedKeys[0] = 0;
+		if (java.lang.Math.abs(xyPressedKeys[1]) == 2) xyPressedKeys[1] = 0;
 	}
 
 	void directionalMovement2(int[] keys, Player player) {
@@ -62,10 +50,10 @@ public class Movement {
 	}
 
 	static int bezierIndex = 0;
+
 	public static boolean walkToBezier(Vector3[] vector, Entity entity) {
 		if (bezierIndex < vector.length) {
-			if (walkToVector(vector[bezierIndex], entity))
-				bezierIndex++;
+			if (walkToVector(vector[bezierIndex], entity)) bezierIndex++;
 			return false;
 		} else {
 			bezierIndex = 0;
@@ -86,8 +74,7 @@ public class Movement {
 		}
 		vector = vector.sub(entity.pos);
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
-		if (vector.getY() != java.lang.Math.abs(vector.getY()))
-			phi += Math.TAU / 2;
+		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
 		entity.pos.x += calculateMomentum(entity) * java.lang.Math.cos(phi % Math.TAU);
 		entity.pos.y += calculateMomentum(entity) * java.lang.Math.sin(phi % Math.TAU);
 		return false;
@@ -95,15 +82,11 @@ public class Movement {
 
 	static float calculateMomentum(Entity entity) {
 		if (entity.moving) {
-			if (entity.getMomentum() < entity.getMovementSpeed())
-				entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
-			if (entity.getMomentum() < 0)
-				entity.setMomentum(0);
+			if (entity.getMomentum() < entity.getMovementSpeed()) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
+			if (entity.getMomentum() < 0) entity.setMomentum(0);
 		} else {
-			if (entity.getMomentum() > 0)
-				entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
-			if (entity.getMomentum() < 0)
-				entity.setMomentum(0);
+			if (entity.getMomentum() > 0) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
+			if (entity.getMomentum() < 0) entity.setMomentum(0);
 		}
 		return entity.getMomentum();
 	}
