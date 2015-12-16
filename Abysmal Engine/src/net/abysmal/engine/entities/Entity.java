@@ -1,13 +1,16 @@
 package net.abysmal.engine.entities;
 
 import net.abysmal.engine.main.FundamentalGameSpecifics;
-import net.abysmal.engine.maths.Vector2;
+import net.abysmal.engine.maths.Hitbox;
+import net.abysmal.engine.maths.Vector3;
 
 public class Entity {
 
 	int HP, DEF;
 	public boolean moving = false;
-	public Vector2 pos = new Vector2(-1, -1);
+	public Vector3 pos = new Vector3(-1, -1, -1);
+	public Vector3[] hitboxPoints = new Vector3[2];
+	public Hitbox hitbox = new Hitbox(this);
 	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
 	public int mass, width, height, depth;
@@ -45,6 +48,14 @@ public class Entity {
 	public void setY(float y) {
 		pos.y = y;
 	}
+	
+	public float getZ() {
+		return pos.z;
+	}
+
+	public void setZ(float z) {
+		pos.z = z;
+	}
 
 	public float getMovementSpeed() {
 		return 0;
@@ -60,5 +71,17 @@ public class Entity {
 
 	public void setMomentum(float momentum) {
 		this.momentum = momentum;
+	}
+
+	public Vector3[] getHitboxPoints() {
+		return hitboxPoints;
+	}
+	
+	public void setHitboxPoints(Vector3[] hitboxPoints) {
+		this.hitboxPoints = hitboxPoints;
+	}
+	
+	public Hitbox getHitbox() {
+		return hitbox;
 	}
 }
