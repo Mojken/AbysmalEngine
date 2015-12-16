@@ -1,6 +1,7 @@
 package net.abysmal.engine.entities;
 
 import net.abysmal.engine.handlers.HID.Keyboard;
+import net.abysmal.engine.maths.Vector3;
 
 public class Player extends Entity {
 
@@ -33,7 +34,9 @@ public class Player extends Entity {
 		this.MP = MP;
 	}
 
-	public Player() {}
+	public Player(Vector3 position) {
+		super(position);
+	}
 
 	public float getMovementSpeed() {
 		return Keyboard.getPressedMovementButtons()[7] ? movementSpeed * crouchMultiplier:Keyboard.getPressedMovementButtons()[6] ? movementSpeed * sprintMultiplier:movementSpeed;
