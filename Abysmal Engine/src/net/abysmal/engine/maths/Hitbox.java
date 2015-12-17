@@ -5,18 +5,29 @@ import net.abysmal.engine.entities.Entity;
 public class Hitbox {
 
 	Vector3[] hitboxVector = new Vector3[2];
+	Entity e;
 
 	public Hitbox(Entity entity) {
-		hitboxVector[0] = new Vector3(entity.getX() + entity.getHitboxPoints()[0].getX(), entity.getY() + entity.getHitboxPoints()[0].getY(), entity.getZ() + entity.getHitboxPoints()[0].getZ());
-		hitboxVector[1] = new Vector3(entity.getX() + entity.getHitboxPoints()[1].getX(), entity.getY() + entity.getHitboxPoints()[1].getY(), entity.getZ() + entity.getHitboxPoints()[1].getZ());
+		e = entity;
+		hitboxVector = entity.getHitboxPoints();
 	}
 
 	public boolean detectCollision(Hitbox hitbox) {
-		if (hitbox.hitboxVector[0].getX() > hitboxVector[0].getX() && hitbox.hitboxVector[0].getX() < hitboxVector[1].getX() || hitbox.hitboxVector[1].getX() > hitboxVector[0].getX() && hitbox.hitboxVector[1].getX() < hitboxVector[1].getX()) {
-			if (hitbox.hitboxVector[0].getY() > hitboxVector[0].getY() && hitbox.hitboxVector[0].getX() < hitboxVector[1].getY() || hitbox.hitboxVector[1].getY() > hitboxVector[0].getY() && hitbox.hitboxVector[1].getY() < hitboxVector[1].getY()) {
-				if (hitbox.hitboxVector[0].getZ() > hitboxVector[0].getZ() && hitbox.hitboxVector[0].getZ() < hitboxVector[1].getZ() || hitbox.hitboxVector[1].getZ() > hitboxVector[0].getZ() && hitbox.hitboxVector[1].getZ() < hitboxVector[1].getZ()) { return true; }
+		Vector3[] a = getHitboxPosition();
+		Vector3[] b = hitbox.getHitboxPosition();
+		if (b[0].getX() >= a[0].getX() && b[0].getX() <= a[1].getX() || b[1].getX() >= a[0].getX() && b[1].getX() <= a[1].getX()) {
+			if (b[0].getY() >= a[0].getY() && b[0].getX() <= a[1].getY() || b[1].getY() >= a[0].getY() && b[1].getY() <= a[1].getY()) {
+				if (b[0].getZ() >= a[0].getZ() && b[0].getZ() <= a[1].getZ() || b[1].getZ() >= a[0].getZ() && b[1].getZ() <= a[1].getZ()) return true;
 			}
 		}
 		return false;
+	}
+
+	public Vector3[] getHitboxPosition() {
+		Vector3[] hitboxPosition = new Vector3[2];
+		for (int i = 0; i < 2; i++) {
+			hitboxPosition[i] = hitboxVector[i].add(e.pos);
+		}
+		return hitboxPosition;
 	}
 }
