@@ -31,13 +31,13 @@ public class Movement {
 // if (movementKeys[3]) d = 1;
 // else if (!movementKeys[3]) d = 0;
 
-		if (movementKeys[0] && movementKeys[1] || !movementKeys[0] && !movementKeys[1]) xyPressedKeys[0] = 0;
-		else if (movementKeys[0] && !movementKeys[1]) xyPressedKeys[0] = 1;
-		else if (!movementKeys[0] && movementKeys[1]) xyPressedKeys[0] = -1;
+		if (movementKeys[0] && movementKeys[2] || !movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = 0;
+		else if (!movementKeys[0] && movementKeys[2]) xyPressedKeys[0] = 1;
+		else if (movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = -1;
 
-		if (movementKeys[2] && movementKeys[3] || !movementKeys[2] && !movementKeys[3]) xyPressedKeys[1] = 0;
-		else if (movementKeys[2] && !movementKeys[3]) xyPressedKeys[1] = 1;
-		else if (!movementKeys[2] && movementKeys[3]) xyPressedKeys[1] = -1;
+		if (movementKeys[1] && movementKeys[3] || !movementKeys[1] && !movementKeys[3]) xyPressedKeys[1] = 0;
+		else if (!movementKeys[1] && movementKeys[3]) xyPressedKeys[1] = 1;
+		else if (movementKeys[1] && !movementKeys[3]) xyPressedKeys[1] = -1;
 		return xyPressedKeys;
 	}
 
@@ -45,8 +45,8 @@ public class Movement {
 		walkToVector(new Vector3(keys[0], 0, 0), player);
 	}
 
-	public static void directionalMovement3(int[] keys, Player player) {
-		walkToVector(new Vector3(keys[0]+1, keys[1]+1, 0), player);
+	public static void directionalMovement3(Player player) {
+		walkToVector(new Vector3(readMovementButtons()[0], readMovementButtons()[1], 0), player);
 	}
 
 	void rotationalMovement(int[] keys, Player player, int rotation) {
@@ -70,15 +70,16 @@ public class Movement {
 	}
 
 	public static boolean walkToVectorWithRotation(Vector3 vector, Entity entity, int rotation) {
-		if (vector.checkProximity(entity.pos) < 2) {
-			entity.moving = false;
-			return true;
-		} else {
-			entity.moving = true;
-		}
-		vector = vector.sub(entity.pos);
+//		if (vector.checkProximity(entity.pos) < 2) {
+//			entity.moving = false;
+//			return true;
+//		} else {
+//			entity.moving = true;
+//		}
+//		vector = entity.pos.add(vector);
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
+		System.out.println(vector.getX() + ", " + vector.getY());
 		entity.pos.x += /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
 		entity.pos.y += /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
 		return false;
