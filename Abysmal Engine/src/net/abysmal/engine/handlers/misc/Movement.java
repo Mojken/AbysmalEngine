@@ -10,39 +10,43 @@ public class Movement {
 
 	double angle;
 	int acceleration;
-	int[] xyPressedKeys;
-	boolean[] movementKeys = Keyboard.getPressedMovementButtons();
+	static int[] xyPressedKeys = new int[2];
+	static boolean[] movementKeys;
 
-	public Movement(Entity e) {
-		readMovementButtons();
+	public Movement(Entity e) {}
+
+	public static int[] readMovementButtons() {
+		movementKeys = Keyboard.getPressedMovementButtons();
+// int w, a, s, d;
+//
+// if (movementKeys[0]) w = 1;
+// else if (!movementKeys[0]) w = 0;
+//
+// if (movementKeys[1]) a = 1;
+// else if (!movementKeys[1]) a = 0;
+//
+// if (movementKeys[2]) s = 1;
+// else if (!movementKeys[2]) s = 0;
+//
+// if (movementKeys[3]) d = 1;
+// else if (!movementKeys[3]) d = 0;
+
+		if (movementKeys[0] && movementKeys[2] || !movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = 0;
+		else if (!movementKeys[0] && movementKeys[2]) xyPressedKeys[0] = 1;
+		else if (movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = -1;
+
+		if (movementKeys[1] && movementKeys[3] || !movementKeys[1] && !movementKeys[3]) xyPressedKeys[1] = 0;
+		else if (!movementKeys[1] && movementKeys[3]) xyPressedKeys[1] = 1;
+		else if (movementKeys[1] && !movementKeys[3]) xyPressedKeys[1] = -1;
+		return xyPressedKeys;
 	}
 
-	void readMovementButtons() {
-		if (movementKeys[0]) xyPressedKeys[0] += 1;
-		else if (!movementKeys[0]) xyPressedKeys[0] -= 1;
-
-		if (movementKeys[1]) xyPressedKeys[1] -= 1;
-		else if (!movementKeys[1]) xyPressedKeys[1] += 1;
-
-		if (movementKeys[2]) xyPressedKeys[0] -= 1;
-		else if (!movementKeys[2]) xyPressedKeys[0] += 1;
-
-		if (movementKeys[3]) xyPressedKeys[1] += 1;
-		else if (!movementKeys[3]) xyPressedKeys[1] -= 1;
-
-		if (movementKeys[0] && movementKeys[1] || !movementKeys[0] && !movementKeys[1]) xyPressedKeys[0] = 0;
-		if (movementKeys[2] && movementKeys[3] || !movementKeys[2] && !movementKeys[3]) xyPressedKeys[1] = 0;
-
-		if (java.lang.Math.abs(xyPressedKeys[0]) == 2) xyPressedKeys[0] = 0;
-		if (java.lang.Math.abs(xyPressedKeys[1]) == 2) xyPressedKeys[1] = 0;
-	}
-
-	void directionalMovement2(int[] keys, Player player) {
+	public static void directionalMovement2(int[] keys, Player player) {
 		walkToVector(new Vector3(keys[0], 0, 0), player);
 	}
 
-	void directionalMovement3(int[] keys, Player player) {
-		walkToVector(new Vector3(keys[0], keys[1], 0), player);
+	public static void directionalMovement3(Player player) {
+		walkToVector(new Vector3(readMovementButtons()[0], readMovementButtons()[1], 0), player);
 	}
 
 	void rotationalMovement(int[] keys, Player player, int rotation) {
@@ -66,17 +70,18 @@ public class Movement {
 	}
 
 	public static boolean walkToVectorWithRotation(Vector3 vector, Entity entity, int rotation) {
-		if (vector.checkProximity(entity.pos) < 2) {
-			entity.moving = false;
-			return true;
-		} else {
-			entity.moving = true;
-		}
-		vector = vector.sub(entity.pos);
+//		if (vector.checkProximity(entity.pos) < 2) {
+//			entity.moving = false;
+//			return true;
+//		} else {
+//			entity.moving = true;
+//		}
+//		vector = entity.pos.add(vector);
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
-		entity.pos.x += /*calculateMomentum(entity)*/entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
-		entity.pos.y += /*calculateMomentum(entity)*/entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
+		System.out.println(vector.getX() + ", " + vector.getY());
+		entity.pos.x += /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
+		entity.pos.y += /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
 		return false;
 	}
 
