@@ -4,7 +4,7 @@ import net.abysmal.engine.entities.Entity;
 import net.abysmal.engine.entities.Player;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.maths.Math;
-import net.abysmal.engine.maths.Vector3;
+import net.abysmal.engine.maths.Vector;
 
 public class Movement {
 
@@ -42,20 +42,20 @@ public class Movement {
 	}
 
 	public static void directionalMovement2(int[] keys, Player player) {
-		walkToVector(new Vector3(keys[0], 0, 0), player);
+		walkToVector(new Vector(keys[0], 0, 0), player);
 	}
 
 	public static void directionalMovement3(Player player) {
-		walkToVector(new Vector3(readMovementButtons()[0], readMovementButtons()[1], 0), player);
+		walkToVector(new Vector(readMovementButtons()[0], readMovementButtons()[1], 0), player);
 	}
 
 	void rotationalMovement(int[] keys, Player player, int rotation) {
-		walkToVectorWithRotation(new Vector3(keys[0], keys[1], 0), player, rotation);
+		walkToVectorWithRotation(new Vector(keys[0], keys[1], 0), player, rotation);
 	}
 
 	static int bezierIndex = 0;
 
-	public static boolean walkToBezier(Vector3[] vector, Entity entity) {
+	public static boolean walkToBezier(Vector[] vector, Entity entity) {
 		if (bezierIndex < vector.length) {
 			if (walkToVector(vector[bezierIndex], entity)) bezierIndex++;
 			return false;
@@ -65,11 +65,11 @@ public class Movement {
 		}
 	}
 
-	public static boolean walkToVector(Vector3 vector, Entity entity) {
+	public static boolean walkToVector(Vector vector, Entity entity) {
 		return walkToVectorWithRotation(vector, entity, 0);
 	}
 
-	public static boolean walkToVectorWithRotation(Vector3 vector, Entity entity, int rotation) {
+	public static boolean walkToVectorWithRotation(Vector vector, Entity entity, int rotation) {
 //		if (vector.checkProximity(entity.pos) < 2) {
 //			entity.moving = false;
 //			return true;

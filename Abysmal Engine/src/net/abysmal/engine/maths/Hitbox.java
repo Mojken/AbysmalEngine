@@ -4,7 +4,7 @@ import net.abysmal.engine.entities.Entity;
 
 public class Hitbox {
 
-	Vector3[] hitboxVector = new Vector3[2];
+	Vector[] hitboxVector = new Vector[2];
 	Entity e;
 
 	public Hitbox(Entity entity) {
@@ -13,8 +13,8 @@ public class Hitbox {
 	}
 
 	public boolean detectCollision(Hitbox hitbox) {
-		Vector3[] a = getHitboxPosition();
-		Vector3[] b = hitbox.getHitboxPosition();
+		Vector[] a = getHitboxPosition();
+		Vector[] b = hitbox.getHitboxPosition();
 		if (b[0].getX() >= a[0].getX() && b[0].getX() <= a[1].getX() || b[1].getX() >= a[0].getX() && b[1].getX() <= a[1].getX()) {
 			if (b[0].getY() >= a[0].getY() && b[0].getX() <= a[1].getY() || b[1].getY() >= a[0].getY() && b[1].getY() <= a[1].getY()) {
 				if (b[0].getZ() >= a[0].getZ() && b[0].getZ() <= a[1].getZ() || b[1].getZ() >= a[0].getZ() && b[1].getZ() <= a[1].getZ()) return true;
@@ -22,9 +22,9 @@ public class Hitbox {
 		}
 		return false;
 	}
-
-	public Vector3[] getHitboxPosition() {
-		Vector3[] hitboxPosition = new Vector3[2];
+	
+	public Vector[] getHitboxPosition() {
+		Vector[] hitboxPosition = new Vector[2];
 		for (int i = 0; i < 2; i++) {
 			hitboxPosition[i] = hitboxVector[i].add(e.pos);
 		}

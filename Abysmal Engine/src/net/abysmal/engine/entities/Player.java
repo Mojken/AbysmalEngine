@@ -1,7 +1,7 @@
 package net.abysmal.engine.entities;
 
 import net.abysmal.engine.handlers.HID.Keyboard;
-import net.abysmal.engine.maths.Vector3;
+import net.abysmal.engine.maths.Vector;
 
 public class Player extends Entity {
 
@@ -34,7 +34,7 @@ public class Player extends Entity {
 		this.MP = MP;
 	}
 
-	public Player(Vector3 position) {
+	public Player(Vector position) {
 		super(position);
 	}
 
