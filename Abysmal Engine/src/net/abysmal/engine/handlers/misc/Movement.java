@@ -17,19 +17,6 @@ public class Movement {
 
 	public static int[] readMovementButtons() {
 		movementKeys = Keyboard.getPressedMovementButtons();
-// int w, a, s, d;
-//
-// if (movementKeys[0]) w = 1;
-// else if (!movementKeys[0]) w = 0;
-//
-// if (movementKeys[1]) a = 1;
-// else if (!movementKeys[1]) a = 0;
-//
-// if (movementKeys[2]) s = 1;
-// else if (!movementKeys[2]) s = 0;
-//
-// if (movementKeys[3]) d = 1;
-// else if (!movementKeys[3]) d = 0;
 
 		if (movementKeys[0] && movementKeys[2] || !movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = 0;
 		else if (!movementKeys[0] && movementKeys[2]) xyPressedKeys[0] = 1;
