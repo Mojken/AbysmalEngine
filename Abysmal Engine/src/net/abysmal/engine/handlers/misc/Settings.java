@@ -6,8 +6,8 @@ public class Settings {
 	static int button_movement_left = 65;		// A
 	static int button_movement_down = 83;		// S
 	static int button_movement_right = 68;		// D
-	static int button_movement_upLeft;			//
-	static int button_movement_upRight;			//
+	static int button_movement_upLeft;
+	static int button_movement_upRight;
 	static int button_interact = 69;			// E
 	static int button_crouch = 17;				// ctrl
 	static int button_run = 16;					// shift
@@ -18,7 +18,18 @@ public class Settings {
 	static int button_confirm = 13;				// enter
 	static int button_cancel = 27;				// escape
 // static int button_
-
+	
+	public static void setDvorak() {
+		button_movement_up = 188; 		// ,
+		button_movement_left = 65;		// a
+		button_movement_down = 79;		// o
+		button_movement_right = 69;		// e
+		button_interact = 190;			// .
+		button_throw = 186;				// ;
+		button_inventory = 67;			// c
+		button_reload = 80;				// p
+	}
+	
 	static int[] buttons_numerals = { 48, 49, 50, 51, 52, 53, 54, 55, 56, 57 };
 
 	/** Abysmal method to get the currently chosen movement buttons
