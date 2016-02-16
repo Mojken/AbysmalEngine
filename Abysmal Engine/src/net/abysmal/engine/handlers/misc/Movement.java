@@ -18,33 +18,33 @@ public class Movement {
 	public static int[] readMovementButtons() {
 		movementKeys = Keyboard.getPressedMovementButtons();
 
-		if (movementKeys[0] && movementKeys[2] || !movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = 0;
-		else if (!movementKeys[0] && movementKeys[2]) xyPressedKeys[0] = 1;
-		else if (movementKeys[0] && !movementKeys[2]) xyPressedKeys[0] = -1;
+		if (movementKeys[0] && movementKeys[2] || !movementKeys[0] && !movementKeys[2]) xyPressedKeys[1] = 0;
+		else if (!movementKeys[0] && movementKeys[2]) xyPressedKeys[1] = 1;
+		else if (movementKeys[0] && !movementKeys[2]) xyPressedKeys[1] = -1;
 
-		if (movementKeys[1] && movementKeys[3] || !movementKeys[1] && !movementKeys[3]) xyPressedKeys[1] = 0;
-		else if (!movementKeys[1] && movementKeys[3]) xyPressedKeys[1] = 1;
-		else if (movementKeys[1] && !movementKeys[3]) xyPressedKeys[1] = -1;
+		if (movementKeys[1] && movementKeys[3] || !movementKeys[1] && !movementKeys[3]) xyPressedKeys[0] = 0;
+		else if (!movementKeys[1] && movementKeys[3]) xyPressedKeys[0] = 1;
+		else if (movementKeys[1] && !movementKeys[3]) xyPressedKeys[0] = -1;
 		return xyPressedKeys;
 	}
 
 	public static void directionalMovement2(int[] keys, Player player) {
-		walkToVector(new Vector(keys[0], 0, 0), player);
+		walkToVector(new Vector(keys[0], 0, 0), player, 1);
 	}
 
 	public static void directionalMovement3(Player player) {
-		walkToVector(new Vector(readMovementButtons()[0], readMovementButtons()[1], 0), player);
+		walkToVector(new Vector(readMovementButtons()[0], readMovementButtons()[1], 0), player, 1);
 	}
 
-	void rotationalMovement(int[] keys, Player player, int rotation) {
-		walkToVectorWithRotation(new Vector(keys[0], keys[1], 0), player, rotation);
+	public static void rotationalMovement(int[] keys, Player player, double rotation) {
+		walkToVectorWithRotation(new Vector(keys[0], keys[1], 0).add(player.pos), player, rotation, 1);
 	}
 
 	static int bezierIndex = 0;
 
 	public static boolean walkToBezier(Vector[] vector, Entity entity) {
 		if (bezierIndex < vector.length) {
-			if (walkToVector(vector[bezierIndex], entity)) bezierIndex++;
+			if (walkToVector(vector[bezierIndex], entity, 2)) bezierIndex++;
 			return false;
 		} else {
 			bezierIndex = 0;
@@ -52,23 +52,25 @@ public class Movement {
 		}
 	}
 
-	public static boolean walkToVector(Vector vector, Entity entity) {
-		return walkToVectorWithRotation(vector, entity, 0);
+	public static boolean walkToVector(Vector vector, Entity entity, int proximity) {
+		return walkToVectorWithRotation(vector, entity, 0, proximity);
 	}
 
-	public static boolean walkToVectorWithRotation(Vector vector, Entity entity, int rotation) {
-//		if (vector.checkProximity(entity.pos) < 2) {
-//			entity.moving = false;
-//			return true;
-//		} else {
-//			entity.moving = true;
-//		}
-//		vector = entity.pos.add(vector);
+	public static boolean walkToVectorWithRotation(Vector vector, Entity entity, double rotation, double proximity) {
+		if (vector.checkProximity(entity.pos) < proximity) {
+			entity.moving = false;
+			return true;
+		} else {
+			entity.moving = true;
+		}
+		vector = vector.sub(entity.pos);
+		
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
-		System.out.println(vector.getX() + ", " + vector.getY());
-		entity.pos.x += /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.sin(phi % Math.TAU);
-		entity.pos.y += /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.cos(phi % Math.TAU);
+		System.out.println("Destination: " + vector.getX() + ", " + vector.getY());
+		System.out.println("Current location: " + entity.getX() + ", " + entity.getY());
+		entity.setX( (float)(entity.getX() + /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.sin(phi % Math.TAU)));
+		entity.setY( (float)(entity.getY() + /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.cos(phi % Math.TAU)));
 		return false;
 	}
 

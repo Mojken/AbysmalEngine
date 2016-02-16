@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.handlers.HID.Mouse;
+import net.abysmal.engine.handlers.misc.Tick;
 import net.abysmal.engine.main.FundamentalGameSpecifics;
 
 public class Window {
@@ -14,7 +15,7 @@ public class Window {
 	public Mouse mouseListener;
 	public Keyboard keyboardListener;
 	
-	public JFrame createWindow(String title, Dimension size, Panel p) {
+	public JFrame createWindow(String title, Dimension size, Panel p, Tick t) {
 		frame = new JFrame(title);
 		frame.setSize(size);
 		frame.setResizable(false);
@@ -31,7 +32,7 @@ public class Window {
 		
 		running = true;
 		render();
-		update();
+		update(t);
 		return frame;
 	}
 
@@ -41,7 +42,7 @@ public class Window {
 				while (running){
 					frame.repaint();
 					try {
-						Thread.sleep(160);
+						Thread.sleep(1000 / FundamentalGameSpecifics.TPS);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -50,11 +51,11 @@ public class Window {
 		}).start();
 	}
 	
-	private void update(){
+	private void update(Tick t){
 		new Thread(new Runnable(){
 			public void run(){
 				while (running){
-
+					t.update();
 					try {
 						Thread.sleep(1000 / FundamentalGameSpecifics.TPS);
 					} catch (Exception e) {
