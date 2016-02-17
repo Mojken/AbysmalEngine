@@ -33,4 +33,6 @@ public class ChernoShit {
 		}
 		return pixels;
 	}
+	
+	//TODO Figure this shit out, and then make a good system for it
 }
