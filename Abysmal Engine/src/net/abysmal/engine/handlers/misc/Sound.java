@@ -10,14 +10,14 @@ import javax.sound.sampled.Clip;
 public class Sound {
 
 	private File soundFile;
-	private Clip clip;
+	public Clip clip;
 
-	/**Abysmal object for sound 
+	/** Abysmal object for sound
 	 * 
 	 * @param path
 	 *            path of sound file
 	 * @throws FileNotFoundException
-	 *             if it the specified file can't be found */
+	 *             if the specified file can't be found */
 	public Sound(String path) throws FileNotFoundException {
 		if (path == null) throw new NullPointerException();
 		soundFile = new File(path);
@@ -49,6 +49,7 @@ public class Sound {
 
 	/** Releases all the system resources used by this clip. */
 	public void close() {
+		clip.flush();
 		clip.close();
 	}
 
@@ -59,6 +60,27 @@ public class Sound {
 	 * @param loop
 	 *            set to true if the clip should loop for ever. */
 	public synchronized void play(boolean loop) {
-		clip.loop(loop ? -1:1);
+		new Thread(new Runnable() {
+
+			public void run() {
+				try {
+					clip = AudioSystem.getClip();
+					AudioInputStream is = AudioSystem.getAudioInputStream(soundFile);
+					clip.open(is);
+// clip.loop(loop ? -1:1);
+					clip.start();
+					Thread.sleep(1);
+					while (clip.isActive()) {
+						Thread.sleep(1);
+					}
+					if (!clip.isActive()) {
+						clip.flush();
+						clip.close();
+					}
+				} catch (Exception e) {
+				}
+			}
+		}).start();;
+
 	}
 }
