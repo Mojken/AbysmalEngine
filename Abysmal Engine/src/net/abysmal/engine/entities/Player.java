@@ -17,6 +17,8 @@ public class Player extends Entity {
 	public float walkAcc = 1f;
 	public float crouchAcc = walkAcc * crouchMultiplier;
 	public float sprintAcc = walkAcc * sprintMultiplier;
+	
+	public int eyeLevel = 10;
 
 	public int getEXP() {
 		return EXP;
@@ -51,6 +53,4 @@ public class Player extends Entity {
 		} else acceleration = -1;
 		return acceleration;
 	}
-
-	// Keyboard.getPressedMovementButtons()[0] || Keyboard.getPressedMovementButtons()[1] || Keyboard.getPressedMovementButtons()[2] || Keyboard.getPressedMovementButtons()[3]
 }
