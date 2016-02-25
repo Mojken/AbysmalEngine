@@ -24,7 +24,7 @@ public class Window {
 		frame.setContentPane(p);
 		frame.setVisible(true);
 		
-		mouseListener = new Mouse();
+		mouseListener = new Mouse(frame);
 		keyboardListener = new Keyboard();
 		
 		frame.addMouseListener(mouseListener);

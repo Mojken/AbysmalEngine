@@ -36,8 +36,8 @@ public class Movement {
 		walkToVector(new Vector(readMovementButtons()[0], readMovementButtons()[1], 0), player, 1);
 	}
 
-	public static void rotationalMovement(int[] keys, Player player, double rotation) {
-		walkToVectorWithRotation(new Vector(keys[0], keys[1], 0).add(player.pos), player, rotation, 1);
+	public static void rotationalMovement(int[] keys, Player player, double rotation, boolean relative) {
+		walkToVectorWithRotation(relative ? new Vector(keys[0], keys[1], 0).add(player.pos) : new Vector(keys[0], keys[1]), player, rotation, 1);
 	}
 
 	static int bezierIndex = 0;
@@ -63,11 +63,11 @@ public class Movement {
 		} else {
 			entity.moving = true;
 		}
+		System.out.println("Destination: " + vector.getX() + ", " + vector.getY());
 		vector = vector.sub(entity.pos);
 		
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
-		System.out.println("Destination: " + vector.getX() + ", " + vector.getY());
 		System.out.println("Current location: " + entity.getX() + ", " + entity.getY());
 		entity.setX( (float)(entity.getX() + /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.sin(phi % Math.TAU)));
 		entity.setY( (float)(entity.getY() + /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.cos(phi % Math.TAU)));
