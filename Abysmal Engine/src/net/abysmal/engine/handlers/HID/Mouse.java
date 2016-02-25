@@ -2,6 +2,7 @@ package net.abysmal.engine.handlers.HID;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JFrame;
 import net.abysmal.engine.handlers.misc.Time;
 
 public class Mouse implements MouseListener {
@@ -12,6 +13,12 @@ public class Mouse implements MouseListener {
 	/** {button ID} {press timestamp, release timestamp, hold duration} */
 	long[][] clickTime = new long[32][3];
 
+	private JFrame f;
+	
+	public Mouse(JFrame f){
+		this.f = f;
+	}
+	
 	public void mouseClicked(MouseEvent e) {
 // ClickCoordinates[0] = e.getX();
 // ClickCoordinates[1] = e.getY();
@@ -26,8 +33,8 @@ public class Mouse implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		clickInfo[e.getButton()][0] = e.getX();
-		clickInfo[e.getButton()][1] = e.getY();
+		clickInfo[e.getButton()][0] = e.getX() - f.getInsets().left;
+		clickInfo[e.getButton()][1] = e.getY() - f.getInsets().top;
 		clickInfo[e.getButton()][4] = 1;
 		clickTime[e.getButton()][0] = e.getWhen();
 	}
