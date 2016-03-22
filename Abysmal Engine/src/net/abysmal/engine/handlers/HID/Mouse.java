@@ -12,7 +12,7 @@ public class Mouse implements MouseListener {
 
 	/** {button ID} {press timestamp, release timestamp, hold duration} */
 	long[][] clickTime = new long[32][3];
-
+	
 	private JFrame f;
 	
 	public Mouse(JFrame f){
@@ -64,5 +64,9 @@ public class Mouse implements MouseListener {
 	
 	public long[][] getClickTime() {
 		return clickTime;
+	}
+	
+	public float[] getMousePosition(){
+		return new float[]{(float) f.getMousePosition().getX(), (float)f.getMousePosition().getY()};
 	}
 }

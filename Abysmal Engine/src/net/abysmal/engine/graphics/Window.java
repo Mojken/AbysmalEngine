@@ -1,7 +1,10 @@
 package net.abysmal.engine.graphics;
 
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.handlers.HID.Mouse;
 import net.abysmal.engine.handlers.misc.Tick;
@@ -15,13 +18,16 @@ public class Window {
 	public Mouse mouseListener;
 	public Keyboard keyboardListener;
 	
-	public JFrame createWindow(String title, Dimension size, Panel p, Tick t) {
+	Panel panel;
+	
+	public JFrame createWindow(String title, Dimension size, Tick t) {
 		frame = new JFrame(title);
+		panel = new Panel(t);
 		frame.setSize(size);
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setContentPane(p);
+		frame.setContentPane(panel);
 		frame.setVisible(true);
 		
 		mouseListener = new Mouse(frame);
@@ -31,16 +37,31 @@ public class Window {
 		frame.addKeyListener(keyboardListener);
 		
 		running = true;
-		render();
 		update(t);
+		render(t);
 		return frame;
 	}
-
-	private void render(){
+	
+	@SuppressWarnings("serial")
+	class Panel extends JPanel{
+		
+		Tick t;
+		
+		Panel(Tick t){
+			this.t = t;
+		}
+		
+		@Override
+		public void paint(Graphics g) {
+			t.render((Graphics2D)g.create());
+		}
+	}
+	
+	private void render(Tick t){
 		new Thread(new Runnable(){
 			public void run(){
 				while (running){
-					frame.repaint();
+					panel.repaint();
 					try {
 						Thread.sleep(1000 / FundamentalGameSpecifics.TPS);
 					} catch (Exception e) {
