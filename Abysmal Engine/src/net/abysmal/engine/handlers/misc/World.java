@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import net.abysmal.engine.entities.Entity;
 import net.abysmal.engine.maths.Dimension;
 
+	//TODO: Generate world
+
 public class World {
 	
 	Dimension size;
@@ -25,6 +27,6 @@ public class World {
 	}
 	
 	public void populateMap() {
-		//TODO: populate map with all entities, I.E spawn them.
+		//TODO: Populate map with all entities, I.E spawn them.
 	}
 }
