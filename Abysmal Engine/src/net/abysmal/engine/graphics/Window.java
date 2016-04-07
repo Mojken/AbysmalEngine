@@ -2,7 +2,6 @@ package net.abysmal.engine.graphics;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import net.abysmal.engine.handlers.HID.Keyboard;
@@ -68,7 +67,8 @@ public class Window {
 
 		@Override
 		public void paint(Graphics g) {
-			t.render((Graphics2D) g.create());
+			t.render(g.create());
+			// Test
 		}
 	}
 
