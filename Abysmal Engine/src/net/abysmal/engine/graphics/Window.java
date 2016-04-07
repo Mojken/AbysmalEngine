@@ -47,13 +47,12 @@ public class Window {
 		return frame;
 	}
 
-	public Window createWindow(String title, int width, Tick t) {
+	public void createWindow(String title, int width, Tick t) {
 		Window.width = width;
 		Window.title = title;
 		height = width / 16 * 9;
 		dimension = new Dimension(width, height);
 		createWindow(title, dimension, t);
-		return w;
 	}
 
 	@SuppressWarnings("serial")
