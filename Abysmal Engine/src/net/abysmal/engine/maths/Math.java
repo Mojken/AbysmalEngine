@@ -17,4 +17,12 @@ public class Math {
 		p = p.add(p3.multiply(ttt));
 		return p;
 	}
+
+	public static float calculateHypotenuse(float x, float y) {
+		return (float) java.lang.Math.sqrt(java.lang.Math.pow(x, 2) + java.lang.Math.pow(y, 2));
+	}
+
+	public static float calculateHypotenuse(float x, float y, float z) {
+		return (float) java.lang.Math.sqrt(java.lang.Math.pow(calculateHypotenuse(x, z), 2) + java.lang.Math.pow(calculateHypotenuse(y, z), 2)) / 2;
+	}
 }

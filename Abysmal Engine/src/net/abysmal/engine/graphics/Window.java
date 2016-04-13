@@ -68,7 +68,6 @@ public class Window {
 		@Override
 		public void paint(Graphics g) {
 			t.render(g.create());
-			// Test
 		}
 	}
 

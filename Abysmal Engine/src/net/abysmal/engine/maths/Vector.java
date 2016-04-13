@@ -43,5 +43,9 @@ public class Vector {
 	public float getZ() {
 		return z;
 	}
-
+	
+	public float calculateLength() {
+		return Math.calculateHypotenuse(x, y);
+	}
+	
 }
