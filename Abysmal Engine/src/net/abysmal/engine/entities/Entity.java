@@ -1,6 +1,5 @@
 package net.abysmal.engine.entities;
 
-import net.abysmal.engine.main.FundamentalGameSpecifics;
 import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
 
@@ -10,10 +9,9 @@ public class Entity {
 	public boolean moving = false;
 	public double rotation;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
-	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) };
+	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces;
 	public Hitbox hitbox = new Hitbox(this);
-	public float movementSpeed, sprintMultiplier, crouchMultiplier;
-	public double stepLength = FundamentalGameSpecifics.stepLength;
+	public float terminalVelocity, sprintMultiplier, crouchMultiplier;
 	public int mass, width, height, depth, eyeLevel;
 
 	public Entity(Vector position) {
