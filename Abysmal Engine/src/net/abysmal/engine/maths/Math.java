@@ -19,10 +19,14 @@ public class Math {
 	}
 
 	public static float calculateHypotenuse(float x, float y) {
-		return (float) java.lang.Math.sqrt(java.lang.Math.pow(x, 2) + java.lang.Math.pow(y, 2));
+		return calculateHypotenuse(x, y, 0);
 	}
 
 	public static float calculateHypotenuse(float x, float y, float z) {
-		return (float) java.lang.Math.sqrt(java.lang.Math.pow(calculateHypotenuse(x, z), 2) + java.lang.Math.pow(calculateHypotenuse(y, z), 2)) / 2;
+		return (float) java.lang.Math.sqrt(java.lang.Math.pow(x, 2) + java.lang.Math.pow(y, 2) + java.lang.Math.pow(z, 2));
+	}
+	
+	public static float calculateHypotenuse(float w, float x, float y, float z) {
+		return (float) java.lang.Math.sqrt(java.lang.Math.pow(w, 2) + java.lang.Math.pow(x, 2) + java.lang.Math.pow(y, 2) + java.lang.Math.pow(z, 2));
 	}
 }

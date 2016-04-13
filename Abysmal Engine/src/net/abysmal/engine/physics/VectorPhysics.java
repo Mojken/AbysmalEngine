@@ -1,6 +1,5 @@
 package net.abysmal.engine.physics;
 
-import net.abysmal.engine.entities.Entity;
 import net.abysmal.engine.maths.Vector;
 
 public class VectorPhysics {
@@ -12,16 +11,9 @@ public class VectorPhysics {
 		}
 		return a;
 	}
-	
-	public double calculateLength(Vector v) {
-		return Math.sqrt(Math.pow(v.x, 2) + Math.pow(v.y, 2));
+
+	public static Vector calculateAcceleration(Vector v, float mass) {
+		return v.multiply(1/mass);
 	}
-	
-//	F = m * a
-//	a = F/m
-	
-	public double calculateAcceleration(double Length, Entity e){
-		return Length/e.mass;
-	}
-	
+
 }

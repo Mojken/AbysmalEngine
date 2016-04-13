@@ -37,7 +37,7 @@ public class Movement {
 	}
 
 	public static void rotationalMovement(int[] keys, Player player, double rotation, boolean relative) {
-		walkToVectorWithRotation(relative ? new Vector(keys[0], keys[1], 0).add(player.pos) : new Vector(keys[0], keys[1]), player, rotation, 1);
+		walkToVectorWithRotation(relative ? new Vector(keys[0], keys[1], 0):new Vector(keys[0], keys[1]).sub(player.pos), player, rotation, 1);
 	}
 
 	static int bezierIndex = 0;
@@ -63,25 +63,16 @@ public class Movement {
 		} else {
 			entity.moving = true;
 		}
-		System.out.println("Destination: " + vector.getX() + ", " + vector.getY());
-		vector = vector.sub(entity.pos);
-		
+
 		double phi = java.lang.Math.atan(vector.getX() / vector.getY()) + rotation;
 		if (vector.getY() != java.lang.Math.abs(vector.getY())) phi += Math.TAU / 2;
-		System.out.println("Current location: " + entity.getX() + ", " + entity.getY());
-		entity.setX( (float)(entity.getX() + /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.sin(phi % Math.TAU)));
-		entity.setY( (float)(entity.getY() + /* calculateMomentum(entity) */entity.stepLength * java.lang.Math.cos(phi % Math.TAU)));
+
+		entity.teleport(entity.getPosition().add(new Vector((float) (vector.getX() * java.lang.Math.sin(phi % Math.TAU)), (float) (vector.getY() * java.lang.Math.cos(phi % Math.TAU)))));
 		return false;
 	}
 
-	static float calculateMomentum(Entity entity) {
-		if (entity.moving) {
-			if (entity.getMomentum() < entity.getMovementSpeed()) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
-			if (entity.getMomentum() < 0) entity.setMomentum(0);
-		} else {
-			if (entity.getMomentum() > 0) entity.setMomentum(entity.getMomentum() + entity.getAcceleration());
-			if (entity.getMomentum() < 0) entity.setMomentum(0);
-		}
+	static Vector calculateMomentum(Vector v, Entity entity) {
+		entity.setMomentum(entity.getMomentum().add(v.multiply(1/60)));
 		return entity.getMomentum();
 	}
 }

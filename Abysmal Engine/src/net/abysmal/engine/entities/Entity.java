@@ -9,10 +9,10 @@ public class Entity {
 	int HP, DEF;
 	public boolean moving = false;
 	public double rotation;
-	public Vector pos = new Vector(-1, -1, -1);
+	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) };
 	public Hitbox hitbox = new Hitbox(this);
-	public float movementSpeed, sprintMultiplier, crouchMultiplier, momentum;
+	public float movementSpeed, sprintMultiplier, crouchMultiplier;
 	public double stepLength = FundamentalGameSpecifics.stepLength;
 	public int mass, width, height, depth, eyeLevel;
 
@@ -21,9 +21,7 @@ public class Entity {
 	}
 
 	public void teleport(Vector v) {
-		setX(v.x);
-		setY(v.y);
-		setZ(v.z);
+		pos = v;
 	}
 	
 	public Vector getPosition() {
@@ -78,11 +76,11 @@ public class Entity {
 		return 0;
 	}
 
-	public float getMomentum() {
+	public Vector getMomentum() {
 		return momentum;
 	}
 
-	public void setMomentum(float momentum) {
+	public void setMomentum(Vector momentum) {
 		this.momentum = momentum;
 	}
 

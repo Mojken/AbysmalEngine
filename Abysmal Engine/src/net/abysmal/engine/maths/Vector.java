@@ -29,7 +29,7 @@ public class Vector {
 	}
 
 	public float checkProximity(Vector v) {
-		return java.lang.Math.abs(sub(v).x) + java.lang.Math.abs(sub(v).y);
+		return sub(v).calculateLength();
 	}
 
 	public float getX() {
@@ -45,7 +45,7 @@ public class Vector {
 	}
 	
 	public float calculateLength() {
-		return Math.calculateHypotenuse(x, y);
+		return Math.calculateHypotenuse(x, y, z);
 	}
 	
 }
