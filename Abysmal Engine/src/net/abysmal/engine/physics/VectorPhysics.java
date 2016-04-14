@@ -27,7 +27,7 @@ public class VectorPhysics {
 
 	public static Vector generateDrag(Entity e) {
 		Vector v = e.getMomentum();
-		double percentage = Math.pow(v.calculateLength(), 2) / Math.pow(e.getMovementSpeed(), 2);
+		double percentage = Math.pow(v.calculateLength(), 2) / Math.pow(e.getTerminalVelocity(), 2);
 		v.multiply((float) -percentage);
 		return v;
 	}

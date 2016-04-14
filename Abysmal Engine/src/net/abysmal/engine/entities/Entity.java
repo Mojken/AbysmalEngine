@@ -11,8 +11,8 @@ public class Entity {
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces;
 	public Hitbox hitbox = new Hitbox(this);
-	public float terminalVelocity, sprintMultiplier, crouchMultiplier;
-	public int mass, width, height, depth, eyeLevel;
+	public float walkForce, sprintForce, crouchForce, walkTerminalVelocity, sprintTerminalVelocity, crouchTerminalVelocity;
+	public int mass, width, height, depth, eyeLevel, walkmode;
 
 	public Entity(Vector position) {
 		teleport(position);
@@ -21,7 +21,7 @@ public class Entity {
 	public void teleport(Vector v) {
 		pos = v;
 	}
-	
+
 	public Vector getPosition() {
 		return pos;
 	}
@@ -66,12 +66,17 @@ public class Entity {
 		pos.z = z;
 	}
 
-	public float getMovementSpeed() {
-		return 0;
-	}
-
-	public float getAcceleration() {
-		return 0;
+	public float getTerminalVelocity() {
+		switch (walkmode) {
+			case 0:
+				return walkTerminalVelocity;
+			case 1:
+				return sprintTerminalVelocity;
+			case 2:
+				return crouchTerminalVelocity;
+			default:
+				return -1;
+		}
 	}
 
 	public Vector getMomentum() {

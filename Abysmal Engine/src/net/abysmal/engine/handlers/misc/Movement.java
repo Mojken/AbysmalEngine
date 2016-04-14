@@ -32,7 +32,6 @@ public class Movement {
 		Vector v = VectorPhysics.calculateDirectionalAcceleration(entity);
 		entity.setMomentum(entity.getMomentum().add(v.multiply(1/60)));
 		double phi = v.calculateRotation() + GlobalVariables.getWorldRotation();
-		entity.teleport(entity.getPosition().add(new Vector((float) (entity.getMomentum().getX() * java.lang.Math.sin(phi)), (float) (entity.getMomentum().getY() * java.lang.Math.cos(phi)))));
+		entity.teleport(entity.getPosition().add(new Vector((float) (entity.getMomentum().calculateLength() * java.lang.Math.sin(phi)), (float) (entity.getMomentum().calculateLength() * java.lang.Math.cos(phi)))));
 	}
-	
 }
