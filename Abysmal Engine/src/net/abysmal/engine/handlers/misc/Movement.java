@@ -10,12 +10,12 @@ public class Movement {
 
 	double angle;
 	int acceleration;
-	static int[] xyPressedKeys = new int[2];
+	static int[] xyPressedKeys = {0,0};
 	static boolean[] movementKeys;
 
 	public Movement(Entity e) {}
 
-	public static int[] readMovementButtons() {
+	public static Vector readMovementButtons() {
 		movementKeys = Keyboard.getPressedMovementButtons();
 
 		if (movementKeys[0] && movementKeys[2] || !movementKeys[0] && !movementKeys[2]) xyPressedKeys[1] = 0;
@@ -25,13 +25,14 @@ public class Movement {
 		if (movementKeys[1] && movementKeys[3] || !movementKeys[1] && !movementKeys[3]) xyPressedKeys[0] = 0;
 		else if (!movementKeys[1] && movementKeys[3]) xyPressedKeys[0] = 1;
 		else if (movementKeys[1] && !movementKeys[3]) xyPressedKeys[0] = -1;
-		return xyPressedKeys;
+		
+		return new Vector(xyPressedKeys[0], xyPressedKeys[1]);
 	}
 
-	public static void walkToVector(Entity entity) {
+	public static void translate(Entity entity) {
 		Vector v = VectorPhysics.calculateDirectionalAcceleration(entity);
-		entity.setMomentum(entity.getMomentum().add(v.multiply(1/60)));
-		double phi = v.calculateRotation() + GlobalVariables.getWorldRotation();
+		entity.setMomentum(entity.getMomentum().add(v.multiply(1 / 60)));
+		double phi = v.calculateAngle() + GlobalVariables.getWorldRotation();
 		entity.teleport(entity.getPosition().add(new Vector((float) (entity.getMomentum().calculateLength() * java.lang.Math.sin(phi)), (float) (entity.getMomentum().calculateLength() * java.lang.Math.cos(phi)))));
 	}
 }
