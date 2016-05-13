@@ -9,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Server implements Runnable {
-	
-	private List<Client> clients = new ArrayList<Client>();
-	
+
+	private List<ServersClient> clients = new ArrayList<ServersClient>();
+
 	private DatagramSocket socket;
 	private int port;
 	private boolean running = false;
@@ -69,25 +69,18 @@ public class Server implements Runnable {
 		};
 		send.start();
 	}
-	
+
+
 	private void process(DatagramPacket packet) {
 		String string = new String(packet.getData());
 
 		if (string.startsWith("/c/")) {
 			short ID = (short) (convert(string.substring(3, 5)));
-			clients.add(new Client(ID, packet.getAddress(), packet.getPort()));
+			clients.add(new ServersClient(ID, packet.getAddress(), packet.getPort()));
 			send("/s/c/".getBytes(), packet.getAddress(), packet.getPort());
-			if (clients.size() == 2) {
-				String temp = "/s/p/" + clients.get(0).ID + "/" + clients.get(1).ID;
-				send(temp.getBytes(), clients.get(0).address, clients.get(0).port);
-				send(temp.getBytes(), clients.get(1).address, clients.get(1).port);
-			}
-		} else if (string.startsWith("/d/")) {
-			send(string.getBytes(), packet.getAddress() == clients.get(0).address ? clients.get(1).address:clients.get(0).address, packet.getPort() == clients.get(0).port ? clients.get(1).port:clients.get(0).port);
-		} else {
 		}
 	}
-	
+
 	public static int convert(String message) {
 		int result = 0;
 		for (int i = 0; i < message.length(); i++) {

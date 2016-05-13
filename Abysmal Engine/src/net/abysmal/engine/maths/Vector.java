@@ -1,5 +1,7 @@
 package net.abysmal.engine.maths;
 
+import net.abysmal.engine.graphics.Window;
+
 public class Vector {
 
 	public float x, y, z;

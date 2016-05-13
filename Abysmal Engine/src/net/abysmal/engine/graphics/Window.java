@@ -22,7 +22,6 @@ public class Window {
 	public static Dimension dimension;
 	public static String title;
 	public static Window w;
-
 	Panel panel;
 
 	public JFrame createWindow(String title, Dimension size, Tick t) {
