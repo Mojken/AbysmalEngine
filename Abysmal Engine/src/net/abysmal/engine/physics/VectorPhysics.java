@@ -1,6 +1,7 @@
 package net.abysmal.engine.physics;
 
 import net.abysmal.engine.entities.Entity;
+import net.abysmal.engine.entities.Player;
 import net.abysmal.engine.maths.Vector;
 
 public class VectorPhysics {
@@ -8,7 +9,7 @@ public class VectorPhysics {
 	public static Vector calculateResultant(Vector[] vectors) {
 		Vector a = new Vector(0, 0);
 		for (Vector v:vectors) {
-			a.add(v);
+			a = a.add(v);
 		}
 		return a;
 	}
@@ -27,8 +28,18 @@ public class VectorPhysics {
 
 	public static Vector generateDrag(Entity e) {
 		Vector v = e.getMomentum();
-		double percentage = Math.pow(v.calculateLength(), 2) / Math.pow(e.getTerminalVelocity(), 2);
-		v.multiply((float) -percentage);
+		double percentage = Math.pow(v.calculateLength(), 2) / Math.pow(e.getMovementSpeed(), 2);
+		v = v.multiply((float) -percentage);
 		return v;
+	}
+
+	public static double fma(double mass, double acceleration) {
+		return mass * acceleration;
+	}
+
+	public static void calculateWalkForceVector(Player p, Vector v) {
+		double phi = v.calculateAngle();
+		double force = p.getForceArray().getMovementForces()[p.getWalkMode()];
+		p.forces[0] = new Vector((float) (force * java.lang.Math.sin(phi)), (float) (force * java.lang.Math.cos(phi)));
 	}
 }

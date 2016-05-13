@@ -48,7 +48,12 @@ public class Vector {
 		return Math.calculateHypotenuse(x, y, z);
 	}
 	
-	public double calculateRotation() {
+	@Override
+	public String toString(){
+		return "x: " + x + "\ny: " + y + "\nz: " + z;
+	}
+	
+	public double calculateAngle() {
 		double phi = java.lang.Math.atan(getX() / getY());
 		if (getY() != java.lang.Math.abs(getY())) phi += Math.TAU / 2;
 		return phi % Math.TAU;

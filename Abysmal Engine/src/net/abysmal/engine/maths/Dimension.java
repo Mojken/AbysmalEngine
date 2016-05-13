@@ -2,15 +2,18 @@ package net.abysmal.engine.maths;
 
 public class Dimension {
 
-	int w, x, y, z, dimensions;
+	final int w, x, y, z, dimensions;
 
 	public Dimension(int width, int height) {
+		w = -1;
 		x = width;
 		y = height;
+		z = -1;
 		dimensions = 2;
 	}
 
 	public Dimension(int width, int height, int depth) {
+		w = -1;
 		x = width;
 		y = height;
 		z = depth;
@@ -33,5 +36,10 @@ public class Dimension {
 			default: return null;
 		}
 		
+	}
+	
+	@Override
+	public String toString(){
+		return (w == -1 ? "" : ("Spissitude: " + w + "\n")) + "Width: " + x + "\nHeight: " + y + (z == -1 ? "" : ("\nDepth: " + z)  );
 	}
 }

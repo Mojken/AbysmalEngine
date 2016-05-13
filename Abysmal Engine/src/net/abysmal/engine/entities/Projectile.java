@@ -5,12 +5,12 @@ import net.abysmal.engine.maths.Vector;
 
 public class Projectile extends Entity {
 
-	int damage, travelSpeed, statusDuration;
+	int damage, travelSpeed, statusDuration, mass;
 	Vector pos;
 	Hitbox hitbox;
 
-	public Projectile(Vector position, Projectile projectile) {
-		super(position);
+	public Projectile(Vector position, Projectile projectile, int mass) {
+		super(position, mass);
 		hitbox = new Hitbox(projectile);
 	}
 }

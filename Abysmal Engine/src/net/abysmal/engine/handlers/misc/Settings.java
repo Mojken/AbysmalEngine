@@ -20,7 +20,7 @@ public class Settings {
 // static int button_
 	
 	public static void setDvorak() {
-		button_movement_up = 188; 		// ,
+		button_movement_up = 44; 		// ,
 		button_movement_left = 65;		// a
 		button_movement_down = 79;		// o
 		button_movement_right = 69;		// e

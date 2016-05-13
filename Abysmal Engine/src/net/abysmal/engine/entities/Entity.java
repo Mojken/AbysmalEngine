@@ -2,6 +2,7 @@ package net.abysmal.engine.entities;
 
 import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
+import net.abysmal.engine.physics.misc.ForceArray;
 
 public class Entity {
 
@@ -9,13 +10,17 @@ public class Entity {
 	public boolean moving = false;
 	public double rotation;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
-	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces;
+	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
 	public Hitbox hitbox = new Hitbox(this);
-	public float walkForce, sprintForce, crouchForce, walkTerminalVelocity, sprintTerminalVelocity, crouchTerminalVelocity;
+	public ForceArray forceArray;
 	public int mass, width, height, depth, eyeLevel, walkmode;
 
-	public Entity(Vector position) {
+	public Entity(Vector position, int mass) {
 		teleport(position);
+		this.mass = mass;
+		for (int i = 0; i < forces.length; i++) {
+			forces[i] = new Vector(0,0);
+		}
 	}
 
 	public void teleport(Vector v) {
@@ -66,17 +71,9 @@ public class Entity {
 		pos.z = z;
 	}
 
-	public float getTerminalVelocity() {
-		switch (walkmode) {
-			case 0:
-				return walkTerminalVelocity;
-			case 1:
-				return sprintTerminalVelocity;
-			case 2:
-				return crouchTerminalVelocity;
-			default:
-				return -1;
-		}
+	public double getMovementSpeed() {
+		if (walkmode % 3 == walkmode) return forceArray.getMovementSpeeds()[walkmode];
+		else return 0;
 	}
 
 	public Vector getMomentum() {
