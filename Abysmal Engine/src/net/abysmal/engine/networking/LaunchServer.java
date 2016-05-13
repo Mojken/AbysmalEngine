@@ -23,4 +23,12 @@ public class LaunchServer {
 		port = Integer.parseInt(args[0]);
 		new LaunchServer(port);
 	}
+
+	public int getPort() {
+		return port;
+	}
+
+	public Server getServer() {
+		return server;
+	}
 }

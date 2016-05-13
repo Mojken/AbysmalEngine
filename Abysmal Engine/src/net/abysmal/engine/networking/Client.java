@@ -71,7 +71,7 @@ public class Client {
 				while (connected) {
 					String message = recieve();
 					//TODO Change to Client
-					Window.interpretCommunication.execute(Window.interpretCommunication.getCode(message));
+//					Window.interpretCommunication.execute(Window.interpretCommunication.getCode(message));
 				}
 			}
 		};
