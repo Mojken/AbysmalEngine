@@ -31,7 +31,7 @@ public class Movement {
 
 	public static void translate(Entity entity) {
 		Vector v = VectorPhysics.calculateDirectionalAcceleration(entity);
-		entity.setMomentum(entity.getMomentum().add(v.multiply(1 / 60)));
+		entity.setMomentum(entity.getMomentum().add(v.multiply(1f / 60)));
 		double phi = v.calculateAngle() + GlobalVariables.getWorldRotation();
 		entity.teleport(entity.getPosition().add(new Vector((float) (entity.getMomentum().calculateLength() * java.lang.Math.sin(phi)), (float) (entity.getMomentum().calculateLength() * java.lang.Math.cos(phi)))));
 	}

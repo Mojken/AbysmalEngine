@@ -39,6 +39,10 @@ public class VectorPhysics {
 
 	public static void calculateWalkForceVector(Player p, Vector v) {
 		double phi = v.calculateAngle();
+		if (phi == 0.0) {
+			p.forces[0] = new Vector(0, 0);
+			return;
+		}
 		double force = p.getForceArray().getMovementForces()[p.getWalkMode()];
 		p.forces[0] = new Vector((float) (force * java.lang.Math.sin(phi)), (float) (force * java.lang.Math.cos(phi)));
 	}

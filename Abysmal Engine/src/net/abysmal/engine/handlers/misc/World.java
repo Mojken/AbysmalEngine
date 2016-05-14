@@ -1,8 +1,10 @@
 package net.abysmal.engine.handlers.misc;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import net.abysmal.engine.entities.Entity;
@@ -19,6 +21,7 @@ public class World {
 	File map;
 	File entityMap;
 	public int tileSize;
+	public BufferedImage world;
 
 	public World(File map, int tileSize) {
 		this.map = map;
@@ -29,6 +32,7 @@ public class World {
 			size = new Dimension(bgi.getWidth(), bgi.getHeight());
 			tiles = new Tile[3][size.getArea()];
 			bg.setData(bgi.getRaster());
+			world = new BufferedImage(bgi.getWidth()*tileSize, bgi.getHeight()*tileSize, BufferedImage.TYPE_4BYTE_ABGR);
 			populateMap(((DataBufferInt) bg.getRaster().getDataBuffer()).getData());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -65,6 +69,15 @@ public class World {
 			tiles[0][i] = Tile.getTile((pixels[i] >> 16) & 0xFF, 0);
 			tiles[1][i] = Tile.getTile((pixels[i] >> 8) & 0xFF, 1);
 			tiles[2][i] = Tile.getTile(pixels[i] & 0xFF, 2);
+			try {
+				Graphics g = world.getGraphics();
+				g.drawImage(ImageIO.read(new File(tiles[2][i].getTexture())), (i % size.getDimension()[0]) * tileSize, (int) (i / size.getDimension()[0]) * tileSize, tileSize, tileSize, null);
+				g.drawImage(ImageIO.read(new File(tiles[1][i].getTexture())), (i % size.getDimension()[0]) * tileSize, (int) (i / size.getDimension()[0]) * tileSize, tileSize, tileSize, null);
+				g.drawImage(ImageIO.read(new File(tiles[0][i].getTexture())), (i % size.getDimension()[0]) * tileSize, (int) (i / size.getDimension()[0]) * tileSize, tileSize, tileSize, null);
+				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			if (((pixels[i] >>> 24) & 0xFF) != 255) {
 				if(((pixels[i] >>> 24) & 0xFF) != 1)
 					populace.add(new Entity(Entity.getEntity(((pixels[i] >>> 24) & 0xFF)), new Vector((i % size.getDimension()[0]) * tileSize, (int) (i / size.getDimension()[0]) * tileSize)));

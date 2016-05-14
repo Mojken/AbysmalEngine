@@ -8,15 +8,13 @@ import net.abysmal.engine.physics.misc.ForceArray;
 
 public class Entity {
 
-	int HP, DEF;
 	public boolean moving = false;
 	public double rotation;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
 	public Hitbox hitbox = new Hitbox(this);
 	public ForceArray forceArray;
-	public int mass, width, height, depth, eyeLevel, walkmode;
-	public int ID;
+	public int mass, width, height, depth, eyeLevel, walkmode, ID, HP, DEF, ATC;
 	public File texture;
 	public boolean template = true;
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();

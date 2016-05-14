@@ -30,24 +30,43 @@ public class Dimension {
 
 	public int[] getDimension() {
 		switch (dimensions) {
-			case 2: return new int[] {x, y};
-			case 3: return new int[] {x, y, z};
-			case 4: return new int[] {w, x, y, z};
-			default: return null;
+			case 2:
+				return new int[] { x, y };
+			case 3:
+				return new int[] { x, y, z };
+			case 4:
+				return new int[] { w, x, y, z };
+			default:
+				return null;
 		}
-		
 	}
-	
+
+	public int getSpissitude() {
+		return w;
+	}
+
+	public int getWidth() {
+		return x;
+	}
+
+	public int getHeight() {
+		return y;
+	}
+
+	public int getDepth() {
+		return z;
+	}
+
 	public int getArea() {
 		int area = 1;
-		for(int i : getDimension()) {
+		for (int i:getDimension()) {
 			area *= i;
 		}
 		return area;
 	}
-	
+
 	@Override
-	public String toString(){
-		return (w == -1 ? "" : ("Spissitude: " + w + "\n")) + "Width: " + x + "\nHeight: " + y + (z == -1 ? "" : ("\nDepth: " + z)  );
+	public String toString() {
+		return (w == -1 ? "":("Spissitude: " + w + "\n")) + "Width: " + x + "\nHeight: " + y + (z == -1 ? "":("\nDepth: " + z));
 	}
 }

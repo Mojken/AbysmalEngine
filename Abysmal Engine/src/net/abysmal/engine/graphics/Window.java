@@ -1,6 +1,5 @@
 package net.abysmal.engine.graphics;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -8,10 +7,11 @@ import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.handlers.HID.Mouse;
 import net.abysmal.engine.handlers.misc.Tick;
 import net.abysmal.engine.main.FundamentalGameSpecifics;
+import net.abysmal.engine.maths.Dimension;
 
 public class Window {
 
-	JFrame frame;
+	public static JFrame frame;
 	boolean running = false;
 
 	public Mouse mouseListener;
@@ -27,7 +27,7 @@ public class Window {
 	public JFrame createWindow(String title, Dimension size, Tick t) {
 		frame = new JFrame(title);
 		panel = new Panel(t);
-		frame.setSize(size);
+		frame.setSize(size.getWidth(), size.getHeight());
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,6 +99,10 @@ public class Window {
 				}
 			}
 		}).start();
+	}
+	
+	public static Dimension getSize() {
+		return new Dimension(width-(frame.getInsets().left + frame.getInsets().right), height-(frame.getInsets().top + frame.getInsets().bottom));
 	}
 
 }
