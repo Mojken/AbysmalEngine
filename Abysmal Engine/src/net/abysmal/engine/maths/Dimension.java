@@ -39,7 +39,7 @@ public class Dimension {
 	}
 	
 	public int getArea() {
-		int area = getDimension()[0];
+		int area = 1;
 		for(int i : getDimension()) {
 			area *= i;
 		}

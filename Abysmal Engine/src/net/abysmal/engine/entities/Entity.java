@@ -1,5 +1,7 @@
 package net.abysmal.engine.entities;
 
+import java.io.File;
+import java.util.ArrayList;
 import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
 import net.abysmal.engine.physics.misc.ForceArray;
@@ -14,8 +16,13 @@ public class Entity {
 	public Hitbox hitbox = new Hitbox(this);
 	public ForceArray forceArray;
 	public int mass, width, height, depth, eyeLevel, walkmode;
+	public int ID;
+	public File texture;
+	public boolean template = true;
+	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 
 	public Entity(Vector position, int mass) {
+		template = false;
 		teleport(position);
 		this.mass = mass;
 		for (int i = 0; i < forces.length; i++) {
@@ -23,6 +30,14 @@ public class Entity {
 		}
 	}
 	
+	public Entity(Entity type, Vector position) {
+		this(position, type.mass);
+	}
+	
+	public Entity(int id, int mass) {
+		this.mass = mass;
+	}
+
 	public boolean isMoving() {
 		return moving;
 	}
@@ -150,5 +165,8 @@ public class Entity {
 		return hitbox;
 	}
 	
-	//TODO Device a means to get an entity type from it's ID.
+	public static Entity getEntity(int ID) {
+		//TODO Error handling
+			return entities.get(ID);
+	}
 }

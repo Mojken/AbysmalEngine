@@ -31,6 +31,11 @@ public class Player extends Entity {
 	public Player(Vector position, int mass, ForceArray forceArray) {
 		super(position, mass);
 		this.forceArray = forceArray;
+		hitboxPoints = new Vector[] { new Vector(-16, -16, -16), new Vector(16, 16, 16) };
+	}
+	
+	public Player(Entity entity, Vector position) {
+		this(position, entity.mass, ForceArray.generateGenericForceArray(entity.mass));
 	}
 
 	public int getWalkMode() {
