@@ -28,7 +28,7 @@ public class Dimension {
 		dimensions = 4;
 	}
 
-	public int[] getDimension(){
+	public int[] getDimension() {
 		switch (dimensions) {
 			case 2: return new int[] {x, y};
 			case 3: return new int[] {x, y, z};
@@ -36,6 +36,14 @@ public class Dimension {
 			default: return null;
 		}
 		
+	}
+	
+	public int getArea() {
+		int area = getDimension()[0];
+		for(int i : getDimension()) {
+			area *= i;
+		}
+		return area;
 	}
 	
 	@Override

@@ -22,6 +22,60 @@ public class Entity {
 			forces[i] = new Vector(0,0);
 		}
 	}
+	
+	public boolean isMoving() {
+		return moving;
+	}
+
+	
+	public double getRotation() {
+		return rotation;
+	}
+
+	
+	public Vector getPos() {
+		return pos;
+	}
+
+	
+	public Vector[] getForces() {
+		return forces;
+	}
+
+	
+	public ForceArray getForceArray() {
+		return forceArray;
+	}
+
+	
+	public int getMass() {
+		return mass;
+	}
+
+	
+	public int getWidth() {
+		return width;
+	}
+
+	
+	public int getHeight() {
+		return height;
+	}
+
+	
+	public int getDepth() {
+		return depth;
+	}
+
+	
+	public int getEyeLevel() {
+		return eyeLevel;
+	}
+
+	
+	public int getWalkmode() {
+		return walkmode;
+	}
 
 	public void teleport(Vector v) {
 		pos = v;
@@ -95,4 +149,6 @@ public class Entity {
 	public Hitbox getHitbox() {
 		return hitbox;
 	}
+	
+	//TODO Device a means to get an entity type from it's ID.
 }

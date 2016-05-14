@@ -6,7 +6,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import net.abysmal.engine.graphics.Window;
 
 public class Client {
 
@@ -69,6 +68,7 @@ public class Client {
 
 			public void run() {
 				while (connected) {
+					@SuppressWarnings("unused")
 					String message = recieve();
 					//TODO Change to Client
 //					Window.interpretCommunication.execute(Window.interpretCommunication.getCode(message));
