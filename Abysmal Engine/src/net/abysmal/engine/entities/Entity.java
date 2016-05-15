@@ -8,7 +8,7 @@ import net.abysmal.engine.physics.misc.ForceArray;
 
 public class Entity {
 
-	public boolean moving = false;
+	public boolean moving = false, onGround = false;
 	public double rotation;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
@@ -19,19 +19,26 @@ public class Entity {
 	public boolean template = true;
 	public static ArrayList<Entity> entities = new ArrayList<Entity>();
 
-	public Entity(Vector position, int mass) {
+	public Entity(Vector position, int mass, Hitbox hitbox) {
 		template = false;
 		teleport(position);
 		this.mass = mass;
 		for (int i = 0; i < forces.length; i++) {
-			forces[i] = new Vector(0,0);
+			forces[i] = new Vector(0, 0);
 		}
+
+		this.hitbox = new Hitbox(this, hitbox);
+		hitboxPoints = hitbox.getHitboxPoints();
+
+		width = (int) (hitboxPoints[1].x - hitboxPoints[0].x);
+		height = (int) (hitboxPoints[1].y - hitboxPoints[0].y);
+		depth = (int) (hitboxPoints[1].z - hitboxPoints[0].z);
 	}
-	
+
 	public Entity(Entity type, Vector position) {
-		this(position, type.mass);
+		this(position, type.mass, type.hitbox);
 	}
-	
+
 	public Entity(int id, int mass) {
 		this.mass = mass;
 	}
@@ -40,52 +47,42 @@ public class Entity {
 		return moving;
 	}
 
-	
 	public double getRotation() {
 		return rotation;
 	}
 
-	
 	public Vector getPos() {
 		return pos;
 	}
 
-	
 	public Vector[] getForces() {
 		return forces;
 	}
 
-	
 	public ForceArray getForceArray() {
 		return forceArray;
 	}
 
-	
 	public int getMass() {
 		return mass;
 	}
 
-	
 	public int getWidth() {
 		return width;
 	}
 
-	
 	public int getHeight() {
 		return height;
 	}
 
-	
 	public int getDepth() {
 		return depth;
 	}
 
-	
 	public int getEyeLevel() {
 		return eyeLevel;
 	}
 
-	
 	public int getWalkmode() {
 		return walkmode;
 	}
@@ -162,9 +159,9 @@ public class Entity {
 	public Hitbox getHitbox() {
 		return hitbox;
 	}
-	
+
 	public static Entity getEntity(int ID) {
-		//TODO Error handling
-			return entities.get(ID);
+		// TODO Error handling
+		return entities.get(ID);
 	}
 }

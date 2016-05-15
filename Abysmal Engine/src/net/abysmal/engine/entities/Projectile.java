@@ -10,7 +10,7 @@ public class Projectile extends Entity {
 	Hitbox hitbox;
 
 	public Projectile(Vector position, Projectile projectile, int mass) {
-		super(position, mass);
+		super(position, mass, new Hitbox(projectile));
 		hitbox = new Hitbox(projectile);
 	}
 }

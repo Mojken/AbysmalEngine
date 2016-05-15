@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Tile {
 
 	int ID;
-
+	public boolean solid = true;
 	String texture;
 	String[] traits;
 	public static ArrayList<Tile> tilesForeground = new ArrayList<Tile>();
@@ -16,11 +16,20 @@ public class Tile {
 		this.traits = traits;
 		ID = id;
 		texture = "C:/Users/Mojken/Workspace/TestGame/res/" + path + ".png";
+		if (traits != null) {
+			for (String s:traits) {
+				if (s.equals("nonSolid")) {
+					solid = false;
+					break;
+				}
+			}
+		}
 	}
 
 	public Tile(Tile t) {
 		texture = t.texture;
 		traits = t.traits;
+		solid = t.solid;
 	}
 
 	public String getTexture() {

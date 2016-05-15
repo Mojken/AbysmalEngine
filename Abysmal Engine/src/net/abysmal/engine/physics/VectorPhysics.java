@@ -19,6 +19,7 @@ public class VectorPhysics {
 	}
 
 	public static Vector calculateDirectionalAcceleration(Vector[] vectors, float mass) {
+		System.out.println(calculateResultant(vectors));
 		return calculateAcceleration(calculateResultant(vectors), mass);
 	}
 

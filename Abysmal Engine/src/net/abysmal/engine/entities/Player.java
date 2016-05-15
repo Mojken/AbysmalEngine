@@ -1,6 +1,7 @@
 package net.abysmal.engine.entities;
 
 import net.abysmal.engine.handlers.HID.Keyboard;
+import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
 import net.abysmal.engine.physics.misc.ForceArray;
 
@@ -28,14 +29,13 @@ public class Player extends Entity {
 		this.MP = MP;
 	}
 
-	public Player(Vector position, int mass, ForceArray forceArray) {
-		super(position, mass);
+	public Player(Vector position, int mass, ForceArray forceArray, Hitbox hitbox) {
+		super(position, mass, hitbox);
 		this.forceArray = forceArray;
-		hitboxPoints = new Vector[] { new Vector(-16, -16, -16), new Vector(16, 16, 16) };
 	}
 	
-	public Player(Entity entity, Vector position) {
-		this(position, entity.mass, ForceArray.generateGenericForceArray(entity.mass));
+	public Player(Entity entity, Vector position, Hitbox hitbox) {
+		this(position, entity.mass, ForceArray.generateGenericForceArray(entity.mass), hitbox);
 	}
 
 	public int getWalkMode() {
