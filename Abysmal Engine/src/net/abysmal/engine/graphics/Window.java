@@ -63,7 +63,6 @@ public class Window {
 			this.t = t;
 		}
 
-		@Override
 		public void paint(Graphics g) {
 			t.render(g.create());
 		}
@@ -101,7 +100,7 @@ public class Window {
 		}).start();
 	}
 	
-	public static Dimension getSize() {
+	public Dimension getSize() {
 		return new Dimension(width-(frame.getInsets().left + frame.getInsets().right), height-(frame.getInsets().top + frame.getInsets().bottom));
 	}
 

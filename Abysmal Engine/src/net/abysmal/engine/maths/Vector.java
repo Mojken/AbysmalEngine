@@ -4,6 +4,10 @@ import net.abysmal.engine.Constants;
 
 public class Vector {
 
+	public static final Vector ZERO() {
+		return new Vector(0, 0);
+	}
+	
 	public float w, x, y, z;
 
 	public Vector(float w, float x, float y, float z) {
@@ -26,6 +30,19 @@ public class Vector {
 		this.y = y;
 		this.z = 0;
 	}
+	
+	public boolean equals(Vector v){
+		if (w == v.w && x == v.x && y == v.y && z == v.z) {
+			return true;
+		} else return false;
+	}
+	
+	public void set(Vector v) {
+		w = v.w;
+		x = v.x;
+		y = v.y;
+		z = v.z;
+	}
 
 	public Vector multiply(float f) {
 		return new Vector(w * f, x * f, y * f, z * f);
@@ -37,6 +54,10 @@ public class Vector {
 	
 	public Vector add(Vector v) {
 		return new Vector(w + v.w, x + v.x, y + v.y, z + v.z);
+	}
+
+	public Vector add(float f) {
+		return new Vector(w + f, x + f, y + f, z + f);
 	}
 
 	public Vector sub(Vector v) {

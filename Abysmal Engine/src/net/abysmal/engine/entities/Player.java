@@ -33,7 +33,7 @@ public class Player extends Entity {
 		super(position, mass, hitbox);
 		this.forceArray = forceArray;
 	}
-	
+
 	public Player(Entity entity, Vector position, Hitbox hitbox) {
 		this(position, entity.mass, ForceArray.generateGenericForceArray(entity.mass), hitbox);
 	}

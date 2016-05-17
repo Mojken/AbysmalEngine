@@ -9,7 +9,7 @@ import net.abysmal.engine.physics.misc.ForceArray;
 public class Entity {
 
 	public boolean moving = false, onGround = false;
-	public double rotation;
+	public double rotation, jumpHeight;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
 	public Hitbox hitbox = new Hitbox(this);
@@ -33,6 +33,7 @@ public class Entity {
 		width = (int) (hitboxPoints[1].x - hitboxPoints[0].x);
 		height = (int) (hitboxPoints[1].y - hitboxPoints[0].y);
 		depth = (int) (hitboxPoints[1].z - hitboxPoints[0].z);
+		walkmode = 0;
 	}
 
 	public Entity(Entity type, Vector position) {
