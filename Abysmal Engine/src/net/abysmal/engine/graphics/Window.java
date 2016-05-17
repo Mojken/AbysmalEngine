@@ -62,7 +62,8 @@ public class Window {
 		Panel(Tick t) {
 			this.t = t;
 		}
-
+		
+		@Override
 		public void paint(Graphics g) {
 			t.render(g.create());
 		}

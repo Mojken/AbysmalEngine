@@ -7,7 +7,7 @@ import net.abysmal.engine.maths.Vector;
 
 public class PlatformerGraphics {
 
-	public static Vector[] playerPosition(World wo, Player p, Window w) {
+	public static Vector[] positionWithinBounds(World wo, Player p, Window w) {
 		int x = (int) ((w.getSize().getWidth() / 2) - p.getX());
 		int y = (int) ((w.getSize().getHeight() / 2) - p.getY());
 		int px = (int) (p.hitboxPoints[0].getX() + w.getSize().getWidth() / 2);
