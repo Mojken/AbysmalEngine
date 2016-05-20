@@ -18,6 +18,16 @@ public class Graphics {
 		this.g = g;
 	}
 
+	public static byte[] splitColours(int colour) {
+		return new byte[] { (byte) ((colour >> 16) & 0xFF), (byte) ((colour >> 8) & 0xFF), (byte) (colour & 0xFF) };
+	}
+
+	public static int mergeColours(byte[] colours) {
+		if (colours.length == 4) return (colours[0] << 24) + (colours[1] << 16) + (colours[2] << 8) + colours[3];
+		return 0xff000000 + (colours[0] << 16) + (colours[1] << 8) + colours[2];
+		
+	}
+
 	public void clearRect(Vector a, Vector b) {
 		g.clearRect((int) a.x, (int) a.y, (int) b.x, (int) b.y);
 	}
@@ -130,7 +140,7 @@ public class Graphics {
 		return g.getClipBounds();
 	}
 
-	public Color getColor() {
+	public Color getColour() {
 		return g.getColor();
 	}
 

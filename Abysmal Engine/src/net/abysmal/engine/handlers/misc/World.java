@@ -36,8 +36,17 @@ public class World {
 			mapSize = new Dimension(bgi.getWidth(), bgi.getHeight());
 			tiles = new Tile[3][mapSize.getArea()];
 			bg.setData(bgi.getRaster());
-			world = new BufferedImage(bgi.getWidth()*tileSize, bgi.getHeight()*tileSize, BufferedImage.TYPE_4BYTE_ABGR);
+			world = new BufferedImage(bgi.getWidth()*tileSize, bgi.getHeight()*tileSize, BufferedImage.TYPE_INT_ARGB);
 			populateMap(((DataBufferInt) bg.getRaster().getDataBuffer()).getData());
+			int[] pix = ((DataBufferInt) world.getRaster().getDataBuffer()).getData();
+			for(int i = 1; i < pix.length; i++){
+				byte[] c1 = net.abysmal.engine.graphics.Graphics.splitColours(pix[i-1]);
+				byte[] c2 = net.abysmal.engine.graphics.Graphics.splitColours(pix[i]);
+				for(int b = 0; b < 3; b++){
+					c1[b] = (byte) ((c1[b] + c2[b])/2);
+				}
+				pix[i] = net.abysmal.engine.graphics.Graphics.mergeColours(c1);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
