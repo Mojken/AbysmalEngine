@@ -25,6 +25,9 @@ public class Window {
 	Panel panel;
 
 	public JFrame createWindow(String title, Dimension size, Tick t) {
+		width = size.getWidth();
+		height = size.getHeight();
+		Window.title = title;
 		frame = new JFrame(title);
 		panel = new Panel(t);
 		frame.setSize(size.getWidth(), size.getHeight());
@@ -47,8 +50,6 @@ public class Window {
 	}
 
 	public void createWindow(String title, int width, Tick t) {
-		Window.width = width;
-		Window.title = title;
 		height = width / 16 * 9;
 		dimension = new Dimension(width, height);
 		createWindow(title, dimension, t);
