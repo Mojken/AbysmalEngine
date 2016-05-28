@@ -10,7 +10,6 @@ import javax.imageio.ImageIO;
 import net.abysmal.engine.entities.Entity;
 import net.abysmal.engine.entities.Player;
 import net.abysmal.engine.maths.Dimension;
-import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
 
 public class World {
@@ -23,12 +22,10 @@ public class World {
 	File entityMap;
 	public int tileSize;
 	public BufferedImage world;
-	Hitbox hitbox;
 
-	public World(File map, int tileSize, Hitbox hitbox) {
+	public World(File map, int tileSize) {
 		this.map = map;
 		this.tileSize = tileSize;
-		this.hitbox = hitbox;
 		try {
 			BufferedImage bgi = ImageIO.read(map);
 			BufferedImage bg = new BufferedImage(bgi.getWidth(), bgi.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -38,15 +35,6 @@ public class World {
 			bg.setData(bgi.getRaster());
 			world = new BufferedImage(bgi.getWidth()*tileSize, bgi.getHeight()*tileSize, BufferedImage.TYPE_INT_ARGB);
 			populateMap(((DataBufferInt) bg.getRaster().getDataBuffer()).getData());
-			int[] pix = ((DataBufferInt) world.getRaster().getDataBuffer()).getData();
-			for(int i = 1; i < pix.length; i++){
-				byte[] c1 = net.abysmal.engine.graphics.Graphics.splitColours(pix[i-1]);
-				byte[] c2 = net.abysmal.engine.graphics.Graphics.splitColours(pix[i]);
-				for(int b = 0; b < 3; b++){
-					c1[b] = (byte) ((c1[b] + c2[b])/2);
-				}
-				pix[i] = net.abysmal.engine.graphics.Graphics.mergeColours(c1);
-			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -96,7 +84,7 @@ public class World {
 				if(((pixels[i] >>> 24) & 0xFF) != 1)
 					populace.add(new Entity(Entity.getEntity(((pixels[i] >>> 24) & 0xFF)), new Vector((i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize)));
 				else
-					p = new Player(Entity.getEntity(((pixels[i] >>> 24) & 0xFF)), new Vector((i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize), hitbox);
+					p = new Player(Entity.getEntity(((pixels[i] >>> 24) & 0xFF)), new Vector((i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize));
 			}
 		}
 	}

@@ -1,25 +1,34 @@
 package net.abysmal.engine.entities;
 
-import java.io.File;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 import java.util.ArrayList;
+import net.abysmal.engine.handlers.misc.Movement;
 import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
+import net.abysmal.engine.physics.Gravity;
 import net.abysmal.engine.physics.misc.ForceArray;
 
 public class Entity {
-
+	
 	public boolean moving = false, onGround = false;
 	public double rotation, jumpHeight;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
 	public Hitbox hitbox = new Hitbox(this);
 	public ForceArray forceArray;
-	public int mass, width, height, depth, eyeLevel, walkmode, ID, HP, DEF, ATC;
-	public File texture;
+	public float mass;
+	public int width, height, depth, eyeLevel, walkmode, ID, HP, DEF, ATC;
+	public static URL texturePath;
+	public String textureStr;
+	public Image texture;
 	public boolean template = true;
-	public static ArrayList<Entity> entities = new ArrayList<Entity>();
+	public static ArrayList<Entity> entityTypes = new ArrayList<Entity>();
 
-	public Entity(Vector position, int mass, Hitbox hitbox) {
+	protected Entity(){}
+	
+	public Entity(Vector position, float mass, Hitbox hitbox, String textureStr) {
 		template = false;
 		teleport(position);
 		this.mass = mass;
@@ -34,16 +43,29 @@ public class Entity {
 		height = (int) (hitboxPoints[1].y - hitboxPoints[0].y);
 		depth = (int) (hitboxPoints[1].z - hitboxPoints[0].z);
 		walkmode = 0;
+		
+		texture = Toolkit.getDefaultToolkit().getImage(textureStr.substring(6));
 	}
 
 	public Entity(Entity type, Vector position) {
-		this(position, type.mass, type.hitbox);
+		this(position, type.mass, type.hitbox, type.textureStr);
 	}
-
-	public Entity(int id, int mass) {
+	
+	public Entity(int id, float mass, Hitbox hitbox, String texture) {
 		this.mass = mass;
+		this.textureStr = texturePath + texture + ".png";
+		this.hitbox = hitbox;
+	}
+	
+	public void update(){
+		Gravity.fall(this);
+		Movement.translate(this);
 	}
 
+	public static void kill(Entity e){
+		e = null;
+	}
+	
 	public boolean isMoving() {
 		return moving;
 	}
@@ -64,7 +86,7 @@ public class Entity {
 		return forceArray;
 	}
 
-	public int getMass() {
+	public float getMass() {
 		return mass;
 	}
 
@@ -163,6 +185,6 @@ public class Entity {
 
 	public static Entity getEntity(int ID) {
 		// TODO Error handling
-		return entities.get(ID);
+		return entityTypes.get(ID);
 	}
 }

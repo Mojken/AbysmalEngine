@@ -31,6 +31,11 @@ public class Vector {
 		this.z = 0;
 	}
 	
+	public Vector(double angle, float length){
+		x = (float) (length * java.lang.Math.cos(angle));
+		y = (float) (length * java.lang.Math.sin(angle));
+	}
+	
 	public boolean equals(Vector v){
 		if (w == v.w && x == v.x && y == v.y && z == v.z) {
 			return true;

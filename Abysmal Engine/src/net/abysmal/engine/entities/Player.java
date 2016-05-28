@@ -29,13 +29,17 @@ public class Player extends Entity {
 		this.MP = MP;
 	}
 
-	public Player(Vector position, int mass, ForceArray forceArray, Hitbox hitbox) {
-		super(position, mass, hitbox);
+	public Player(Vector position, float mass, ForceArray forceArray, Hitbox hitbox, String texture) {
+		super(position, mass, hitbox, texture);
 		this.forceArray = forceArray;
 	}
 
-	public Player(Entity entity, Vector position, Hitbox hitbox) {
-		this(position, entity.mass, ForceArray.generateGenericForceArray(entity.mass), hitbox);
+	public Player(Entity entity, Vector position) {
+		this(position, entity.mass, ForceArray.generateGenericForceArray(entity.mass), entity.hitbox, entity.textureStr);
+	}
+	
+	public void update(){
+		super.update();
 	}
 
 	public int getWalkMode() {

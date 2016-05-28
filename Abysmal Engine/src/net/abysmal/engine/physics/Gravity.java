@@ -9,7 +9,7 @@ public class Gravity {
 	static float terminalVelocity = 300;
 	public static double gravity = 9.8;
 
-	static void fall(Entity e) {
+	public static void fall(Entity e) {
 		e.forces[1] = new Vector(0, (float) VectorPhysics.fma(e.mass, gravity));
 		e.forces[2] = generateDrag(e);
 		if (!e.onGround) {
@@ -37,19 +37,6 @@ public class Gravity {
 
 	public static void fall(Entity e, World w) {
 		int tX, tY;
-//		for (int i = 0; i < w.tiles[1].length; i++) {
-//			if (!w.tiles[1][i].solid) continue;
-//			tX = (i % w.mapSize.getWidth()) * w.tileSize;
-//			tY = (i / w.mapSize.getWidth()) * w.tileSize;
-//			e.onGround = false;
-//			if (e.getX() + e.hitboxPoints[1].x > tX && e.getX() + e.hitboxPoints[0].x < tX + w.tileSize) {
-//				if (e.getY() + e.hitboxPoints[1].y >= tY && e.getY() + e.hitboxPoints[0].y < tY + w.tileSize) {
-//					e.onGround = true;
-//					if (e.getY() + e.hitboxPoints[1].y > tY && e.getY() + e.hitboxPoints[0].y < tY + w.tileSize) e.teleport(new Vector(e.getX(), tY - e.hitboxPoints[1].y));
-//					break;
-//				}
-//			}
-//		}
 		
 		int[] indexes = {
 				(int)(e.getX()/w.tileSize) + (w.mapSize.getWidth() * (int)(e.getY() / w.tileSize)),
@@ -71,11 +58,12 @@ public class Gravity {
 			if (e.getX() + e.hitboxPoints[1].x > tX && e.getX() + e.hitboxPoints[0].x < tX + w.tileSize) {
 				if (e.getY() + e.hitboxPoints[1].y >= tY && e.getY() + e.hitboxPoints[0].y < tY + w.tileSize) {
 					e.onGround = true;
-					if (e.getY() + e.hitboxPoints[1].y > tY && e.getY() + e.hitboxPoints[0].y < tY + w.tileSize) e.teleport(new Vector(e.getX(), tY - e.hitboxPoints[1].y));
+					if (e.getY() + e.hitboxPoints[1].y > tY && e.getY() + e.hitboxPoints[0].y < tY + w.tileSize){
+						e.teleport(new Vector(e.getX(), tY - e.hitboxPoints[1].y));
+					}
 					break;
 				}
 			}
 		}
-		fall(e);
 	}
 }

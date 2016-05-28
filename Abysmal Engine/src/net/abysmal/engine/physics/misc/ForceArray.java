@@ -34,7 +34,7 @@ public class ForceArray {
 		return jumpForce;
 	}
 
-	public static ForceArray generateGenericForceArray(int mass) {
+	public static ForceArray generateGenericForceArray(float mass) {
 		return new ForceArray(VectorPhysics.fma(mass, 5), VectorPhysics.fma(mass, 7), VectorPhysics.fma(mass, .2), 1.5, 6.7, .5, VectorPhysics.fma(mass, Math.sqrt(2 * Gravity.gravity * 8000)));
 	}
 }
