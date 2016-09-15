@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.awt.Toolkit;
 import java.net.URL;
 import java.util.ArrayList;
+import net.abysmal.engine.GlobalVariables;
 import net.abysmal.engine.handlers.misc.Movement;
 import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
@@ -20,15 +21,14 @@ public class Entity {
 	public ForceArray forceArray;
 	public float mass;
 	public int width, height, depth, eyeLevel, walkmode, ID, HP, DEF, ATC;
-	public static URL texturePath;
-	public String textureStr;
+	public String textureStr, path = "entities/", texturePath;
 	public Image texture;
 	public boolean template = true;
 	public static ArrayList<Entity> entityTypes = new ArrayList<Entity>();
 
 	protected Entity(){}
 	
-	public Entity(Vector position, float mass, Hitbox hitbox, String textureStr) {
+	public Entity(Vector position, float mass, Hitbox hitbox, String name) {
 		template = false;
 		teleport(position);
 		this.mass = mass;
@@ -44,16 +44,17 @@ public class Entity {
 		depth = (int) (hitboxPoints[1].z - hitboxPoints[0].z);
 		walkmode = 0;
 		
-		texture = Toolkit.getDefaultToolkit().getImage(textureStr.substring(6));
-	}
-
+		texturePath = GlobalVariables.textureRoot + path + name + ".png";
+		texture = Toolkit.getDefaultToolkit().getImage(texturePath);
+		}
+	
 	public Entity(Entity type, Vector position) {
 		this(position, type.mass, type.hitbox, type.textureStr);
 	}
 	
-	public Entity(int id, float mass, Hitbox hitbox, String texture) {
+	public Entity(int id, float mass, Hitbox hitbox, String name) {
 		this.mass = mass;
-		this.textureStr = texturePath + texture + ".png";
+		textureStr = name;
 		this.hitbox = hitbox;
 	}
 	

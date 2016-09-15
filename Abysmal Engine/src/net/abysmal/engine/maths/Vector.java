@@ -7,7 +7,7 @@ public class Vector {
 	public static final Vector ZERO() {
 		return new Vector(0, 0);
 	}
-	
+
 	public float w, x, y, z;
 
 	public Vector(float w, float x, float y, float z) {
@@ -30,18 +30,18 @@ public class Vector {
 		this.y = y;
 		this.z = 0;
 	}
-	
-	public Vector(double angle, float length){
-		x = (float) (length * java.lang.Math.cos(angle));
-		y = (float) (length * java.lang.Math.sin(angle));
+
+	public Vector(double angle, float length) {
+		x = (float) (length * java.lang.Math.sin(angle));
+		y = (float) (length * java.lang.Math.cos(angle));
 	}
-	
-	public boolean equals(Vector v){
+
+	public boolean equals(Vector v) {
 		if (w == v.w && x == v.x && y == v.y && z == v.z) {
 			return true;
 		} else return false;
 	}
-	
+
 	public void set(Vector v) {
 		w = v.w;
 		x = v.x;
@@ -56,7 +56,7 @@ public class Vector {
 	public Vector multiply(Vector v) {
 		return new Vector(w * v.w, x * v.x, y * v.y, z * v.z);
 	}
-	
+
 	public Vector add(Vector v) {
 		return new Vector(w + v.w, x + v.x, y + v.y, z + v.z);
 	}

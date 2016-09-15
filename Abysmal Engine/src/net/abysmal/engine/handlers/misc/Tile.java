@@ -1,21 +1,22 @@
 package net.abysmal.engine.handlers.misc;
 
 import java.util.ArrayList;
+import net.abysmal.engine.GlobalVariables;
 
 public class Tile {
 
 	int ID;
 	public boolean solid = true;
-	String texture;
+	String texture, path = "tiles/";
 	String[] traits;
 	public static ArrayList<Tile> tilesForeground = new ArrayList<Tile>();
 	public static ArrayList<Tile> tilesReal = new ArrayList<Tile>();
 	public static ArrayList<Tile> tilesBackground = new ArrayList<Tile>();
 
-	public Tile(int id, String path, String[] traits) {
+	public Tile(int id, String name, String[] traits) {
 		this.traits = traits;
 		ID = id;
-		texture = "C:/Users/Mojken/Workspace/TestGame/res/" + path + ".png";
+		texture = GlobalVariables.textureRoot + path + name + ".png";
 		if (traits != null) {
 			for (String s:traits) {
 				if (s.equals("nonSolid")) {

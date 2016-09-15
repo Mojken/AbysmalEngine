@@ -69,4 +69,8 @@ public class Dimension {
 	public String toString() {
 		return (w == -1 ? "":("Spissitude: " + w + "\n")) + "Width: " + x + "\nHeight: " + y + (z == -1 ? "":("\nDepth: " + z));
 	}
+
+	public Vector toVector() {
+		return new Vector(w, x, y, z);
+	}
 }

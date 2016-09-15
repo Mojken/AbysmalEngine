@@ -97,7 +97,7 @@ public class Graphics {
 	}
 
 	public void fillRect(Vector a, Vector b) {
-		g.fillRect((int) a.x, (int) a.y, (int) b.x, (int) b.y);
+		g.fillRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y));
 	}
 
 	public void fillRoundRect(Vector a, Vector b, Vector arc) {

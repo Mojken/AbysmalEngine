@@ -1,5 +1,6 @@
 package net.abysmal.engine.handlers.misc;
 
+import net.abysmal.engine.Constants;
 import net.abysmal.engine.entities.Entity;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.maths.Vector;
@@ -41,5 +42,25 @@ public class Movement {
 		Vector v = VectorPhysics.calculateDirectionalAcceleration(entity);
 		entity.setMomentum(entity.getMomentum().add(v.multiply(1f / 60)));
 		entity.teleport(entity.getPosition().add(entity.getMomentum()));
+	}
+
+	public static Vector tempName(Entity p) {
+		Vector m = p.momentum;
+		double angle = p.forces[0].calculateAngle(), mAngle = m.calculateAngle();
+		double angleTreshold = net.abysmal.engine.maths.Math.TAU / 16;
+		boolean x = false;
+		if (angle <= mAngle + angleTreshold && angle >= mAngle - angleTreshold) {
+			if (angle > mAngle) {
+				if (mAngle > Constants.RIGHT && mAngle < Constants.UP || mAngle > Constants.LEFT && mAngle < Constants.DOWN) x = true;
+				else x = false;
+			} else {
+				if (mAngle > Constants.RIGHT && mAngle < Constants.UP || mAngle > Constants.LEFT && mAngle < Constants.DOWN) x = false;
+				else x = true;
+			}
+		} else return Vector.ZERO();
+		float length = (float) Math.abs(((1 / Math.cos(angle)) * (x ? p.momentum.x:p.momentum.y)));
+		if(Math.abs(length) > Math.abs(x ? p.momentum.x:p.momentum.y)) length = Math.abs((x ? p.momentum.x:p.momentum.y));
+		System.out.println(Math.abs((x ? p.momentum.x:p.momentum.y)));
+		return new Vector(p.forces[0].calculateAngle(), length);
 	}
 }

@@ -73,9 +73,9 @@ public class World {
 			tiles[2][i] = Tile.getTile(pixels[i] & 0xFF, 2);
 			try {
 				Graphics g = world.getGraphics();
-				g.drawImage(ImageIO.read(new File(tiles[2][i].getTexture())), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
-				g.drawImage(ImageIO.read(new File(tiles[1][i].getTexture())), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
 				g.drawImage(ImageIO.read(new File(tiles[0][i].getTexture())), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
+				g.drawImage(ImageIO.read(new File(tiles[1][i].getTexture())), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
+				g.drawImage(ImageIO.read(new File(tiles[2][i].getTexture())), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
 				
 			} catch (IOException e) {
 				e.printStackTrace();

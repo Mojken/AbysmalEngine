@@ -6,7 +6,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
-/** @author Deep */
+/** @author Deepstream */
 public class Sound {
 
 	private File soundFile;
