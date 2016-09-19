@@ -23,13 +23,14 @@ public class Window {
 	public static String title;
 	public static Window w;
 	Panel panel;
+	Tick t;
 
-	public JFrame createWindow(String title, Dimension size, Tick t) {
+	public JFrame createWindow(String title, Dimension size) {
 		width = size.getWidth();
 		height = size.getHeight();
 		Window.title = title;
 		frame = new JFrame(title);
-		panel = new Panel(t);
+		panel = new Panel();
 		frame.setSize(size.getWidth(), size.getHeight());
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
@@ -42,27 +43,25 @@ public class Window {
 
 		frame.addMouseListener(mouseListener);
 		frame.addKeyListener(keyboardListener);
-
-		running = true;
-		update(t);
-		render(t);
+		
 		return frame;
 	}
 
-	public void createWindow(String title, int width, Tick t) {
+	public void start(Tick t){
+		running = true;
+		this.t = t;
+		update(t);
+		render();
+	}
+	
+	public void createWindow(String title, int width) {
 		height = width / 16 * 9;
 		dimension = new Dimension(width, height);
-		createWindow(title, dimension, t);
+		createWindow(title, dimension);
 	}
 
 	@SuppressWarnings("serial")
 	class Panel extends JPanel {
-
-		Tick t;
-
-		Panel(Tick t) {
-			this.t = t;
-		}
 		
 		@Override
 		public void paint(Graphics g) {
@@ -70,7 +69,7 @@ public class Window {
 		}
 	}
 
-	private void render(Tick t) {
+	private void render() {
 		new Thread(new Runnable() {
 
 			public void run() {

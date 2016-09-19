@@ -1,21 +1,23 @@
 package net.abysmal.engine.handlers.misc;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 public class Tile {
 
 	int ID;
 	public boolean solid = true;
-	String texture;
+	URL texture;
+	String path = "tiles/";
 	String[] traits;
 	public static ArrayList<Tile> tilesForeground = new ArrayList<Tile>();
 	public static ArrayList<Tile> tilesReal = new ArrayList<Tile>();
 	public static ArrayList<Tile> tilesBackground = new ArrayList<Tile>();
 
-	public Tile(int id, String path, String[] traits) {
+	public Tile(int id, String name, String[] traits) {
 		this.traits = traits;
 		ID = id;
-		texture = "C:/Users/Mojken/Workspace/TestGame/res/" + path + ".png";
+		texture = ClassLoader.getSystemResource(path + name + ".png");
 		if (traits != null) {
 			for (String s:traits) {
 				if (s.equals("nonSolid")) {
@@ -32,7 +34,7 @@ public class Tile {
 		solid = t.solid;
 	}
 
-	public String getTexture() {
+	public URL getTextureURL() {
 		return texture;
 	}
 
@@ -44,9 +46,9 @@ public class Tile {
 		return ID;
 	}
 
-	public static Tile getTile(int ID, int layer) {
+	public static Tile getTile(int index, int layer) {
 		// TODO Error handling
-		return new Tile(getArrayList(layer).get(ID));
+		return new Tile(getArrayList(layer).get(index));
 	}
 
 	public static ArrayList<Tile> getArrayList(int layer) {

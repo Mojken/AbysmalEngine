@@ -77,7 +77,7 @@ public class Graphics {
 	}
 
 	public void drawRoundRect(Vector a, Vector b, Vector arc) {
-		g.drawRoundRect((int) a.x, (int) a.y, (int) b.x, (int) b.y, (int) arc.x, (int) arc.y);
+		g.drawRoundRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y), (int) arc.x, (int) arc.y);
 	}
 
 	public void drawString(String str, Vector v) {
@@ -97,7 +97,7 @@ public class Graphics {
 	}
 
 	public void fillRect(Vector a, Vector b) {
-		g.fillRect((int) a.x, (int) a.y, (int) b.x, (int) b.y);
+		g.fillRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y));
 	}
 
 	public void fillRoundRect(Vector a, Vector b, Vector arc) {
@@ -170,5 +170,9 @@ public class Graphics {
 
 	public void setXORMode(Color c1) {
 		g.setXORMode(c1);
+	}
+
+	public void drawRect(Vector a, Vector b) {
+		g.drawRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y));
 	}
 }

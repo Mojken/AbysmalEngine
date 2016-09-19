@@ -3,24 +3,39 @@ package net.abysmal.engine.entities;
 import java.util.ArrayList;
 import net.abysmal.engine.maths.Hitbox;
 import net.abysmal.engine.maths.Vector;
+import net.abysmal.engine.utils.HugeInteger;
 
-public class Projectile extends Entity {
+public class Projectile<S> extends Entity {
 
-	float damage, speed;
-	Entity source;
+	protected int id;
+	protected float damage;
+	protected int speed;
+	protected HugeInteger hugeDamage;
+	protected S source;
 	
-	public ArrayList<Projectile> projectileTypes = new ArrayList<Projectile>();
+	public ArrayList<Projectile<S>> projectileTypes = new ArrayList<Projectile<S>>();
 
-	public Projectile(Vector position, Projectile projectileType, Entity source, float angle) {
+	public Projectile(Vector position, Projectile<S> projectileType, S source) {
 		super(position, projectileType.mass, projectileType.hitbox, projectileType.textureStr);
 		hitbox = new Hitbox(projectileType);
 		this.textureStr = projectileType.textureStr;
 	}
 	
-	public Projectile(int id, float speed, float mass, float damage, String texture, Hitbox hitbox){
+	public Projectile(int id, int speed, float mass, float damage, String texture, Hitbox hitbox){
 		this.speed = speed;
-		this.textureStr = texturePath + texture + ".png";
+		this.textureURL = ClassLoader.getSystemResource(path + "projectiles/" + texture + ".png");
 		this.mass = mass;
+		this.damage = damage;
+		this.hitbox = hitbox;
+		projectileTypes.add(id, this);
+	}
+	
+	public Projectile(int id, int speed, float mass, HugeInteger damage, String texture, Hitbox hitbox){
+		this.id = id;
+		this.speed = speed;
+		this.mass = mass;
+		hugeDamage = damage;
+		this.textureURL = ClassLoader.getSystemResource(path + "projectiles/" + texture + ".png");
 		this.hitbox = hitbox;
 		projectileTypes.add(id, this);
 	}

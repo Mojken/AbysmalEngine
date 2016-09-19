@@ -56,7 +56,7 @@ public class Time {
 						Thread.sleep(10);
 					} catch (InterruptedException e) {
 					}
-					currentTime += (0.01 / Constants.TIME_TO_2DM) * FundamentalGameSpecifics.timeSpeed;
+					currentTime += (0.01 / Constants.TIME_TO_DECIMAL) * FundamentalGameSpecifics.timeSpeed;
 					if (currentTime >= 200000) currentTime -= 200000;
 					if (counter % 100 == 0) {
 					}

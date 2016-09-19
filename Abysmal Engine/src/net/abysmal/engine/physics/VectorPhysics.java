@@ -48,7 +48,7 @@ public class VectorPhysics {
 			return;
 		}
 		
-		double force = p.getForceArray().getMovementForces()[p.getWalkMode()];
+		double force = p.onGround ? p.getForceArray().getMovementForces()[p.getWalkMode()] : p.getForceArray().getMovementForces()[p.getWalkMode()] / 10;
 
 		p.forces[0] = new Vector((float) (force * java.lang.Math.sin(phi)), (float) (force * java.lang.Math.cos(phi)));
 	}
