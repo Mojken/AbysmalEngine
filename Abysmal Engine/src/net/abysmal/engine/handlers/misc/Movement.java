@@ -81,7 +81,7 @@ public class Movement {
 		return new Vector(p.forces[0].calculateAngle(), length);
 	}
 
-	public static void walkToVectorWithRotation(Vector vector, Entity entity, int rotation, int speed) {
+	public static void walkToVectorWithRotation(Vector vector, Entity entity, float rotation, int speed) {
 		if (vector.checkProximity(entity.pos) < 0) {
 			entity.moving = false;
 			System.out.println("HERE!");
@@ -94,5 +94,11 @@ public class Movement {
 			phi += net.abysmal.engine.maths.Math.TAU / 2;
 		entity.pos.x += speed * java.lang.Math.sin(phi % net.abysmal.engine.maths.Math.TAU);
 		entity.pos.y += speed * java.lang.Math.cos(phi % net.abysmal.engine.maths.Math.TAU);
+	}
+	
+	public static void moveInAngleWithRotation(float angle, Entity entity, float rotation, int speed) {
+		double phi = (angle + rotation) % net.abysmal.engine.maths.Math.TAU;
+		entity.pos.x += speed * java.lang.Math.sin(phi);
+		entity.pos.y += speed * java.lang.Math.cos(phi);
 	}
 }
