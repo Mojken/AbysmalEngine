@@ -9,7 +9,7 @@ import net.abysmal.engine.physics.Gravity;
 import net.abysmal.engine.physics.misc.ForceArray;
 
 public class Entity {
-	
+
 	public boolean moving = false, onGround = false;
 	public double rotation, jumpHeight;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
@@ -23,8 +23,8 @@ public class Entity {
 	public boolean template = true;
 	public static ArrayList<Entity> entityTypes = new ArrayList<Entity>();
 
-	protected Entity(){}
-	
+	protected Entity() {}
+
 	public Entity(Vector position, float mass, Hitbox hitbox, String name) {
 		template = false;
 		teleport(position);
@@ -40,29 +40,32 @@ public class Entity {
 		height = (int) (hitboxPoints[1].y - hitboxPoints[0].y);
 		depth = (int) (hitboxPoints[1].z - hitboxPoints[0].z);
 		walkmode = 0;
-		
+
 		textureURL = ClassLoader.getSystemResource(path + name + ".png");
-		}
-	
+// wtf this code doesn't even work...
+	}
+
 	public Entity(Entity type, Vector position) {
 		this(position, type.mass, type.hitbox, type.textureStr);
 	}
-	
+
 	public Entity(int id, float mass, Hitbox hitbox, String name) {
 		this.mass = mass;
 		textureStr = name;
 		this.hitbox = hitbox;
 	}
-	
-	public void update(){
+
+	public void move() {}
+
+	public void update() {
 		Gravity.fall(this);
 		Movement.translate(this);
 	}
 
-	public static void kill(Entity e){
+	public static void kill(Entity e) {
 		e = null;
 	}
-	
+
 	public boolean isMoving() {
 		return moving;
 	}
@@ -169,7 +172,8 @@ public class Entity {
 	}
 
 	public Vector[] getHitboxPoints() {
-		return hitboxPoints;
+		if (hitbox == null) return new Vector[] { Vector.ZERO(), Vector.ZERO() };
+		return hitbox.getHitboxPoints();
 	}
 
 	public void setHitboxPoints(Vector[] hitboxPoints) {

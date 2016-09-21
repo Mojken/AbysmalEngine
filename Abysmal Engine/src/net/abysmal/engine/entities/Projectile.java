@@ -8,7 +8,8 @@ import net.abysmal.engine.utils.HugeInteger;
 public class Projectile<S> extends Entity {
 
 	protected int id;
-	protected float damage, angle;
+	protected float damage;
+	protected double angle;
 	protected int speed;
 	protected HugeInteger hugeDamage;
 	protected S source;

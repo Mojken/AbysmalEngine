@@ -96,7 +96,7 @@ public class Movement {
 		entity.pos.y += speed * java.lang.Math.cos(phi % net.abysmal.engine.maths.Math.TAU);
 	}
 	
-	public static void moveInAngleWithRotation(float angle, Entity entity, float rotation, int speed) {
+	public static void moveInAngleWithRotation(double angle, Entity entity, double rotation, int speed) {
 		double phi = (angle + rotation) % net.abysmal.engine.maths.Math.TAU;
 		entity.pos.x += speed * java.lang.Math.sin(phi);
 		entity.pos.y += speed * java.lang.Math.cos(phi);
