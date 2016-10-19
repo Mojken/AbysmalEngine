@@ -31,12 +31,10 @@ public class Mouse implements MouseListener {
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) {
-	}
+	public void mouseExited(MouseEvent e) {}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
@@ -55,16 +53,13 @@ public class Mouse implements MouseListener {
 	}
 
 	public long[] getDuration(int buttonID) {
-		if (clickInfo[buttonID][4] == 1)
-			clickTime[buttonID][2] = Time.getTime(Time.MILLIS) - clickTime[buttonID][0];
-		else if (clickInfo[buttonID][4] == 0)
-			clickTime[buttonID][2] = clickTime[buttonID][1] - clickTime[buttonID][0];
+		if (clickInfo[buttonID][4] == 1) clickTime[buttonID][2] = Time.getTime(Time.MILLIS) - clickTime[buttonID][0];
+		else if (clickInfo[buttonID][4] == 0) clickTime[buttonID][2] = clickTime[buttonID][1] - clickTime[buttonID][0];
 		return clickTime[buttonID];
 	}
 
 	public int[] getDragBounds(int ButtonID) {
-		int[] bounds = { clickInfo[ButtonID][0], clickInfo[ButtonID][1], clickInfo[ButtonID][2],
-				clickInfo[ButtonID][3] };
+		int[] bounds = { clickInfo[ButtonID][0], clickInfo[ButtonID][1], clickInfo[ButtonID][2], clickInfo[ButtonID][3] };
 		return bounds;
 	}
 
@@ -78,8 +73,11 @@ public class Mouse implements MouseListener {
 
 	public Vector getMousePosition() {
 		Point p = f.getMousePosition();
-		if (p != null)
-		return new Vector((float) p.getX() - i.left, (float) p.getY() - i.top);
+		if (p != null) return new Vector((float) p.getX() - i.left, (float) p.getY() - i.top);
 		else return Vector.ZERO();
+	}
+
+	public void clearClickInfo(int button) {
+		clickInfo[button] = new int[] { 0, 0, 0, 0, 0};
 	}
 }

@@ -19,6 +19,8 @@ public class Square {
 	}
 
 	public boolean isWithin(Entity e) {
+//		System.out.println(e.hitbox.getHitboxPosition()[1].x + ", " +  a.x + "; " + e.hitbox.getHitboxPosition()[0].x + ", " +  b.x
+//				+ "; " + e.hitbox.getHitboxPosition()[1].y + ", " +  a.y + "; " + e.hitbox.getHitboxPosition()[0].y + ", " +  b.y);
 		if (e.hitbox.getHitboxPosition()[1].x > a.x && e.hitbox.getHitboxPosition()[0].x < b.x
 				&& e.hitbox.getHitboxPosition()[1].y > a.y && e.hitbox.getHitboxPosition()[0].y < b.y) {
 			return true;

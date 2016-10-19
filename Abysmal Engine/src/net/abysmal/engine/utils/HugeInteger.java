@@ -9,7 +9,7 @@ public class HugeInteger {
 	public HugeInteger() {
 		number.add(0, (short) 0);
 	}
-	
+
 	public HugeInteger(short value) {
 		number.add(0, (short) value);
 		checkOverflow();
@@ -17,11 +17,16 @@ public class HugeInteger {
 
 	public HugeInteger(short[] value) {
 		int length = value.length;
-		if (value != null && value.length != 0) { 
+		if (value != null && value.length != 0) {
 			for (int i = 0; i < length; i++) {
 				number.add(i, value[0]);
 			}
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	public HugeInteger(ArrayList<Short> value) {
+		number = (ArrayList<Short>) value.clone();
 	}
 
 	public HugeInteger add(HugeInteger a) {
@@ -43,7 +48,7 @@ public class HugeInteger {
 		return this;
 	}
 
-	//TODO Probably shitty, no carry etc.
+	// TODO Probably shitty, no carry etc.
 	public HugeInteger sub(HugeInteger a) {
 		a.checkOverflow();
 		checkOverflow();
@@ -62,7 +67,17 @@ public class HugeInteger {
 		checkOverflow();
 		return this;
 	}
-	
+
+	public HugeInteger mult(float a) {
+		HugeInteger out = this.clone();
+		checkOverflow();
+		for (int i = 0; i < number.size(); i++) {
+			out.number.set(i, (short) (number.get(i) * a));
+		}
+		checkOverflow();
+		return out;
+	}
+
 	public void checkOverflow() {
 		for (int i = 0; i < number.size(); i++) {
 			if (Math.abs(number.get(i)) >= 10000) {
@@ -96,36 +111,38 @@ public class HugeInteger {
 				currentSegment = "0" + currentSegment;
 			numberS = currentSegment + numberS;
 		}
-		if (Math.abs(number.get(number.size() - 1)) != number.get(number.size() - 1))
-			numberS = "-" + numberS;
+		if (Math.abs(number.get(number.size() - 1)) != number.get(number.size() - 1)) numberS = "-" + numberS;
 		return numberS;
 	}
 
 	public boolean largerThanOrEqualTo(HugeInteger cost) {
-		byte longest = this.number.size() > cost.number.size() ? (byte)1 : this.number.size() < cost.number.size() ? (byte)2 : 0;
+		byte longest = this.number.size() > cost.number.size() ? (byte) 1:this.number.size() < cost.number.size() ? (byte) 2:0;
 		int sizeL = 0;
 		int sizeS = 0;
-		if(longest == 1 || longest == 0){
+		if (longest == 1 || longest == 0) {
 			sizeL = this.number.size();
 			sizeS = cost.number.size();
-		}
-		else{
+		} else {
 			sizeL = cost.number.size();
 			sizeS = this.number.size();
 		}
-		for(int i = sizeL-1; i >= sizeS; i--){
-			if(longest == 1){
-				if(number.get(i) > 0) return true;
-			}else if(longest == 0){
-				if(cost.number.get(i) > 0) return false;
+		for (int i = sizeL - 1; i >= sizeS; i--) {
+			if (longest == 1) {
+				if (number.get(i) > 0) return true;
+			} else if (longest == 0) {
+				if (cost.number.get(i) > 0) return false;
 			}
 		}
-		
-		for(int i = sizeS-1; i >= 0; i--){
-			if(number.get(i) > cost.number.get(i)) return true;
-			else if(number.get(i) < cost.number.get(i)) return false;
+
+		for (int i = sizeS - 1; i >= 0; i--) {
+			if (number.get(i) > cost.number.get(i)) return true;
+			else if (number.get(i) < cost.number.get(i)) return false;
 		}
-		
+
 		return true;
+	}
+
+	public HugeInteger clone() {
+		return new HugeInteger(number);
 	}
 }

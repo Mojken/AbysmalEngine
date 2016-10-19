@@ -2,7 +2,11 @@ package net.abysmal.engine.maths;
 
 public class Dimension {
 
-	final int w, x, y, z, dimensions;
+	final int w;
+	private final int x;
+	final int y;
+	final int z;
+	final int dimensions;
 
 	public Dimension(int width, int height) {
 		w = -1;

@@ -25,7 +25,7 @@ public class Matrix {
 
 	public Matrix multiply(Matrix m) {
 
-		Dimension size = new Dimension(m.size.x, this.size.y);
+		Dimension size = new Dimension(m.size.getWidth(), this.size.y);
 		double[] d = new double[size.getArea()];
 		String[] temp = new String[size.getArea()];
 		String[] result = new String[size.getArea()];
@@ -37,7 +37,7 @@ public class Matrix {
 
 			temp[i] += ", ";
 
-			for (int b = 0; b < this.size.x; b++)
+			for (int b = 0; b < this.size.getWidth(); b++)
 				temp[i] += this.values[b + (i % size.getHeight() * this.size.getWidth())] + " ";
 
 			String[] half = temp[i].split(", ");

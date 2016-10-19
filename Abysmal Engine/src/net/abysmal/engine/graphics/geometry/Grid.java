@@ -12,16 +12,24 @@ public class Grid {
 		grid = new Square[gridSize.getArea()];
 		this.gridSize = gridSize;
 		this.tileSize = tileSize;
-		for(int i = 0; i < grid.length; i++) {
+		for (int i = 0; i < grid.length; i++) {
 			grid[i] = new Square(getGridCoordinate(i), getGridCoordinate(i).add(tileSize.toVector()));
 		}
 	}
 
 	public Vector getGridCoordinate(int gridIndex) {
-		Vector pos = Vector.ZERO();
-		pos.x = gridIndex % gridSize.getWidth();
-		pos.y = (int) (gridIndex / gridSize.getWidth());
-		return pos.multiply(tileSize.toVector());
+		if (gridIndex >= 0) {
+			Vector pos = Vector.ZERO();
+			pos.x = gridIndex % gridSize.getWidth();
+			pos.y = (int) (gridIndex / gridSize.getWidth());
+			return pos.multiply(tileSize.toVector());
+		} else {
+			
+			Vector pos = Vector.ZERO();
+			pos.x = gridSize.getWidth() + (gridIndex % gridSize.getWidth());
+			pos.y = (int) (gridIndex / gridSize.getWidth());
+			return pos.multiply(tileSize.toVector());
+		}
 	}
 
 	public Vector getGridCoordinate(Vector pos) {
@@ -33,8 +41,12 @@ public class Grid {
 		int yPos = (int) ((pos.y / tileSize.getHeight())) * gridSize.getWidth();
 		return xPos + yPos;
 	}
-	
-	public Vector getSize(){
+
+	public int vectorToIndex(Vector pos) {
+		return (int) (pos.x + (pos.y * gridSize.getWidth()));
+	}
+
+	public Vector getSize() {
 		return gridSize.toVector().multiply(tileSize.toVector());
 	}
 }

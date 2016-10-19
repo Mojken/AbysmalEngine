@@ -2,6 +2,7 @@ package net.abysmal.engine;
 
 public class GlobalVariables {
 	
+	public static boolean debug = false;
 	private static int worldRotation;
 	private static int dimensions;
 

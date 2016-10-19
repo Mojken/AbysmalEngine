@@ -7,12 +7,12 @@ import net.abysmal.engine.utils.HugeInteger;
 
 public class Projectile<S> extends Entity {
 
-	protected int id;
-	protected float damage;
-	protected double angle;
-	protected int speed;
-	protected HugeInteger hugeDamage;
-	protected S source;
+	public int id;
+	public float damage;
+	public double angle;
+	public int speed;
+	public HugeInteger hugeDamage;
+	public S source;
 	
 	public String path = "projectiles/";
 	
@@ -24,6 +24,7 @@ public class Projectile<S> extends Entity {
 		hitbox = new Hitbox(projectileType);
 		this.speed = projectileType.speed;
 		this.textureURL = projectileType.textureURL;
+		hugeDamage = projectileType.hugeDamage;
 	}
 	
 	public Projectile(int id, int speed, float mass, float damage, String texture, Hitbox hitbox){

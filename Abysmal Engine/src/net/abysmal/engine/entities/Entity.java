@@ -10,7 +10,7 @@ import net.abysmal.engine.physics.misc.ForceArray;
 
 public class Entity {
 
-	public boolean moving = false, onGround = false;
+	public boolean moving = false, onGround = false, kill = false;
 	public double rotation, jumpHeight;
 	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
@@ -55,7 +55,9 @@ public class Entity {
 		this.hitbox = hitbox;
 	}
 
-	public void move() {}
+	public boolean move() {
+		return true;
+	}
 
 	public void update() {
 		Gravity.fall(this);
