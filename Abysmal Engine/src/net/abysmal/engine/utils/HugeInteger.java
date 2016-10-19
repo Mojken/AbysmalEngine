@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class HugeInteger {
 
 	public ArrayList<Short> number = new ArrayList<Short>();
-
+	public static final HugeInteger ZERO = new HugeInteger((short)0);
 	public HugeInteger() {
 		number.add(0, (short) 0);
 	}
