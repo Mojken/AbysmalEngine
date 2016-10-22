@@ -98,6 +98,7 @@ public class Button implements MouseListener {
 	public void draw(Graphics g) {
 		if (imagePath == null) {
 			g.drawRect(bounds.a, bounds.b);
+			g.drawString(label, bounds.a.add(new Vector(5, (bounds.b.y-bounds.a.y)/2)));
 			if(pressed){
 				Color c = g.getColour();
 				g.setColour(new Color(fill, true));
