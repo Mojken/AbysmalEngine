@@ -1,6 +1,8 @@
 package net.abysmal.engine.graphics;
 
 import java.awt.Graphics;
+import java.awt.Insets;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import net.abysmal.engine.handlers.HID.Keyboard;
@@ -17,6 +19,7 @@ public class Window {
 	public Mouse mouseListener;
 	public Keyboard keyboardListener;
 
+	public static Insets insets;
 	public static int width;
 	public static int height;
 	public static Dimension dimension;
@@ -35,9 +38,12 @@ public class Window {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setContentPane(panel);
 		frame.setVisible(true);
 
+		insets = frame.getInsets();
+
+		frame.setContentPane(panel);
+		
 		mouseListener = new Mouse(frame);
 		keyboardListener = new Keyboard();
 
@@ -54,10 +60,10 @@ public class Window {
 		render();
 	}
 	
-	public void createWindow(String title, int width) {
+	public JFrame createWindow(String title, int width) {
 		height = width / 16 * 9;
 		dimension = new Dimension(width, height);
-		createWindow(title, dimension);
+		return createWindow(title, dimension);
 	}
 
 	@SuppressWarnings("serial")

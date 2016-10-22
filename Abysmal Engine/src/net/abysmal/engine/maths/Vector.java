@@ -65,6 +65,10 @@ public class Vector {
 	public Vector add(float f) {
 		return new Vector(w + f, x + f, y + f, z + f);
 	}
+	
+	public Vector sub(float f) {
+		return new Vector(w - f, x - f, y - f, z - f);
+	}
 
 	public Vector sub(Vector v) {
 		return new Vector(w - v.w, x - v.x, y - v.y, z - v.z);

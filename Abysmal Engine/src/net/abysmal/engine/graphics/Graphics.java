@@ -48,24 +48,24 @@ public class Graphics {
 		return g.drawImage(img, (int) a.x, (int) a.y, null);
 	}
 
-	public boolean drawImage(Image img, Vector a, Color bgcolor) {
-		return g.drawImage(img, (int) a.x, (int) a.y, bgcolor, null);
+	public boolean drawImage(Image img, Vector a, Color bgcolour) {
+		return g.drawImage(img, (int) a.x, (int) a.y, bgcolour, null);
 	}
 
 	public boolean drawImage(Image img, Vector a, Vector b) {
 		return g.drawImage(img, (int) a.x, (int) a.y, (int) b.x, (int) b.y, null);
 	}
 
-	public boolean drawImage(Image img, Vector a, Vector b, Color bgcolor) {
-		return g.drawImage(img, (int) a.x, (int) a.y, (int) b.x, (int) b.y, bgcolor, null);
+	public boolean drawImage(Image img, Vector a, Vector b, Color bgcolour) {
+		return g.drawImage(img, (int) a.x, (int) a.y, (int) b.x, (int) b.y, bgcolour, null);
 	}
 
 	public boolean drawImage(Image img, Vector da, Vector db, Vector sa, Vector sb) {
 		return g.drawImage(img, (int) da.x, (int) da.y, (int) db.x, (int) db.y, (int) da.x, (int) da.y, (int) db.x, (int) db.y, (ImageObserver) null);
 	}
 
-	public boolean drawImage(Image img, Vector da, Vector db, Vector sa, Vector sb, Color bgcolor) {
-		return g.drawImage(img, (int) da.x, (int) da.y, (int) db.x, (int) db.y, (int) da.x, (int) da.y, (int) db.x, (int) db.y, bgcolor, null);
+	public boolean drawImage(Image img, Vector da, Vector db, Vector sa, Vector sb, Color bgcolour) {
+		return g.drawImage(img, (int) da.x, (int) da.y, (int) db.x, (int) db.y, (int) da.x, (int) da.y, (int) db.x, (int) db.y, bgcolour, null);
 	}
 
 	public void drawLine(Vector a, Vector b) {
@@ -156,7 +156,7 @@ public class Graphics {
 		g.setClip(clip);
 	}
 
-	public void setColor(Color c) {
+	public void setColour(Color c) {
 		g.setColor(c);
 	}
 
