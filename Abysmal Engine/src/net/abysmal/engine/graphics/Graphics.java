@@ -8,6 +8,7 @@ import java.awt.Rectangle;
 import java.awt.Shape;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
+import net.abysmal.engine.graphics.geometry.Square;
 import net.abysmal.engine.maths.Vector;
 
 public class Graphics {
@@ -25,9 +26,12 @@ public class Graphics {
 	public static int mergeColours(byte[] colours) {
 		if (colours.length == 4) return (colours[0] << 24) + (colours[1] << 16) + (colours[2] << 8) + colours[3];
 		return 0xff000000 + (colours[0] << 16) + (colours[1] << 8) + colours[2];
-		
 	}
-
+	
+	public void cleaRect(Square rect) {
+		clearRect(rect.a, rect.b);
+	}
+	
 	public void clearRect(Vector a, Vector b) {
 		g.clearRect((int) a.x, (int) a.y, (int) b.x, (int) b.y);
 	}
@@ -75,7 +79,11 @@ public class Graphics {
 	public void drawOval(Vector a, Vector b) {
 		g.drawOval((int) a.x, (int) a.y, (int) b.x, (int) b.y);
 	}
-
+	
+	public void drawRoundRect(Square rect, Vector arc) {
+		drawRoundRect(rect.a, rect.b, arc);
+	}
+	
 	public void drawRoundRect(Vector a, Vector b, Vector arc) {
 		g.drawRoundRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y), (int) arc.x, (int) arc.y);
 	}

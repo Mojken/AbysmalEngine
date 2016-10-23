@@ -42,7 +42,6 @@ public class Entity {
 		walkmode = 0;
 
 		textureURL = ClassLoader.getSystemResource(path + name + ".png");
-// wtf this code doesn't even work...
 	}
 
 	public Entity(Entity type, Vector position) {
