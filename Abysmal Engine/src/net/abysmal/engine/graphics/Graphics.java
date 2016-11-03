@@ -5,17 +5,20 @@ import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Image;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
+import java.awt.RenderingHints.Key;
 import java.awt.Shape;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
+
 import net.abysmal.engine.graphics.geometry.Square;
 import net.abysmal.engine.maths.Vector;
 
 public class Graphics {
 
-	java.awt.Graphics g;
+	public java.awt.Graphics2D g;
 
-	public Graphics(java.awt.Graphics g) {
+	public Graphics(java.awt.Graphics2D g) {
 		this.g = g;
 	}
 
@@ -24,14 +27,15 @@ public class Graphics {
 	}
 
 	public static int mergeColours(byte[] colours) {
-		if (colours.length == 4) return (colours[0] << 24) + (colours[1] << 16) + (colours[2] << 8) + colours[3];
+		if (colours.length == 4)
+			return (colours[0] << 24) + (colours[1] << 16) + (colours[2] << 8) + colours[3];
 		return 0xff000000 + (colours[0] << 16) + (colours[1] << 8) + colours[2];
 	}
-	
+
 	public void cleaRect(Square rect) {
 		clearRect(rect.a, rect.b);
 	}
-	
+
 	public void clearRect(Vector a, Vector b) {
 		g.clearRect((int) a.x, (int) a.y, (int) b.x, (int) b.y);
 	}
@@ -79,11 +83,22 @@ public class Graphics {
 	public void drawOval(Vector a, Vector b) {
 		g.drawOval((int) a.x, (int) a.y, (int) b.x, (int) b.y);
 	}
-	
+
 	public void drawRoundRect(Square rect, Vector arc) {
 		drawRoundRect(rect.a, rect.b, arc);
 	}
 	
+	public void fillRoundRect(Square rect, Vector arc) {
+		fillRoundRect(rect.a, rect.b, arc);
+	}
+	
+	public void fillRoundRect(Square rect, Vector arc, Color c) {
+		Color cc = g.getColor();
+		g.setColor(c);
+		fillRoundRect(rect.a, rect.b, arc);
+		g.setColor(cc);
+	}
+
 	public void drawRoundRect(Vector a, Vector b, Vector arc) {
 		g.drawRoundRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y), (int) arc.x, (int) arc.y);
 	}
@@ -109,7 +124,7 @@ public class Graphics {
 	}
 
 	public void fillRoundRect(Vector a, Vector b, Vector arc) {
-		g.fillRoundRect((int) a.x, (int) a.y, (int) b.x, (int) b.y, (int) arc.x, (int) arc.y);
+		g.fillRoundRect((int) a.x, (int) a.y, (int) b.clone().sub(a).x, (int) b.clone().sub(a).y, (int) arc.x, (int) arc.y);
 	}
 
 	public void setClip(Vector a, Vector b) {
@@ -182,5 +197,19 @@ public class Graphics {
 
 	public void drawRect(Vector a, Vector b) {
 		g.drawRect((int) a.x, (int) a.y, (int) (b.x - a.x), (int) (b.y - a.y));
+	}
+
+	public void setRenderingHint(Key key, Object object) {
+		g.setRenderingHint(key, object);
+	}
+
+	public void setAA(boolean on) {
+		if (on) {
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			return;
+		}
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 	}
 }

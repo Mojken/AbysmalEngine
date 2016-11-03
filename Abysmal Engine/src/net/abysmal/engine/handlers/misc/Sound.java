@@ -12,27 +12,35 @@ public class Sound {
 	private File soundFile;
 	public Clip clip;
 
-	/** Abysmal object for sound
+	/**
+	 * Abysmal object for sound
 	 * 
 	 * @param path
 	 *            path of sound file
 	 * @throws FileNotFoundException
-	 *             if the specified file can't be found */
+	 *             if the specified file can't be found
+	 */
 	public Sound(String path) throws FileNotFoundException {
-		if (path == null) throw new NullPointerException();
+		if (path == null)
+			throw new NullPointerException();
 		soundFile = new File(path);
-		if (!soundFile.exists()) throw new FileNotFoundException("The specified sound file can not be found");
+		if (!soundFile.exists())
+			throw new FileNotFoundException("The specified sound file can not be found");
 	}
 
-	/** @param sound
+	/**
+	 * @param sound
 	 *            input file
 	 * @throws FileNotFoundException
 	 *             if the specified file is not found.
 	 * @throws NullPointerException
-	 *             if the specified file is null. */
+	 *             if the specified file is null.
+	 */
 	public Sound(File soundFile) throws FileNotFoundException {
-		if (soundFile == null) throw new NullPointerException();
-		if (!soundFile.exists()) throw new FileNotFoundException("The specified sound file can not be found");
+		if (soundFile == null)
+			throw new NullPointerException();
+		if (!soundFile.exists())
+			throw new FileNotFoundException("The specified sound file can not be found");
 		this.soundFile = soundFile;
 	}
 
@@ -53,12 +61,12 @@ public class Sound {
 		clip.close();
 	}
 
-	/** Plays a sound clip.
+	/**
+	 * Plays a sound clip.
 	 * 
-	 * @param url
-	 *            the sound file to play.
 	 * @param loop
-	 *            set to true if the clip should loop for ever. */
+	 *            set to true if the clip should loop for ever.
+	 */
 	public synchronized void play(boolean loop) {
 		new Thread(new Runnable() {
 
@@ -67,7 +75,7 @@ public class Sound {
 					clip = AudioSystem.getClip();
 					AudioInputStream is = AudioSystem.getAudioInputStream(soundFile);
 					clip.open(is);
-// clip.loop(loop ? -1:1);
+					// clip.loop(loop ? -1:1);
 					clip.start();
 					Thread.sleep(1);
 					while (clip.isActive()) {
@@ -80,7 +88,7 @@ public class Sound {
 				} catch (Exception e) {
 				}
 			}
-		}).start();;
+		}).start();
 
 	}
 }

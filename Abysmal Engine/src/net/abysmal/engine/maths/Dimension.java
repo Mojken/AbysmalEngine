@@ -32,6 +32,14 @@ public class Dimension {
 		dimensions = 4;
 	}
 
+	public Dimension(Vector v) {
+		this.w = (int)v.w;
+		this.x = (int)v.x;
+		this.y = (int)v.y;
+		this.z = (int)v.z;
+		dimensions = 4;
+	}
+
 	public int[] getDimension() {
 		switch (dimensions) {
 			case 2:

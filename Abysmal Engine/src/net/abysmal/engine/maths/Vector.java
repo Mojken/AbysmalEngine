@@ -125,4 +125,8 @@ public class Vector {
 			return phi % Math.TAU;
 		}
 	}
+	
+	public Vector clone(){
+		return new Vector(w, x, y, z);
+	}
 }

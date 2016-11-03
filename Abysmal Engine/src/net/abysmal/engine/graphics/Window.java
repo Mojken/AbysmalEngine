@@ -5,6 +5,8 @@ import java.awt.Insets;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import net.abysmal.engine.handlers.HID.IKeyboard;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.handlers.HID.Mouse;
 import net.abysmal.engine.handlers.misc.Tick;
@@ -41,6 +43,9 @@ public class Window {
 		frame.setVisible(true);
 
 		insets = frame.getInsets();
+		
+		//TODO 
+		frame.setSize(size.getWidth() + insets.left + insets.right, size.getHeight() + insets.top + insets.bottom);
 
 		frame.setContentPane(panel);
 		
@@ -109,6 +114,14 @@ public class Window {
 	
 	public Dimension getSize() {
 		return new Dimension(width-(frame.getInsets().left + frame.getInsets().right), height-(frame.getInsets().top + frame.getInsets().bottom));
+	}
+	
+	public void addKeyListener(IKeyboard k){
+		keyboardListener.listeners.add(k);
+	}
+	
+	public void removeKeyListener(IKeyboard k){
+		keyboardListener.listeners.remove(k);
 	}
 
 }

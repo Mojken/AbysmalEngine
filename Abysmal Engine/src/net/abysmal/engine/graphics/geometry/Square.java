@@ -47,4 +47,13 @@ public class Square {
 	public int getHeight(){
 		return (int) (b.y - a.y);
 	}
+	
+	public Square translate(Vector v){
+		return new Square(a.add(v), b.add(v));
+	}
+	
+	public Square scale(float f){
+		Vector d = this.d.toVector().multiply(f);
+		return new Square(b.sub(d), this.d.toVector().add(a));
+	}
 }

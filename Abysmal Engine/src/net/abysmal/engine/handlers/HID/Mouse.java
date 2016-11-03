@@ -38,16 +38,16 @@ public class Mouse implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		clickInfo[e.getButton()][0] = e.getX() - Window.insets.left;
-		clickInfo[e.getButton()][1] = e.getY() - Window.insets.top;
+		clickInfo[e.getButton()][0] = e.getX();
+		clickInfo[e.getButton()][1] = e.getY();
 		clickInfo[e.getButton()][4] = 1;
 		clickTime[e.getButton()][0] = e.getWhen();
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		clickInfo[e.getButton()][2] = e.getX() - Window.insets.left;
-		clickInfo[e.getButton()][3] = e.getY() - Window.insets.top;
+		clickInfo[e.getButton()][2] = e.getX();
+		clickInfo[e.getButton()][3] = e.getY();
 		clickInfo[e.getButton()][4] = 0;
 		clickTime[e.getButton()][1] = e.getWhen();
 	}

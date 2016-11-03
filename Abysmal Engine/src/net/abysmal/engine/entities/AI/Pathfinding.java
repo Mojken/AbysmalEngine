@@ -115,8 +115,8 @@ class Node {
 	}
 
 	int[] calculateCosts(Node p, Node end, int width) {
-		int gc = 0;
-		if (p != null) gc = p.gCost + 1 + weight;
+		int gc = weight;
+		if (p != null) gc = (int)(p.gCost + 1 + weight);
 		int hc = calculateHeuristicCost(end, width);
 		int tc = gc + hc;
 

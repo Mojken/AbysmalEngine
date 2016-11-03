@@ -5,14 +5,15 @@ import java.util.ArrayList;
 public class HugeInteger {
 
 	public ArrayList<Short> number = new ArrayList<Short>();
-	public static final HugeInteger ZERO = new HugeInteger((short)0);
+	public static final HugeInteger ZERO = new HugeInteger((short) 0);
+
 	public HugeInteger() {
 		number.add(0, (short) 0);
 	}
 
 	public HugeInteger(short value) {
 		number.add(0, (short) value);
-		checkOverflow();
+		checkOverflow(number);
 	}
 
 	public HugeInteger(short[] value) {
@@ -30,8 +31,8 @@ public class HugeInteger {
 	}
 
 	public HugeInteger add(HugeInteger a) {
-		a.checkOverflow();
-		checkOverflow();
+		checkOverflow(a.number);
+		checkOverflow(number);
 		if (number.size() > a.number.size()) {
 			for (int i = 0; i < a.number.size(); i++) {
 				number.set(i, (short) (number.get(i) + a.number.get(i)));
@@ -44,14 +45,14 @@ public class HugeInteger {
 				number.set(i, (short) a.number.size());
 			}
 		}
-		checkOverflow();
+		checkOverflow(number);
 		return this;
 	}
 
 	// TODO Probably shitty, no carry etc.
 	public HugeInteger sub(HugeInteger a) {
-		a.checkOverflow();
-		checkOverflow();
+		checkOverflow(a.number);
+		checkOverflow(number);
 		if (number.size() > a.number.size()) {
 			for (int i = 0; i < a.number.size(); i++) {
 				number.set(i, (short) (number.get(i) - a.number.get(i)));
@@ -64,21 +65,23 @@ public class HugeInteger {
 				number.set(i, (short) a.number.size());
 			}
 		}
-		checkOverflow();
+		checkOverflow(number);
 		return this;
 	}
 
+	@SuppressWarnings("unchecked")
 	public HugeInteger mult(float a) {
-		HugeInteger out = this.clone();
-		checkOverflow();
+		ArrayList<Short> out = (ArrayList<Short>) number.clone();
+		checkOverflow(out);
 		for (int i = 0; i < number.size(); i++) {
-			out.number.set(i, (short) (number.get(i) * a));
+			out.set(i, (short) (number.get(i) * a));
+			checkOverflow(out);
 		}
-		checkOverflow();
-		return out;
+		checkOverflow(out);
+		return new HugeInteger(out);
 	}
 
-	public void checkOverflow() {
+	public static void checkOverflow(ArrayList<Short> number) {
 		for (int i = 0; i < number.size(); i++) {
 			if (Math.abs(number.get(i)) >= 10000) {
 				byte carry = (byte) (Math.abs(number.get(i)) / 10000);
@@ -104,19 +107,36 @@ public class HugeInteger {
 	@Override
 	public String toString() {
 		String numberS = "";
-		for (int i = 0; i < number.size(); i++) {
-			Short abs = (short) (Math.abs(number.get(i)));
-			String currentSegment = abs.toString();
-			while (currentSegment.length() < 4 && number.size() - 1 > i)
-				currentSegment = "0" + currentSegment;
-			numberS = currentSegment + numberS;
+		if (number.size() <= 1) {
+			for (int i = 0; i < number.size(); i++) {
+				Short abs = (short) (Math.abs(number.get(i)));
+				String currentSegment = abs.toString();
+				while (currentSegment.length() < 4 && number.size() - 1 > i)
+					currentSegment = "0" + currentSegment;
+				numberS = currentSegment + numberS;
+			}
+			if (Math.abs(number.get(number.size() - 1)) != number.get(number.size() - 1))
+				numberS = "-" + numberS;
+		} else {
+			numberS = number.get(number.size()-1).toString();
+			int i = numberS.length();
+			if(i < 4){
+				String s = number.get(number.size()-2).toString();
+				while (s.length() < 4)
+					numberS += "0";
+				numberS += s;
+			}
+			numberS = numberS.substring(0, 1) + "." + numberS.substring(1, 4) + "e";
+			for(int j = 0; j < number.size()-1;  j++) i+=4;
+			numberS += i;
 		}
-		if (Math.abs(number.get(number.size() - 1)) != number.get(number.size() - 1)) numberS = "-" + numberS;
+		
 		return numberS;
+
 	}
 
 	public boolean largerThanOrEqualTo(HugeInteger cost) {
-		byte longest = this.number.size() > cost.number.size() ? (byte) 1:this.number.size() < cost.number.size() ? (byte) 2:0;
+		byte longest = this.number.size() > cost.number.size() ? (byte) 1 : this.number.size() < cost.number.size() ? (byte) 2 : 0;
 		int sizeL = 0;
 		int sizeS = 0;
 		if (longest == 1 || longest == 0) {
@@ -128,15 +148,19 @@ public class HugeInteger {
 		}
 		for (int i = sizeL - 1; i >= sizeS; i--) {
 			if (longest == 1) {
-				if (number.get(i) > 0) return true;
+				if (number.get(i) > 0)
+					return true;
 			} else if (longest == 0) {
-				if (cost.number.get(i) > 0) return false;
+				if (cost.number.get(i) > 0)
+					return false;
 			}
 		}
 
 		for (int i = sizeS - 1; i >= 0; i--) {
-			if (number.get(i) > cost.number.get(i)) return true;
-			else if (number.get(i) < cost.number.get(i)) return false;
+			if (number.get(i) > cost.number.get(i))
+				return true;
+			else if (number.get(i) < cost.number.get(i))
+				return false;
 		}
 
 		return true;

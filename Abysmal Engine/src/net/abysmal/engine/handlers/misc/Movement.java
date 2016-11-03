@@ -16,7 +16,7 @@ public class Movement {
 	static boolean[] movementKeys;
 
 	public Movement(Entity e) {}
-
+	
 	public static Vector readMovementButtons() {
 		movementKeys = Keyboard.getPressedMovementButtons();
 

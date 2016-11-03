@@ -67,7 +67,10 @@ public class Button implements MouseListener, MouseMotionListener {
 	}
 
 	public void load(){
-		within = isWithin(Window.frame.getMousePosition().x, Window.frame.getMousePosition().y);
+		if(Window.frame.getMousePosition() != null)
+			within = isWithin(Window.frame.getMousePosition().x, Window.frame.getMousePosition().y);
+		else
+			within = false;
 		pressed = false;
 	}
 	
