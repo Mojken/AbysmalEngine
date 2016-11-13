@@ -48,6 +48,7 @@ public class Tile {
 
 	public static Tile getTile(int index, int layer) {
 		// TODO Error handling
+		if (getArrayList(layer).isEmpty()) return null;
 		return new Tile(getArrayList(layer).get(index));
 	}
 

@@ -33,10 +33,10 @@ public class Dimension {
 	}
 
 	public Dimension(Vector v) {
-		this.w = (int)v.w;
-		this.x = (int)v.x;
-		this.y = (int)v.y;
-		this.z = (int)v.z;
+		this.w = (int) v.w;
+		this.x = (int) v.x;
+		this.y = (int) v.y;
+		this.z = (int) v.z;
 		dimensions = 4;
 	}
 
@@ -76,7 +76,7 @@ public class Dimension {
 		}
 		return area;
 	}
-	
+
 	@Override
 	public String toString() {
 		return (w == -1 ? "":("Spissitude: " + w + "\n")) + "Width: " + x + "\nHeight: " + y + (z == -1 ? "":("\nDepth: " + z));

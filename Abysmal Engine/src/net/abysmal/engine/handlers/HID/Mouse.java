@@ -73,7 +73,7 @@ public class Mouse implements MouseListener {
 
 	public Vector getMousePosition() {
 		Point p = f.getMousePosition();
-		if (p != null) return new Vector((float) p.getX() - Window.insets.left, (float) p.getY() - Window.insets.top);
+		if (p != null) return new Vector((float) p.getX() - Window.insets.right, (float) p.getY() - Window.insets.top);
 		else return Vector.ZERO();
 	}
 

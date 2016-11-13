@@ -2,10 +2,8 @@ package net.abysmal.engine.graphics;
 
 import java.awt.Graphics;
 import java.awt.Insets;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
 import net.abysmal.engine.handlers.HID.IKeyboard;
 import net.abysmal.engine.handlers.HID.Keyboard;
 import net.abysmal.engine.handlers.HID.Mouse;
@@ -33,6 +31,7 @@ public class Window {
 	public JFrame createWindow(String title, Dimension size) {
 		width = size.getWidth();
 		height = size.getHeight();
+		dimension = new Dimension(width, height);
 		Window.title = title;
 		frame = new JFrame(title);
 		panel = new Panel();
@@ -40,40 +39,37 @@ public class Window {
 		frame.setResizable(false);
 		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+		insets = new Insets(26, 3, 0, 0);
 
-		insets = frame.getInsets();
-		
-		//TODO 
+		// TODO
 		frame.setSize(size.getWidth() + insets.left + insets.right, size.getHeight() + insets.top + insets.bottom);
 
 		frame.setContentPane(panel);
-		
+
 		mouseListener = new Mouse(frame);
 		keyboardListener = new Keyboard();
 
 		frame.addMouseListener(mouseListener);
 		frame.addKeyListener(keyboardListener);
-		
+
 		return frame;
 	}
 
-	public void start(Tick t){
+	public void start(Tick t) {
 		running = true;
 		this.t = t;
 		update(t);
 		render();
 	}
-	
+
 	public JFrame createWindow(String title, int width) {
 		height = width / 16 * 9;
-		dimension = new Dimension(width, height);
-		return createWindow(title, dimension);
+		return createWindow(title, new Dimension(width, height));
 	}
 
 	@SuppressWarnings("serial")
 	class Panel extends JPanel {
-		
+
 		@Override
 		public void paint(Graphics g) {
 			t.render(g.create());
@@ -111,16 +107,16 @@ public class Window {
 			}
 		}).start();
 	}
-	
+
 	public Dimension getSize() {
-		return new Dimension(width-(frame.getInsets().left + frame.getInsets().right), height-(frame.getInsets().top + frame.getInsets().bottom));
+		return new Dimension(width, height);
 	}
-	
-	public void addKeyListener(IKeyboard k){
+
+	public void addKeyListener(IKeyboard k) {
 		keyboardListener.listeners.add(k);
 	}
-	
-	public void removeKeyListener(IKeyboard k){
+
+	public void removeKeyListener(IKeyboard k) {
 		keyboardListener.listeners.remove(k);
 	}
 

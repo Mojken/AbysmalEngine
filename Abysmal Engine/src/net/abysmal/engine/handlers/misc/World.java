@@ -5,6 +5,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import net.abysmal.engine.entities.Entity;
@@ -22,11 +23,10 @@ public class World {
 	public int tileSize;
 	public BufferedImage world;
 
-	// TODO Changed ARGB to RGB for Applet reasons, probably
-	public World(BufferedImage map, int tileSize, boolean entities) {
+	public World(URL map, int tileSize, boolean entities) {
 		this.tileSize = tileSize;
 		try {
-			BufferedImage bgi = map;
+			BufferedImage bgi = ImageIO.read(map);
 			BufferedImage bg = new BufferedImage(bgi.getWidth(), bgi.getHeight(), BufferedImage.TYPE_INT_RGB);
 			worldSize = new Dimension(bgi.getWidth() * tileSize, bgi.getHeight() * tileSize);
 			mapSize = new Dimension(bgi.getWidth(), bgi.getHeight());

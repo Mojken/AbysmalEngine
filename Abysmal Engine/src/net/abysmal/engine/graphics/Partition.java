@@ -13,22 +13,30 @@ public class Partition {
 		this(xP, yP, w, null, null);
 	}
 
-	public Partition(double[] xP, double[] yP, Partition p, int index){
+	public Partition(double[] xP, double[] yP, Partition p, int index) {
 		this(xP, yP, p.partitions[index].d, p.partitions[index].a, null);
 	}
-	
+
+	public static Partition generateEvenPartitions(int x, int y, Dimension d) {
+		double[] dx = new double[x + 1];
+		double[] dy = new double[y + 1];
+		for (double ix = 0; ix <= x; ix++) dx[(int) ix] = ix / x;
+		for (double iy = 0; iy <= y; iy++) dy[(int) iy] = iy / y;
+		return new Partition(dx, dy, d);
+	}
+
 	public Partition(double[] xP, double[] yP, Dimension w, Vector topOffset, Vector bottomOffset) {
 		if (xP.length == 0) xP[0] = 1;
 		if (yP.length == 0) yP[0] = 1;
 
-		if (topOffset == null){
+		if (topOffset == null) {
 			topOffset = Vector.ZERO();
 		}
 		if (bottomOffset == null) bottomOffset = Vector.ZERO();
-		
+
 		xPartitions = xP;
 		yPartitions = yP;
-//		Dimension d = new Dimension((int) (w.getWidth() - topOffset.x - bottomOffset.x), (int) (w.getHeight() - topOffset.y - bottomOffset.y));
+// Dimension d = new Dimension((int) (w.getWidth() - topOffset.x - bottomOffset.x), (int) (w.getHeight() - topOffset.y - bottomOffset.y));
 		partitions = new Square[(xP.length - 1) * (yP.length - 1)];
 
 		int[] xCoords = new int[xP.length];
