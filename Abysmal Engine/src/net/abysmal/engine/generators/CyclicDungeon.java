@@ -29,9 +29,9 @@ class Cycle {
 		paths.add(new Path(lengths[1], directions[1], nodes.get(0), nodes.get(1)));
 	}
 
-	public Cycle AddCycle(Path a, Path b, int[] sizes, int[] lengths, int[] directions, int[] places) {
+	public Cycle AddCycle(Path a, Path b, int[] sizes, int length, int direction, int[] places) {
 		Node ia = Node.CreateIntersection(sizes[0]), ib = Node.CreateIntersection(sizes[1]);
-		Path l = new Path(lengths[0], directions[0], ia, ib);
+		Path l = new Path(length, direction, ia, ib);
 		ia.c = l;
 		ib.c = l;
 		AddNode(a, ia, places[0]);
