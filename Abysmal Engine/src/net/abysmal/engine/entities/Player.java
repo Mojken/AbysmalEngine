@@ -42,6 +42,7 @@ public class Player extends Entity {
 		super.update();
 	}
 
+	@SuppressWarnings("deprecation")
 	public int getWalkMode() {
 		return Keyboard.getPressedMovementButtons()[7] ? 2:Keyboard.getPressedMovementButtons()[6] ? 1:0;
 	}

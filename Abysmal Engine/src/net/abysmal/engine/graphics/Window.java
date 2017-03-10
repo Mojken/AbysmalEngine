@@ -1,6 +1,6 @@
 package net.abysmal.engine.graphics;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Insets;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -72,8 +72,8 @@ public class Window {
 	class Panel extends JPanel {
 
 		@Override
-		public void paint(Graphics g) {
-			t.render(g.create());
+		public void paint(java.awt.Graphics g) {
+			t.render(new Graphics((Graphics2D)g.create()));
 		}
 	}
 

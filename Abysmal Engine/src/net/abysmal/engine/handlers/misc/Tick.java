@@ -1,6 +1,6 @@
 package net.abysmal.engine.handlers.misc;
 
-import java.awt.Graphics;
+import net.abysmal.engine.graphics.Graphics;
 
 public interface Tick {
 	

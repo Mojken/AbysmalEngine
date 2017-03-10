@@ -3,6 +3,7 @@ package net.abysmal.engine.graphics;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
@@ -18,8 +19,8 @@ public class Graphics {
 
 	public java.awt.Graphics2D g;
 
-	public Graphics(java.awt.Graphics2D g) {
-		this.g = g;
+	public Graphics(Graphics2D graphics2d) {
+		this.g = graphics2d;
 	}
 
 	public static byte[] splitColours(int colour) {

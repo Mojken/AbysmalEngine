@@ -17,6 +17,7 @@ public class Movement {
 
 	public Movement(Entity e) {}
 	
+	@SuppressWarnings("deprecation")
 	public static Vector readMovementButtons() {
 		movementKeys = Keyboard.getPressedMovementButtons();
 
