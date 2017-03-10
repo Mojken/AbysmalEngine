@@ -29,14 +29,13 @@ public class Partition {
 		if (xP.length == 0) xP[0] = 1;
 		if (yP.length == 0) yP[0] = 1;
 
-		if (topOffset == null) {
+		if (topOffset == null){
 			topOffset = Vector.ZERO();
 		}
 		if (bottomOffset == null) bottomOffset = Vector.ZERO();
-
+		
 		xPartitions = xP;
 		yPartitions = yP;
-// Dimension d = new Dimension((int) (w.getWidth() - topOffset.x - bottomOffset.x), (int) (w.getHeight() - topOffset.y - bottomOffset.y));
 		partitions = new Square[(xP.length - 1) * (yP.length - 1)];
 
 		int[] xCoords = new int[xP.length];

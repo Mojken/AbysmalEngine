@@ -56,6 +56,7 @@ public class Window {
 	}
 
 	public void start(Tick t) {
+		frame.setVisible(true);
 		running = true;
 		this.t = t;
 		update(t);
