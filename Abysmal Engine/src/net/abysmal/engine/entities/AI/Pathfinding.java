@@ -10,6 +10,7 @@ public class Pathfinding {
 	ArrayList<Node> open = new ArrayList<Node>(), closed = new ArrayList<Node>(), pathNodes = new ArrayList<Node>();
 	public ArrayList<Integer> pathIndexes = new ArrayList<Integer>();
 	Node goal;
+	public static int[][] costs = new int[100000][3];
 
 	public static Pathfinding findPath(int startIndex, int endIndex, int[] weights, boolean[] traversable, int width) {
 		Node[] nodes = new Node[weights.length];
@@ -44,8 +45,11 @@ public class Pathfinding {
 					current = current.parent;
 				}
 				pathIndexes.add(start.id);
+				Pathfinding.costs[0] = new int[] {start.gCost, start.hCost, start.tCost};
 				for (int i = pathNodes.size() - 1; i >= 0; i--) {
 					pathIndexes.add(pathNodes.get(i).id);
+					Pathfinding.costs[pathNodes.size()-i] = new int[] {pathNodes.get(i).gCost, pathNodes.get(i).hCost, pathNodes.get(i).tCost};
+//					System.out.println(Pathfinding.costs[pathNodes.get(i)]);
 				}
 				break;
 			}
@@ -64,13 +68,22 @@ public class Pathfinding {
 				
 				if (isin) continue;
 
-				int tc = n.calculateCosts(current, goal, width)[2];
-				if (n.tCost > tc || !open.contains(n)) {
-					n.tCost = tc;
-					n.parent = current;
-					if (!open.contains(n)) {
-						open.add(n);
+				int[] costs = n.calculateCosts(current, goal, width);
+				int pos = -1;
+				for (Node c:open)
+					if (c.id == n.id) {
+						pos = open.indexOf(c);
+						break;
 					}
+
+				if (!open.contains(n) && pos == -1) {
+					n.parent = current;
+					open.add(n);
+					n.gCost = costs[0];
+					n.hCost = costs[1];
+					n.tCost = costs[2];
+				} else if (open.get(pos).tCost > costs[2]) {
+					n.parent = current;
 				}
 			}
 		}
@@ -93,7 +106,7 @@ class Node {
 
 	// TODO consider changing weight to HugeInteger. Probably not needed
 	Node parent;
-	int hCost, gCost = 0, weight, tCost, id;
+	int hCost, gCost = 1, weight, tCost, id;
 	boolean traversable;
 
 	public Node(int weight, int id, int width) {
@@ -109,18 +122,21 @@ class Node {
 		this.id = id;
 		this.traversable = traversable;
 		int[] costs = calculateCosts(parent, end, width);
-		hCost = costs[0];
-		gCost = costs[1];
+		gCost = costs[0];
+		hCost = costs[1];
 		tCost = costs[2];
 	}
 
 	int[] calculateCosts(Node p, Node end, int width) {
 		int gc = weight;
-		if (p != null) gc = (int)(p.gCost + 1 + weight);
+		if (p != null) gc = (int)(p.gCost + weight);
 		int hc = calculateHeuristicCost(end, width);
 		int tc = gc + hc;
 
-		return new int[] { gc, hc, tc };
+		
+		int[] costs = {gc, hc, tc};
+//		Pathfinding.costs[id] = costs;
+		return costs;
 	}
 
 	int calculateHeuristicCost(Node end, int width) {
