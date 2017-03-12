@@ -34,7 +34,7 @@ public class Graphics {
 	}
 
 	public void cleaRect(Square rect) {
-		clearRect(rect.a, rect.b);
+		clearRect(rect.a, rect.d);
 	}
 
 	public void clearRect(Vector a, Vector b) {
@@ -86,17 +86,17 @@ public class Graphics {
 	}
 
 	public void drawRoundRect(Square rect, Vector arc) {
-		drawRoundRect(rect.a, rect.b, arc);
+		drawRoundRect(rect.a, rect.d, arc);
 	}
 	
 	public void fillRoundRect(Square rect, Vector arc) {
-		fillRoundRect(rect.a, rect.b, arc);
+		fillRoundRect(rect.a, rect.d, arc);
 	}
 	
 	public void fillRoundRect(Square rect, Vector arc, Color c) {
 		Color cc = g.getColor();
 		g.setColor(c);
-		fillRoundRect(rect.a, rect.b, arc);
+		fillRoundRect(rect.a, rect.d, arc);
 		g.setColor(cc);
 	}
 

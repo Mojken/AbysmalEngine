@@ -8,10 +8,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-
 import net.abysmal.engine.graphics.Graphics;
 import net.abysmal.engine.graphics.Window;
 import net.abysmal.engine.graphics.geometry.Square;
@@ -28,14 +26,14 @@ public class Button implements MouseListener, MouseMotionListener {
 	public boolean pressed = false, within = false, combineMovement;
 
 	public static void registerButtons(int screen, JFrame f) {
-		for (Map.Entry<Integer, Map<Integer, Button>> e0 : buttons.entrySet()) {
-			if (e0.getKey() != screen) {
-				for (Map.Entry<Integer, Button> e1 : e0.getValue().entrySet()) {
-					f.removeMouseListener(e1.getValue());
-					f.removeMouseMotionListener(e1.getValue());
-				}
-			} else {
-				for (Map.Entry<Integer, Button> e1 : e0.getValue().entrySet()) {
+		for (Map.Entry<Integer, Map<Integer, Button>> e0:buttons.entrySet())
+			for (Map.Entry<Integer, Button> e1:e0.getValue().entrySet()) {
+				f.removeMouseListener(e1.getValue());
+				f.removeMouseMotionListener(e1.getValue());
+			}
+		for (Map.Entry<Integer, Map<Integer, Button>> e0:buttons.entrySet()) {
+			if (e0.getKey() == screen) {
+				for (Map.Entry<Integer, Button> e1:e0.getValue().entrySet()) {
 					f.addMouseListener(e1.getValue());
 					f.addMouseMotionListener(e1.getValue());
 					e1.getValue().load();
@@ -66,14 +64,12 @@ public class Button implements MouseListener, MouseMotionListener {
 		fill = pressedColour;
 	}
 
-	public void load(){
-		if(Window.frame.getMousePosition() != null)
-			within = isWithin(Window.frame.getMousePosition().x, Window.frame.getMousePosition().y);
-		else
-			within = false;
+	public void load() {
+		if (Window.frame.getMousePosition() != null) within = isWithin(Window.frame.getMousePosition().x, Window.frame.getMousePosition().y);
+		else within = false;
 		pressed = false;
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (isWithin(e.getX(), e.getY())) {
@@ -91,41 +87,43 @@ public class Button implements MouseListener, MouseMotionListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-//		if (within) {
-			pressed = false;
-			update(false);
-//		}
+// if (within) {
+		pressed = false;
+		update(false);
+// }
 	}
 
 	@Override
-	public void mouseEntered(MouseEvent e) {
-	}
+	public void mouseEntered(MouseEvent e) {}
 
 	@Override
-	public void mouseExited(MouseEvent e) { }
+	public void mouseExited(MouseEvent e) {}
 
-	public void mEntered(MouseEvent e) { }
-	public void mExited(MouseEvent e) { }
-	public void update(boolean pressed){ }
-	public void update() { }
-	
+	public void mEntered(MouseEvent e) {}
+
+	public void mExited(MouseEvent e) {}
+
+	public void update(boolean pressed) {}
+
+	public void update() {}
+
 	public void draw(Graphics g) {
 		if (imagePath == null) {
-			g.drawRect(bounds.a, bounds.b);
-			g.drawString(label, bounds.a.add(new Vector(5, (bounds.b.y - bounds.a.y) / 2)));
+			g.drawRect(bounds.a, bounds.d);
+			g.drawString(label, bounds.a.add(new Vector(5, (bounds.d.y - bounds.a.y) / 2)));
 			if (within) {
 				Color c = g.getColour();
 				g.setColour(new Color(fill, true));
-				g.fillRect(bounds.a.add(1), bounds.b);
+				g.fillRect(bounds.a.add(1), bounds.d);
 				g.setColour(c);
 			}
 			return;
 		}
 
 		try {
-			g.drawImage(ImageIO.read(imagePath), bounds.a, bounds.b);
+			g.drawImage(ImageIO.read(imagePath), bounds.a, bounds.d);
 		} catch (IOException e) {
-			g.drawRect(bounds.a, bounds.b);
+			g.drawRect(bounds.a, bounds.d);
 			System.err.println("Unable to load image for button '" + label + "'");
 		}
 	}
@@ -157,7 +155,7 @@ public class Button implements MouseListener, MouseMotionListener {
 			mExited(e);
 		}
 	}
-	
+
 	public boolean isWithin(int x, int y) {
 		return bounds.isWithin(new Vector(x - Window.insets.left, y - Window.insets.top));
 	}

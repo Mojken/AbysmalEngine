@@ -14,7 +14,7 @@ public class Partition {
 	}
 
 	public Partition(double[] xP, double[] yP, Partition p, int index) {
-		this(xP, yP, p.partitions[index].d, p.partitions[index].a, null);
+		this(xP, yP, p.partitions[index].dimension, p.partitions[index].a, null);
 	}
 
 	public static Partition generateEvenPartitions(int x, int y, Dimension d) {
