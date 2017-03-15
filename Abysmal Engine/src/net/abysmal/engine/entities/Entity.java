@@ -40,7 +40,8 @@ public class Entity {
 		height = (int) (hitboxPoints[1].y - hitboxPoints[0].y);
 		depth = (int) (hitboxPoints[1].z - hitboxPoints[0].z);
 		walkmode = 0;
-
+		
+		textureStr = name;
 		textureURL = ClassLoader.getSystemResource(path + name + ".png");
 	}
 

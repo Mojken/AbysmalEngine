@@ -115,28 +115,28 @@ public class HugeInteger {
 					currentSegment = "0" + currentSegment;
 				numberS = currentSegment + numberS;
 			}
-			if (Math.abs(number.get(number.size() - 1)) != number.get(number.size() - 1))
-				numberS = "-" + numberS;
+			if (Math.abs(number.get(number.size() - 1)) != number.get(number.size() - 1)) numberS = "-" + numberS;
 		} else {
-			numberS = number.get(number.size()-1).toString();
+			numberS = number.get(number.size() - 1).toString();
 			int i = numberS.length();
-			if(i < 4){
-				String s = number.get(number.size()-2).toString();
+			if (i < 4) {
+				String s = number.get(number.size() - 2).toString();
 				while (s.length() < 4)
-					numberS += "0";
+					s = "0" + s;
 				numberS += s;
 			}
 			numberS = numberS.substring(0, 1) + "." + numberS.substring(1, 4) + "e";
-			for(int j = 0; j < number.size()-1;  j++) i+=4;
+			i = (number.size() - 1) * 4;
+			i += (int) Math.log10(number.get(number.size() - 1));
 			numberS += i;
 		}
-		
+
 		return numberS;
 
 	}
 
 	public boolean largerThanOrEqualTo(HugeInteger cost) {
-		byte longest = this.number.size() > cost.number.size() ? (byte) 1 : this.number.size() < cost.number.size() ? (byte) 2 : 0;
+		byte longest = this.number.size() > cost.number.size() ? (byte) 1:this.number.size() < cost.number.size() ? (byte) 2:0;
 		int sizeL = 0;
 		int sizeS = 0;
 		if (longest == 1 || longest == 0) {
@@ -148,19 +148,15 @@ public class HugeInteger {
 		}
 		for (int i = sizeL - 1; i >= sizeS; i--) {
 			if (longest == 1) {
-				if (number.get(i) > 0)
-					return true;
+				if (number.get(i) > 0) return true;
 			} else if (longest == 0) {
-				if (cost.number.get(i) > 0)
-					return false;
+				if (cost.number.get(i) > 0) return false;
 			}
 		}
 
 		for (int i = sizeS - 1; i >= 0; i--) {
-			if (number.get(i) > cost.number.get(i))
-				return true;
-			else if (number.get(i) < cost.number.get(i))
-				return false;
+			if (number.get(i) > cost.number.get(i)) return true;
+			else if (number.get(i) < cost.number.get(i)) return false;
 		}
 
 		return true;

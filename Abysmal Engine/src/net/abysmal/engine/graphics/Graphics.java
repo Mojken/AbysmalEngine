@@ -213,4 +213,12 @@ public class Graphics {
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_OFF);
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 	}
+
+	public void drawRect(Square bounds) {
+		drawRect(bounds.a, bounds.d);
+	}
+	
+	public void fillRect(Square bounds) {
+		fillRect(bounds.a, bounds.d);
+	}
 }
