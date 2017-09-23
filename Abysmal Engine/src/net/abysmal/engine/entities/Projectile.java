@@ -17,7 +17,7 @@ public class Projectile<S> extends Entity {
 	public String path = "projectiles/";
 	
 	
-	public ArrayList<Projectile<S>> projectileTypes = new ArrayList<Projectile<S>>();
+	public ArrayList<Projectile<S>> projectileTypes = new ArrayList<>();
 
 	public Projectile(Vector position, Projectile<S> projectileType, S source) {
 		super(position, projectileType.mass, projectileType.hitbox, projectileType.textureStr);
@@ -44,6 +44,5 @@ public class Projectile<S> extends Entity {
 		this.textureURL = ClassLoader.getSystemResource(path + texture + ".png");
 		this.hitbox = hitbox;
 		System.out.println(id);
-		projectileTypes.add(id, this);
 	}
 }
