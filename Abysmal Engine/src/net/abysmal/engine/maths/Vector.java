@@ -37,10 +37,13 @@ public class Vector {
 	}
 
 	public boolean equals(Vector v) {
-		if (w == v.w && x == v.x && y == v.y && z == v.z) {
-			return true;
-		} else
-			return false;
+		if (w == v.w && x == v.x && y == v.y && z == v.z) return true;
+		else return false;
+	}
+
+	public boolean equals(Vector v, int precision) {
+		if (java.lang.Math.abs(w - v.w) < java.lang.Math.pow(10, -precision) && java.lang.Math.abs(x - v.x) < java.lang.Math.pow(10, -precision) && java.lang.Math.abs(y - v.y) < java.lang.Math.pow(10, -precision) && java.lang.Math.abs(z - v.z) < java.lang.Math.pow(10, -precision)) return true;
+		else return false;
 	}
 
 	public void set(Vector v) {
@@ -65,7 +68,7 @@ public class Vector {
 	public Vector add(float f) {
 		return new Vector(w + f, x + f, y + f, z + f);
 	}
-	
+
 	public Vector sub(float f) {
 		return new Vector(w - f, x - f, y - f, z - f);
 	}
@@ -109,24 +112,25 @@ public class Vector {
 				return Constants.UP;
 			} else if (getY() > 0) {
 				return Constants.DOWN;
-			} else
-				return 0;
+			} else return 0;
 		} else if (getY() < 0.1 && getY() > -0.1) {
 			if (getX() < 0) {
 				return Constants.LEFT;
 			} else if (getX() > 0) {
 				return Constants.RIGHT;
-			} else
-				return 0;
+			} else return 0;
 		} else {
 			double phi = java.lang.Math.atan(getX() / getY());
-			if (getY() != java.lang.Math.abs(getY()))
-				phi += Math.TAU / 2;
+			if (getY() != java.lang.Math.abs(getY())) phi += Math.TAU / 2;
 			return phi % Math.TAU;
 		}
 	}
-	
-	public Vector clone(){
+
+	public Vector clone() {
 		return new Vector(w, x, y, z);
+	}
+
+	public Vector normalize() {
+		return new Vector(this.calculateAngle(), 1);
 	}
 }

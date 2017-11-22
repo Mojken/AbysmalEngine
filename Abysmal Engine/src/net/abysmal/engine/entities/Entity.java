@@ -12,19 +12,24 @@ public class Entity {
 
 	public boolean moving = false, onGround = false, kill = false;
 	public double rotation, jumpHeight;
-	public Vector pos = new Vector(-1, -1, -1), momentum = new Vector(0, 0, 0);
+	public Vector pos = Vector.ZERO(), momentum = Vector.ZERO(), facing = Vector.ZERO().add(1f);
 	public Vector[] hitboxPoints = { new Vector(-1, -1, -1), new Vector(1, 1, 1) }, forces = new Vector[0xC];
 	public Hitbox hitbox = new Hitbox(this);
 	public ForceArray forceArray;
 	public float mass;
-	public int width, height, depth, eyeLevel, walkmode, ID, HP, DEF, ATC;
+	public int width, height, depth, eyeLevel, walkmode, ID, HP, DEF, ATK;
 	public String textureStr, path = "entities/";
 	public URL textureURL;
 	public boolean template = true;
 	public static ArrayList<Entity> entityTypes = new ArrayList<Entity>();
 
 	protected Entity() {}
-
+	
+	public Entity(Vector position) {
+		template = false;
+		teleport(position);
+	}
+	
 	public Entity(Vector position, float mass, Hitbox hitbox, String name) {
 		template = false;
 		teleport(position);

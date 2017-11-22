@@ -27,12 +27,12 @@ public class World {
 		this.tileSize = tileSize;
 		try {
 			BufferedImage bgi = ImageIO.read(map);
-			BufferedImage bg = new BufferedImage(bgi.getWidth(), bgi.getHeight(), BufferedImage.TYPE_INT_RGB);
+			BufferedImage bg = new BufferedImage(bgi.getWidth(), bgi.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			worldSize = new Dimension(bgi.getWidth() * tileSize, bgi.getHeight() * tileSize);
 			mapSize = new Dimension(bgi.getWidth(), bgi.getHeight());
 			tiles = new Tile[3][mapSize.getArea()];
 			bg.setData(bgi.getRaster());
-			world = new BufferedImage(bgi.getWidth() * tileSize, bgi.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
+			world = new BufferedImage(bgi.getWidth() * tileSize, bgi.getHeight() * tileSize, BufferedImage.TYPE_INT_ARGB);
 			populateMap(((DataBufferInt) bg.getRaster().getDataBuffer()).getData(), entities);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -69,8 +69,8 @@ public class World {
 			tiles[0][i] = Tile.getTile((pixels[i] >> 16) & 0xFF, 0);
 			tiles[1][i] = Tile.getTile((pixels[i] >> 8) & 0xFF, 1);
 			tiles[2][i] = Tile.getTile(pixels[i] & 0xFF, 2);
+			Graphics g = world.getGraphics();
 			try {
-				Graphics g = world.getGraphics();
 				g.drawImage(ImageIO.read(tiles[2][i].getTextureURL()), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
 				g.drawImage(ImageIO.read(tiles[1][i].getTextureURL()), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
 				g.drawImage(ImageIO.read(tiles[0][i].getTextureURL()), (i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize, tileSize, tileSize, null);
@@ -78,6 +78,7 @@ public class World {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+
 			if (entities && ((pixels[i] >>> 24) & 0xFF) != 255) {
 				if (((pixels[i] >>> 24) & 0xFF) != 1) populace.add(new Entity(Entity.getEntity(((pixels[i] >>> 24) & 0xFF)), new Vector((i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize)));
 				else p = new Player(Entity.getEntity(((pixels[i] >>> 24) & 0xFF)), new Vector((i % mapSize.getDimension()[0]) * tileSize, (int) (i / mapSize.getDimension()[0]) * tileSize));

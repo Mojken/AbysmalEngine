@@ -72,8 +72,10 @@ public class Window {
 	class Panel extends JPanel {
 
 		@Override
-		public void paint(java.awt.Graphics g) {
-			t.render(new Graphics((Graphics2D)g.create()));
+		public void paint(java.awt.Graphics g2) {
+			Graphics g = new Graphics((Graphics2D)g2.create());
+			g.clearRect();
+			t.render(g);
 		}
 	}
 

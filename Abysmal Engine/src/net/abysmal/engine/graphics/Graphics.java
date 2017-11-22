@@ -12,6 +12,7 @@ import java.awt.Shape;
 import java.awt.image.ImageObserver;
 import java.text.AttributedCharacterIterator;
 import net.abysmal.engine.graphics.geometry.Square;
+import net.abysmal.engine.maths.Dimension;
 import net.abysmal.engine.maths.Vector;
 
 public class Graphics {
@@ -33,6 +34,10 @@ public class Graphics {
 
 	public void clearRect(Square rect) {
 		clearRect(rect.a, rect.d);
+	}
+	
+	public void clearRect() {
+		clearRect(Vector.ZERO(), Window.dimension.toVector());
 	}
 
 	public void clearRect(Vector a, Vector b) {
@@ -212,10 +217,18 @@ public class Graphics {
 		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_OFF);
 	}
 
+	public void drawRect(Dimension bounds) {
+		drawRect(Vector.ZERO(), bounds.toVector());
+	}
+	
 	public void drawRect(Square bounds) {
 		drawRect(bounds.a, bounds.d);
 	}
-
+	
+	public void fillRect(Dimension bounds) {
+		fillRect(Vector.ZERO(), bounds.toVector());
+	}
+	
 	public void fillRect(Square bounds) {
 		fillRect(bounds.a, bounds.d);
 	}

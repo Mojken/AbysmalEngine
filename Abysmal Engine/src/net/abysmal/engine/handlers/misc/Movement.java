@@ -62,7 +62,7 @@ public class Movement {
 		} else return Vector.ZERO();
 		float length = (float) Math.abs(((1 / Math.cos(angle)) * (x ? p.momentum.x:p.momentum.y)));
 		if (Math.abs(length) > Math.abs(x ? p.momentum.x:p.momentum.y)) length = Math.abs((x ? p.momentum.x:p.momentum.y));
-		System.out.println(Math.abs((x ? p.momentum.x:p.momentum.y)));
+//		System.out.println(Math.abs((x ? p.momentum.x:p.momentum.y)));
 		return new Vector(p.forces[0].calculateAngle(), length);
 	}
 

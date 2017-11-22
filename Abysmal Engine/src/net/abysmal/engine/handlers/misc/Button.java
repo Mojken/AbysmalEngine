@@ -22,8 +22,8 @@ public class Button implements MouseListener, MouseMotionListener {
 	public String label;
 	public URL imagePath;
 	public int id, screen;
-	public int fill = 0;
-	public boolean pressed = false, within = false, combineMovement;
+	public int fillColour = 0, fillHover = 0, fillPressed = 0, fill = 0;
+	public boolean pressed = false, hover = false, combineMovement;
 
 	public static void registerButtons(int screen, JFrame f) {
 		for (Map.Entry<Integer, Map<Integer, Button>> e0:buttons.entrySet())
@@ -59,14 +59,16 @@ public class Button implements MouseListener, MouseMotionListener {
 		buttons.get(screen).put(id, this);
 	}
 
-	public Button(Square bounds, String label, int pressedColour, int screen, int id, boolean combineMovement) {
+	public Button(Square bounds, String label,int colour, int hoverColour, int pressedColour, int screen, int id, boolean combineMovement) {
 		this(bounds, label, null, screen, id, combineMovement);
-		fill = pressedColour;
+		fillColour = colour;
+		fillHover = hoverColour;
+		fillPressed = pressedColour;
 	}
 
 	public void load() {
-		if (Window.frame.getMousePosition() != null) within = isWithin(Window.frame.getMousePosition().x, Window.frame.getMousePosition().y);
-		else within = false;
+		if (Window.frame.getMousePosition() != null) hover = isWithin(Window.frame.getMousePosition().x, Window.frame.getMousePosition().y);
+		else hover = false;
 		pressed = false;
 	}
 
@@ -81,6 +83,7 @@ public class Button implements MouseListener, MouseMotionListener {
 	public void mousePressed(MouseEvent e) {
 		if (isWithin(e.getX(), e.getY())) {
 			pressed = true;
+			fill = fillPressed;
 			update(true);
 		}
 	}
@@ -90,6 +93,8 @@ public class Button implements MouseListener, MouseMotionListener {
 // if (within) {
 		pressed = false;
 		update(false);
+		if(hover) fill = fillHover;
+		else fill = fillColour;
 // }
 	}
 
@@ -111,7 +116,7 @@ public class Button implements MouseListener, MouseMotionListener {
 		if (imagePath == null) {
 			g.drawRect(bounds.a, bounds.d);
 			g.drawString(label, bounds.a.add(new Vector(5, (bounds.d.y - bounds.a.y) / 2)));
-			if (within) {
+			if (hover) {
 				Color c = g.getColour();
 				g.setColour(new Color(fill, true));
 				g.fillRect(bounds.a.add(1), bounds.d);
@@ -132,12 +137,12 @@ public class Button implements MouseListener, MouseMotionListener {
 	public void mouseDragged(MouseEvent e) {
 		if (combineMovement) {
 			if (isWithin(e.getX(), e.getY())) {
-				if (!within) {
-					within = true;
+				if (!hover) {
+					hover = true;
 					mEntered(e);
 				}
-			} else if (within) {
-				within = false;
+			} else if (hover) {
+				hover = false;
 				mExited(e);
 			}
 		}
@@ -146,12 +151,14 @@ public class Button implements MouseListener, MouseMotionListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		if (isWithin(e.getX(), e.getY())) {
-			if (!within) {
-				within = true;
+			if (!hover) {
+				hover = true;
+				fill = fillHover;
 				mEntered(e);
 			}
-		} else if (within) {
-			within = false;
+		} else if (hover) {
+			hover = false;
+			fill = fillColour;
 			mExited(e);
 		}
 	}

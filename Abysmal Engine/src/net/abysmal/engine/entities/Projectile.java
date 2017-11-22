@@ -43,6 +43,5 @@ public class Projectile<S> extends Entity {
 		hugeDamage = damage;
 		this.textureURL = ClassLoader.getSystemResource(path + texture + ".png");
 		this.hitbox = hitbox;
-		System.out.println(id);
 	}
 }
